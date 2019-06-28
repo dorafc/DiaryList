@@ -15,7 +15,7 @@ function UtilityBar() {
 
 const ShowKey = () => {
 	return (
-		<div clasName="ShowKey">
+		<div className="ShowKey">
 			<h3>Key</h3>
 			<ul>
 				<li>Theme</li>

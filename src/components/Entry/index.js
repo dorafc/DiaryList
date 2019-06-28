@@ -2,9 +2,9 @@ import React from 'react';
 
 function Entry(){
 	return(
-		<div className="entry">
+		<li className="entry">
 			ENTRY
-		</div>
+		</li>
 	)
 }
 
