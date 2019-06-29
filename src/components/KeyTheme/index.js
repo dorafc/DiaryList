@@ -1,6 +1,6 @@
+import React from 'react';
 
-
-export const colorCodes = {
+const colorCodes = {
 	codes : [
 				{
 					uid : 0,
@@ -40,3 +40,8 @@ export const colorCodes = {
 				}
 			]
 }
+
+
+const ColorCodesContext = React.createContext(null)
+
+export {ColorCodesContext, colorCodes};
