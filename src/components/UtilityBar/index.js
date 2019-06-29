@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SignIn from '../SignIn'
-import {ColorCodesContext, colorCodes} from '../KeyTheme';
+import { ColorCodesContext } from '../KeyTheme';
 
 function UtilityBar(props) {
 	return(
@@ -16,16 +16,6 @@ function UtilityBar(props) {
 
 function ShowKey() {
 
-	// const themes = props.codes.map((theme, i) => {
-	// 	return(
-	// 		<ColorCodesContext.Consumer>
-	// 			{ codes => (
-	// 				<li style={{color: theme.color}} key={theme.uid}>{theme.text}</li>
-	// 			)}
-	// 		</ColorCodesContext.Consumer>
-	// 	)
-	// })
-
 	return (
 
 			<div className="ShowKey">
@@ -35,8 +25,8 @@ function ShowKey() {
 					{ codes => (
 						codes.map((code, i) => (
 							<li style={{color: code.color}} key={code.uid}>{code.text}</li>
-						)
-					))}
+						))
+					)}
 					</ColorCodesContext.Consumer>
 				</ul>
 			</div>
