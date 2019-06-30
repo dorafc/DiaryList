@@ -1,6 +1,7 @@
 import app from 'firebase/app';
+import 'firebase/firestore';
 
-const config ={
+const config = {
 	apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   databaseURL: process.env.REACT_APP_DATABASE_URL,
@@ -13,6 +14,40 @@ const config ={
 class Firebase {
   constructor() {
     app.initializeApp(config);
+
+    // Firestore Database
+    this.db = app.firestore();
+
+    // this.db.collection("users").add({
+    //   first: "Tom",
+    //   last: "Caswell",
+    //   code: "Python"
+    // })
+    // .then(function(docRef) {
+    //     console.log("Document written with ID: ", docRef.id);
+    // })
+    // .catch(function(error) {
+    //     console.error("Error adding document: ", error);
+    // });
+
+    // this.db.collection("users").add({
+    //   first: "Dora",
+    //   last: "Caswell",
+    //   code: "CSS"
+    // })
+    // .then(function(docRef) {
+    //     console.log("Document written with ID: ", docRef.id);
+    // })
+    // .catch(function(error) {
+    //     console.error("Error adding document: ", error);
+    // });
+
+    this.db.collection("users").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            console.log(`${doc.id} => ${doc.data().code}`);
+        });
+    });
+
   }
 }
 
