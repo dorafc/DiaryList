@@ -18,34 +18,16 @@ class Firebase {
     // Firestore Database
     this.db = app.firestore();
 
-    // this.db.collection("users").add({
-    //   first: "Tom",
-    //   last: "Caswell",
-    //   code: "Python"
-    // })
-    // .then(function(docRef) {
-    //     console.log("Document written with ID: ", docRef.id);
-    // })
-    // .catch(function(error) {
-    //     console.error("Error adding document: ", error);
-    // });
-
-    // this.db.collection("users").add({
-    //   first: "Dora",
-    //   last: "Caswell",
-    //   code: "CSS"
-    // })
-    // .then(function(docRef) {
-    //     console.log("Document written with ID: ", docRef.id);
-    // })
-    // .catch(function(error) {
-    //     console.error("Error adding document: ", error);
-    // });
-
-    this.db.collection("users").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            console.log(`${doc.id} => ${doc.data().code}`);
-        });
+    // temporary testing to add a user document
+    this.db.collection("users").doc('dcaswell').set({
+      first: "Dora",
+      last: "Caswell",
+    }, { merge: true })
+    .then(function() {
+        console.log("Document written with ID: ");
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
     });
 
   }

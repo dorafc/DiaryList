@@ -24,7 +24,7 @@ function ShowKey() {
 					<ColorCodesContext.Consumer>
 					{ codes => (
 						codes.map((code, i) => (
-							<li style={{color: code.color}} key={code.uid}>{code.text}</li>
+							<li style={{color: code.color}} key={i}>{code.text}</li>
 						))
 					)}
 					</ColorCodesContext.Consumer>
