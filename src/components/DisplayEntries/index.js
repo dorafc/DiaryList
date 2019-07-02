@@ -6,12 +6,13 @@ class DisplayEntries extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
-    	
+    	test : "beep",
+    	today : []
     }
   }
 
-	render(){
-		const db = this.props.firebase.db;
+  componentDidMount(){
+  	const db = this.props.firebase.db;
 		const userDb = db.collection('users').doc('dcaswell').collection('dates')
 
 		// userDb.doc('2019-06-30').collection('notes').doc('f7OMk1OnNzwqt9ofGAzV').get()
@@ -28,12 +29,17 @@ class DisplayEntries extends Component {
 		let today = new Date()
 		let yesterday = new Date(new Date() -  8.64e+7)
 
-		//  TODAY
+		// TODAY
 		userDb.doc(today.toISOString().slice(0,10)).collection('notes').get()
 		.then((querySnapshot) => {
-			console.log('TODAY')
+			let newData = this.state.today.slice()
+			// console.log('TODAY')
 			querySnapshot.forEach((doc) => {
-				console.log(doc.id, " => ", doc.data());
+				// console.log(doc.id, " => ", doc.data());
+				newData.push(doc.data())
+			})
+			this.setState({
+				today : newData
 			})
 		})
 		.catch((error) => {
@@ -41,25 +47,29 @@ class DisplayEntries extends Component {
 		})
 
 		//  YESTERDAY
-		userDb.doc(yesterday.toISOString().slice(0,10)).collection('notes').get()
-		.then((querySnapshot) => {
-			console.log('YESTERDAY')
-			querySnapshot.forEach((doc) => {
-				console.log(doc.id, " => ", doc.data());
-			})
-		})
-		.catch((error) => {
-			console.log("Error getting documents: ", error);
-		})
+		// userDb.doc(yesterday.toISOString().slice(0,10)).collection('notes').get()
+		// .then((querySnapshot) => {
+		// 	// console.log(querySnapshot)
+		// 	console.log('YESTERDAY')
+		// 	querySnapshot.forEach((doc) => {
+		// 		console.log(doc.id, " => ", doc.data());
+		// 	})
+		// })
+		// .catch((error) => {
+		// 	console.log("Error getting documents: ", error);
+		// })
+  }
 
+	render(){
 		return (
 			<div className="DisplayEntries">
-				<Day date="Today" entryCount={2} />
-		    <Day date="Yesterday" entryCount={5} />
-		    <Day date="Monday, June 24" entryCount={8} />
+				{console.log("state: " + this.state.today)}
+				<Day date="Today" entryCount={2} data={this.state.today} />
 			</div>
 		)
 	}
 }
+
+// higher order components with Firebase
 
 export default DisplayEntries;
