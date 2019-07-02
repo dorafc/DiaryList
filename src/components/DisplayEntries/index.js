@@ -25,8 +25,25 @@ class DisplayEntries extends Component {
 		// })
 		// .catch((error) => {console.log("Error getting document:", error)})
 
-		userDb.doc('2019-06-30').collection('notes').get()
+		let today = new Date()
+		let yesterday = new Date(new Date() -  8.64e+7)
+
+		//  TODAY
+		userDb.doc(today.toISOString().slice(0,10)).collection('notes').get()
 		.then((querySnapshot) => {
+			console.log('TODAY')
+			querySnapshot.forEach((doc) => {
+				console.log(doc.id, " => ", doc.data());
+			})
+		})
+		.catch((error) => {
+			console.log("Error getting documents: ", error);
+		})
+
+		//  YESTERDAY
+		userDb.doc(yesterday.toISOString().slice(0,10)).collection('notes').get()
+		.then((querySnapshot) => {
+			console.log('YESTERDAY')
 			querySnapshot.forEach((doc) => {
 				console.log(doc.id, " => ", doc.data());
 			})
