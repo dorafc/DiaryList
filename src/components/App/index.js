@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import Day from '../Day';
 import UtilityBar from '../UtilityBar';
 import EditEntry from '../EditEntry';
+import DisplayEntries from '../DisplayEntries';
 import {ColorCodesContext, colorCodes} from '../KeyTheme';
 import { withFirebase } from '../Firebase';
 
@@ -22,9 +22,7 @@ class App extends Component {
 			  	<UtilityBar />
 		  	</ColorCodesContext.Provider>
 		  	<EditEntryForm />
-		    <Day date="Today" entryCount={2} />
-		    <Day date="Yesterday" entryCount={5} />
-		    <Day date="Monday, June 24" entryCount={8} />
+		    <DisplayEntryList />
 		  </div>
   	)
   }
@@ -32,5 +30,6 @@ class App extends Component {
 
 // higher order components with Firebase
 const EditEntryForm = withFirebase(EditEntry);
+const DisplayEntryList = withFirebase(DisplayEntries);
 
 export default App;
