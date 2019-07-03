@@ -7,7 +7,7 @@ class DisplayEntries extends Component {
 		super(props);
     this.state = {
     	test : "beep",
-    	today : []
+    	today : [],
     }
   }
 
@@ -26,16 +26,17 @@ class DisplayEntries extends Component {
 		// })
 		// .catch((error) => {console.log("Error getting document:", error)})
 
-		let today = new Date()
+		// let today = new Date()
 		let yesterday = new Date(new Date() -  8.64e+7)
 
 		// TODAY
-		userDb.doc(today.toISOString().slice(0,10)).collection('notes').get()
+		// console.log(today.toISOString().slice(0,10))
+		userDb.doc(yesterday.toISOString().slice(0,10)).collection('notes').get()
 		.then((querySnapshot) => {
 			let newData = this.state.today.slice()
 			// console.log('TODAY')
 			querySnapshot.forEach((doc) => {
-				// console.log(doc.id, " => ", doc.data());
+				console.log(doc.id, " => ", doc.data());
 				newData.push(doc.data())
 			})
 			this.setState({
@@ -63,7 +64,6 @@ class DisplayEntries extends Component {
 	render(){
 		return (
 			<div className="DisplayEntries">
-				{console.log("state: " + this.state.today)}
 				<Day date="Today" entryCount={2} data={this.state.today} />
 			</div>
 		)
