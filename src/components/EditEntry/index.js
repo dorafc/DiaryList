@@ -34,6 +34,15 @@ class EditEntry extends Component {
 
   	event.preventDefault();
 
+  	// add new date to collection
+  	db.collection('users').doc('dcaswell').collection('dates').doc(dateDoc).set({date : dateDoc}).then(()=>{
+  		console.log('Set new date document!')
+  	})
+  	.catch(function(error) {
+		    console.error("Error creating new date: ", error);
+		});
+
+  	// add new note to notes collection
   	db.collection('users').doc('dcaswell').collection('dates').doc(dateDoc).collection('notes').doc().set(this.state)
   	.then(() => {
 		    console.log("Document successfully written!");

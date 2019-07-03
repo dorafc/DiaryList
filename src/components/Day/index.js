@@ -7,7 +7,7 @@ class Day extends Component {
 
 	render(){
 
-		console.log(this.props.data)
+		// console.log(this.props.data)
 		const entryList = this.props.data.map((info, i) => 
 			<Entry key={"entry"+i} entry={info} />
 		)
