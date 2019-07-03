@@ -8,6 +8,8 @@ class DisplayEntries extends Component {
     this.state = {
     	test : "beep",
     	today : [],
+    	dateEntries : [],
+    	numDates : 0
     }
   }
 
@@ -15,10 +17,25 @@ class DisplayEntries extends Component {
   	const db = this.props.firebase.db;
 		const userDb = db.collection('users').doc('dcaswell').collection('dates')
 
-		let today = new Date()
-		// let yesterday = new Date(new Date() -  8.64e+7)
+		let dateEntries = [];
 
-		console.log(userDb.get())
+		let today = new Date()
+
+		// get date collections
+		userDb.get()
+		.then((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				dateEntries.push(doc.id)
+			})
+			this.setState({
+				dateEntries : dateEntries,
+				numDates : dateEntries.length
+			})
+		}).catch((error) => {
+			console.log("Error getting dates documents: ", error);
+		})
+
+		console.log(dateEntries)
 
 
 		// TODAY
