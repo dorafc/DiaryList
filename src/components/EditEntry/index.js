@@ -33,17 +33,29 @@ class EditEntry extends Component {
   onSubmit(event){
   	const db = this.props.firebase.db;
   	const dateDoc = this.state.date.toISOString().slice(0,10);
-  	console.log(db)
+  	const day = new Date( this.state.date.getFullYear(), this.state.date.getMonth(), this.state.date.getDay())
 
   	event.preventDefault();
 
-  	db.collection('users').doc('dcaswell').collection(dateDoc).doc().set(this.state)
+  	// write date document
+  	db.collection('users').doc('dcaswell').collection('dates').doc(dateDoc).set({
+  		date : day
+  	})
   	.then(() => {
-		    console.log("Document successfully written!");
-		    this.setState({ ...initialState })
+		    console.log("Date document successfully written!");
 		})
 		.catch(function(error) {
 		    console.error("Error writing document: ", error);
+		});
+
+  	// write note document
+  	db.collection('users').doc('dcaswell').collection('dates').doc(dateDoc).collection('notes').doc().set(this.state)
+  	.then(() => {
+		    console.log("Note document successfully written!");
+		    this.setState({ ...initialState })
+		})
+		.catch(function(error) {
+		    console.error("Error writing note document: ", error);
 		});
   }
 
