@@ -7,18 +7,16 @@ class Day extends Component {
 
 	render(){
 
-		// console.log(this.props.data)
-		const entryList = this.props.data.map((info, i) => 
-			<Entry key={"entry"+i} entry={info} />
-		)
-
+		// const entryList = this.props.data.map((info, i) => 
+			// <Entry key={"entry"+i} entry={info} />
+		// )
 		return (
 			<div className="day">
-				<DateHeader date={this.props.date} />
-				{this.props.date === 'Today' &&
-					<AddEntry />
+				<DateHeader date={this.props.day} />
+				{/*this.props.date === 'Today' &&
+					<AddEntry />*/
 				}
-				<ul>{entryList}</ul>
+				<ul>{/*entryList*/}</ul>
 				<hr />
 			</div>
 		)

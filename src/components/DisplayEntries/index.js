@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 
 import Day from '../Day';
+import { withFirebase } from '../Firebase';
 
 class DisplayEntries extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
-    	dateEntries : [],
-    	numDates : 0,
-    	noteEntries : []
+    	dateEntries : []
     }
   }
 
@@ -16,61 +15,40 @@ class DisplayEntries extends Component {
   	const db = this.props.firebase.db;
 		const userDb = db.collection('users').doc('dcaswell').collection('dates')
 
-		// let dateEntries = [];
-		let noteEntries = [];
-
-		// let today = new Date()
-
 		// get date collections
 		userDb.get()
 		.then((querySnapshot) => {
-			querySnapshot.forEach((doc, i) => {
-				// console.log(doc.data())
-				// dateEntries.push(doc.id)
-			// 	let entries = []
-				userDb.doc(doc.id).collection('notes').get()
-				.then((queryNotes) => {
-					let entries = []
-					// console.log(doc.data().date)
-					queryNotes.forEach((notes) => {
-						// console.log(notes.data())
-						entries.push(notes.data())
-					})
-					// console.log(entries)
-					noteEntries.push(entries)
-			// 	})
-			// 	.catch((error) => {
-			// 		console.log("Error getting notes documents: ", error);
-				})
-			// })
-			// this.setState({
-			// 	// dateEntries : dateEntries,
-			// 	numDates : dateEntries.length,
+			let dates = [];
+
+			querySnapshot.forEach((doc) => {
+				dates.push(doc.id)
 			})
-			// console.log(noteEntries)
+			return dates
+		})
+		.then((data) => {
 			this.setState({
-				noteEntries : noteEntries
+				dateEntries : data
 			})
 		})
 		.catch((error) => {
 			console.log("Error getting dates documents: ", error);
 		})
-
-		//get entries
-		// console.log(this.state.dateEntries)
-		// dateEntries.forEach(foo => console.log(foo))
-
   }
 
 	render(){
+		const days = this.state.dateEntries.slice().map((date,i) => {
+			return(
+				<DayData day={date} key={date+i}/>
+			)
+		})
 		return (
 			<div className="DisplayEntries">
-				<Day date="Test" data={[{shortText : "Hello, this is some text", theme : 'make'}]} />
+				{days}
 			</div>
 		)
 	}
 }
 
-// higher order components with Firebase
+const DayData = withFirebase(Day)
 
 export default DisplayEntries;
