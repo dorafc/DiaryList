@@ -32,33 +32,19 @@ class EditEntry extends Component {
 
   onSubmit(event){
   	const db = this.props.firebase.db;
-  	// const dateDoc = this.state.date.toISOString().slice(0,10);
-  	const dateDoc = new Date(this.state.date.getFullYear(),this.state.date.getMonth(), this.state.date.getDay())
+  	const dateDoc = this.state.date.toISOString().slice(0,10);
+  	console.log(db)
 
   	event.preventDefault();
 
-
-
-  	// add new date to collection
-  	db.collection('users').doc('dcaswell').collection('notes').doc().set({
-  		date : dateDoc,
-  		// notes : this.props.firebase.firestore.FieldValue.arrayUnion(this.state)
-	 	}).then(()=>{
-  		console.log('Set new date document!')
-  	})
-  	.catch(function(error) {
-		    console.error("Error creating document: ", error);
+  	db.collection('users').doc('dcaswell').collection(dateDoc).doc().set(this.state)
+  	.then(() => {
+		    console.log("Document successfully written!");
+		    this.setState({ ...initialState })
+		})
+		.catch(function(error) {
+		    console.error("Error writing document: ", error);
 		});
-
-  	// add new note to notes collection
-  // 	db.collection('users').doc('dcaswell').collection('dates').doc(dateDoc).collection('notes').doc().set(this.state)
-  // 	.then(() => {
-		//     console.log("Document successfully written!");
-		//     this.setState({ ...initialState })
-		// })
-		// .catch(function(error) {
-		//     console.error("Error writing document: ", error);
-		// });
   }
 
 	render(){
