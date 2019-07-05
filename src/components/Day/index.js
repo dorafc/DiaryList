@@ -6,14 +6,13 @@ class Day extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
-    	notes : [],
-    	day : ''
+    	notes : []
     }
 	}
 
 	componentDidMount(){
   	const db = this.props.firebase.db;
-		const userDb = db.collection('users').doc('dcaswell').collection('dates').doc(this.props.day).collection('notes')
+		const userDb = db.collection('users').doc('dcaswell').collection('dates').doc(this.props.day).collection("notes").orderBy("date", "asc")
 
 		// get notes collections
 		userDb.get()
@@ -26,29 +25,10 @@ class Day extends Component {
 		})
 		.then((data) => {
 
-			// Figure out Date stuff
-			const date = data[0].date.toDate()
-			const day = new Date(date.getFullYear(), date.getMonth(), date.getDay()).toDateString()
-			const today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDay()).toDateString()
-			let yesterday = new Date();
-			yesterday.setDate(yesterday.getDate() - 1);
-			yesterday = yesterday.toDateString()
-
-			let setDay;
-
-			if (day === today){
-				setDay = 'Today'
-			} else if (day === yesterday){
-				setDay = 'Yesterday'
-			}
-			else {
-				setDay = day
-			}
 
 			// Set State
 			this.setState({
-				notes : data,
-				day : setDay
+				notes : data
 			})
 		})
 		.catch((error) => {
@@ -56,15 +36,16 @@ class Day extends Component {
 		})
 
 		// listen for changes, doesn't work quite right yet
-		if (this.state.day === 'Today'){
+		if (this.props.label === 'Today'){
+
 			userDb.onSnapshot((notes) => {
+				console.log('here')
 				let newData = []
 				notes.forEach((note) => {
-					// console.log(note.data())
 					newData.push(note.data())
 				})
 				this.setState({
-					data : newData
+					notes : newData
 				})
 			})
 		}
@@ -72,8 +53,6 @@ class Day extends Component {
 	}
 
 	render(){
-		// const db = this.props.firebase.db;
-		// const userDb = db.collection('users').doc('dcaswell').collection('dates').doc(this.props.day).collection('notes')
 		const entryList = this.state.notes.slice().map((note, i) => {
 			return(
 				<Entry shortText={note.shortText} theme={note.theme} longText={note.longText} key={"note" + i} />
@@ -82,9 +61,9 @@ class Day extends Component {
 
 		return (
 			<div className="day">
-				<DateHeader date={this.state.day} />
-				{/*this.props.date === 'Today' &&
-					<AddEntry />*/
+				<DateHeader date={this.props.label} />
+				{((this.props.label === 'Today') || (this.props.label === 'Yesterday')) &&
+					<AddEntry />
 				}
 				<ul>{entryList}</ul>
 				<hr />
@@ -99,7 +78,7 @@ function DateHeader(props) {
 
 function AddEntry(){
 	return(
-		<div className="AddEntry">Add Entry</div>
+		<a className="AddEntry" href="#test">+</a>
 	)
 }
 

@@ -37,10 +37,25 @@ class DisplayEntries extends Component {
 
 	render(){
 		const days = this.state.dateEntries.slice().map((date,i) => {
+			// calc date labels
+			let label;
+			let today = new Date()
+			let yesterday = new Date();
+			yesterday.setDate(yesterday.getDate() - 1)
+
+			if (date === today.toISOString().slice(0,10)){
+				label = "Today"
+			} else if (date === yesterday.toISOString().slice(0,10)){
+				label = "Yesterday"
+			} else {
+				label = new Date(date).toDateString()
+			}
+
 			return(
-				<DayData day={date} key={date+i}/>
+				<DayData day={date} key={date+i} label={label} />
 			)
 		})
+
 		return (
 			<div className="DisplayEntries">
 				{days}
