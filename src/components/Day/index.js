@@ -25,17 +25,27 @@ class Day extends Component {
 			return notes
 		})
 		.then((data) => {
+
+			// Figure out Date stuff
 			const date = data[0].date.toDate()
 			const day = new Date(date.getFullYear(), date.getMonth(), date.getDay()).toDateString()
 			const today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDay()).toDateString()
+			let yesterday = new Date();
+			yesterday.setDate(yesterday.getDate() - 1);
+			yesterday = yesterday.toDateString()
+
 			let setDay;
 
-			if (day === today.toString()){
+			if (day === today){
 				setDay = 'Today'
-			} else {
+			} else if (day === yesterday){
+				setDay = 'Yesterday'
+			}
+			else {
 				setDay = day
 			}
 
+			// Set State
 			this.setState({
 				notes : data,
 				day : setDay
@@ -45,9 +55,25 @@ class Day extends Component {
 			console.log("Error getting notes documents: ", error);
 		})
 
+		// listen for changes, doesn't work quite right yet
+		if (this.state.day === 'Today'){
+			userDb.onSnapshot((notes) => {
+				let newData = []
+				notes.forEach((note) => {
+					// console.log(note.data())
+					newData.push(note.data())
+				})
+				this.setState({
+					data : newData
+				})
+			})
+		}
+
 	}
 
 	render(){
+		// const db = this.props.firebase.db;
+		// const userDb = db.collection('users').doc('dcaswell').collection('dates').doc(this.props.day).collection('notes')
 		const entryList = this.state.notes.slice().map((note, i) => {
 			return(
 				<Entry shortText={note.shortText} theme={note.theme} longText={note.longText} key={"note" + i} />

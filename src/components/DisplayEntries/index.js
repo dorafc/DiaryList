@@ -13,7 +13,7 @@ class DisplayEntries extends Component {
 
   componentDidMount(){
   	const db = this.props.firebase.db;
-		const userDb = db.collection('users').doc('dcaswell').collection('dates')
+		const userDb = db.collection('users').doc('dcaswell').collection("dates").orderBy("date", "desc")
 
 		// get date collections
 		userDb.get()
