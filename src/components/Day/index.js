@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import Entry from '../Entry'
+import AddEntry from '../AddEntry'
 
 class Day extends Component {
 	constructor(props) {
@@ -76,11 +77,11 @@ function DateHeader(props) {
 	return <h2 className="dateHeader">{props.date}</h2>
 }
 
-function AddEntry(){
-	return(
-		<a className="AddEntry" href="#test">+</a>
-	)
-}
+// function AddEntry(){
+// 	return(
+// 		<a className="AddEntry" href="#test">+</a>
+// 	)
+// }
 
 
 export default Day;

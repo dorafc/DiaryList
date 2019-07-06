@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+import * as ROUTES from '../../constants/routes';
 
 import UtilityBar from '../UtilityBar';
+import Navigation from '../Navigation';
 import EditEntry from '../EditEntry';
 import DisplayEntries from '../DisplayEntries';
 import {ColorCodesContext, colorCodes} from '../KeyTheme';
@@ -17,13 +21,16 @@ class App extends Component {
 
   render(){
   	return (
-  		<div className="app">
-  			<ColorCodesContext.Provider value={colorCodes.codes}>
-			  	<UtilityBar />
-		  	</ColorCodesContext.Provider>
-		  	<EditEntryForm />
-		    <DisplayEntryList />
-		  </div>
+      <Router>
+    		<div className="app">
+          <Navigation />
+    			<ColorCodesContext.Provider value={colorCodes.codes}>
+  			  	<UtilityBar />
+  		  	</ColorCodesContext.Provider>
+  		  	<EditEntryForm />
+          <Route path={ROUTES.HOME} component={DisplayEntryList} />
+  		  </div>
+      </Router>
   	)
   }
 }

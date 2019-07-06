@@ -1,8 +1,15 @@
 import React from 'react';
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 function AddEntry(){
 	return(
-		<div className="AddEntry">Add Entry</div>
+		<Link to={{
+			pathname: "/form", 
+			state: {modal: true}
+		}} className="AddEntry"
+		>
+			+
+		</Link>
 	)
 }
 
