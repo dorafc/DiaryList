@@ -40,7 +40,7 @@ class Day extends Component {
 		})
 
 		// listen for changes, doesn't work quite right yet
-		if (this.props.label === 'Today'){
+		// if (this.props.label === 'Today'){
 
 			userDb.onSnapshot((notes) => {
 				let newData = []
@@ -54,7 +54,7 @@ class Day extends Component {
 					notes : newData
 				})
 			})
-		}
+		// }
 
 	}
 
