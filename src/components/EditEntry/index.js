@@ -25,6 +25,27 @@ class EditEntry extends Component {
   	})
   }
 
+  componentDidMount(){
+  	if (this.props.id !== ''){
+  		const id = this.props.id
+  		const day = this.props.day
+  		const db = this.props.firebase.db;
+	  	const docRef = db.collection('users').doc('dcaswell').collection('dates').doc(day).collection('notes').doc(id)
+
+	  	docRef.get()
+	  	.then((entry) => {
+	  		this.setState({
+	  			shortText : entry.data().shortText,
+	  			longText : entry.data().longText,
+	  			theme : entry.data().theme
+	  		})
+	  	})
+	  	.catch(function(error) {
+			  console.log("Error getting document:", error);
+			})
+  	}
+  }
+
   onSubmit(event){
   	const db = this.props.firebase.db;
   	const dateDoc = this.state.date.toISOString().slice(0,10);
@@ -59,41 +80,32 @@ class EditEntry extends Component {
   	const db = this.props.firebase.db;
   	const docRef = db.collection('users').doc('dcaswell').collection('dates').doc(day).collection('notes').doc(id)
 
-  // 	docRef.get().then(function(doc) {
-	 //    if (doc.exists) {
-	 //        console.log("Document data:", doc.data());
-	 //    } else {
-	 //        // doc.data() will be undefined in this case
-	 //        console.log("No such document!");
-	 //    }
-		// }).catch(function(error) {
-		//     console.log("Error getting document:", error);
-		// });
-
-		db.runTransaction((transaction) => {
-			return transaction.get(docRef)
-			.then((entry) => {
-				if (!entry.exists) {
-            throw "Entry does not exist!";
-        } else {
-        	transaction.update(docRef, {shortText : this.state.shortText})
-        }
-			})
+  	return docRef.update({
+		    shortText : this.state.shortText,
+		    longText : this.state.longText,
+		    theme : this.state.theme
 		})
+		.then(function() {
+		    console.log("Entry successfully updated!");
+		})
+		.catch(function(error) {
+		    // The document probably doesn't exist.
+		    console.error("Error updating entry: ", error);
+		});
   }
 
 	render(){
 		// editing or writing
 		const onSub = (this.props.id === '') ? this.onSubmit : (e) => {this.onEditSubmit(e, this.props.day, this.props.id)}
+		const buttonText = (this.props.id === '') ? 'Add Note' : 'Edit Note'
 
-		console.log(onSub)
 		return (
 			<div className="EditEntry">
 				<form onSubmit={onSub}>
 					<div className="theme">
 						<a href="#closeform" onClick={this.props.onClick}>Close</a>
 						<p>Pick Theme</p>
-						<select value={this.state.theme === "make" ? this.props.theme : this.state.theme} name="theme" onChange={this.onChange}>
+						<select value={this.state.theme} name="theme" onChange={this.onChange}>
 							<option value="make">Make / Craft</option>
 							<option value="care">Self-Care</option>
 							<option value="media">Media / Arts</option>
@@ -103,12 +115,12 @@ class EditEntry extends Component {
 						</select>
 					</div>
 					<div className="shortText">
-						<input type="text" name="shortText" value={this.state.shortText === "" ? this.props.shortText : this.state.shortText} onChange={this.onChange} />
+						<input type="text" name="shortText" value={this.state.shortText} onChange={this.onChange} />
 					</div>
 					<div className="longText">
-						<textarea name="longText" value={this.state.longText === '' ? this.props.longText : this.state.longText} onChange={this.onChange} />
+						<textarea name="longText" value={this.state.longText} onChange={this.onChange} />
 					</div>
-					<button type="submit">Add Note</button>
+					<button type="submit">{buttonText}</button>
 				</form>
 			</div>
 		)
