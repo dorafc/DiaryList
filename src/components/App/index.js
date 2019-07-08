@@ -16,16 +16,27 @@ class App extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
-    	showEditForm : false
+    	showEditForm : false,
+
+      // value of currently editing 
+    	shortText : '',
+      longText : '',
+      theme : 'make'
     }
 
     this.handleEditClick = this.handleEditClick.bind(this);
   }
 
   // Toggle showing the edit form
-  handleEditClick(e, passShow){
+  handleEditClick(e, passShow, shortText, longText, theme){
   	e.preventDefault()
+  	if (shortText !== undefined){
+  		this.setState({shortText : shortText, longText : longText, theme : theme})
+  	}
+
   	let currentShow
+
+  	// override default toggling for showing the form with a parameter
   	if (passShow === undefined){
   		currentShow = !this.state.showEditForm
   	} else {
@@ -38,7 +49,12 @@ class App extends Component {
   	let showForm = null
 
   	if (this.state.showEditForm){
-  		showForm = <EditEntryForm onClick={this.handleEditClick} />
+  		showForm = <EditEntryForm 
+        onClick={this.handleEditClick} 
+        shortText={this.state.shortText} 
+        longText={this.state.longText}
+        theme={this.state.theme}
+      />
   	} else {
   		showForm = <AddEntry onClick={this.handleEditClick} />
   	}

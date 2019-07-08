@@ -40,7 +40,6 @@ class Day extends Component {
 		if (this.props.label === 'Today'){
 
 			userDb.onSnapshot((notes) => {
-				console.log('here')
 				let newData = []
 				notes.forEach((note) => {
 					newData.push(note.data())

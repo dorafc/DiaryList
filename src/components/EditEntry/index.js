@@ -55,14 +55,15 @@ class EditEntry extends Component {
   }
 
 	render(){
-		// console.log(firebase.firestore.FieldValue)
+		// set initial state
+
 		return (
 			<div className="EditEntry">
 				<form onSubmit={this.onSubmit}>
 					<div className="theme">
 						<a href="#closeform" onClick={this.props.onClick}>Close</a>
 						<p>Pick Theme</p>
-						<select value={this.state.theme} name="theme" onChange={this.onChange}>
+						<select value={this.state.theme === "make" ? this.props.theme : this.state.theme} name="theme" onChange={this.onChange}>
 							<option value="make">Make / Craft</option>
 							<option value="care">Self-Care</option>
 							<option value="media">Media / Arts</option>
@@ -72,10 +73,10 @@ class EditEntry extends Component {
 						</select>
 					</div>
 					<div className="shortText">
-						<input type="text" name="shortText" value={this.state.shortText} onChange={this.onChange} />
+						<input type="text" name="shortText" value={this.state.shortText === "" ? this.props.shortText : this.state.shortText} onChange={this.onChange} />
 					</div>
 					<div className="longText">
-						<textarea name="longText" value={this.state.longText} onChange={this.onChange} />
+						<textarea name="longText" value={this.state.longText === '' ? this.props.longText : this.state.longText} onChange={this.onChange} />
 					</div>
 					<button type="submit">Add Note</button>
 				</form>
