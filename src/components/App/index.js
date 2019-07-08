@@ -23,10 +23,15 @@ class App extends Component {
   }
 
   // Toggle showing the edit form
-  handleEditClick(e){
+  handleEditClick(e, passShow){
   	e.preventDefault()
-  	let currentShow = this.state.showEditForm
-  	this.setState({showEditForm : !currentShow})
+  	let currentShow
+  	if (passShow === undefined){
+  		currentShow = !this.state.showEditForm
+  	} else {
+  		currentShow = passShow
+  	}
+  	this.setState({showEditForm : currentShow})
   }
 
   render(){
@@ -49,7 +54,7 @@ class App extends Component {
 
           {showForm}
           <hr />
-          <Route exact path={ROUTES.HOME} component={DisplayEntryList} />
+          <DisplayEntryList onEdit={this.handleEditClick} />
 
   		  </div>
       </Router>

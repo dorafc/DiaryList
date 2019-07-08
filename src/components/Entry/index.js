@@ -4,7 +4,7 @@ function Entry(props){
 	// console.log(props.entry)
 	return(
 		<li className={"entry "+props.theme}>
-			{props.shortText}
+			{props.shortText} <a href="#editentry" onClick={(e) => props.onEdit(e, true)}>Edit</a>
 		</li>
 	)
 }

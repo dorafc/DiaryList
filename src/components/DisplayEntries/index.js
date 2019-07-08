@@ -52,7 +52,7 @@ class DisplayEntries extends Component {
 			}
 
 			return(
-				<DayData day={date} key={date+i} label={label} />
+				<DayData day={date} key={date+i} label={label} onEdit={this.props.onEdit}/>
 			)
 		})
 

@@ -56,7 +56,7 @@ class Day extends Component {
 	render(){
 		const entryList = this.state.notes.slice().map((note, i) => {
 			return(
-				<Entry shortText={note.shortText} theme={note.theme} longText={note.longText} key={"note" + i} />
+				<Entry shortText={note.shortText} theme={note.theme} longText={note.longText} key={"note" + i} onEdit={this.props.onEdit} />
 			)
 		})
 
