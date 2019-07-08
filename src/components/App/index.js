@@ -23,7 +23,8 @@ class App extends Component {
   }
 
   // Toggle showing the edit form
-  handleEditClick(){
+  handleEditClick(e){
+  	e.preventDefault()
   	let currentShow = this.state.showEditForm
   	this.setState({showEditForm : !currentShow})
   }
@@ -32,9 +33,9 @@ class App extends Component {
   	let showForm = null
 
   	if (this.state.showEditForm){
-  		showForm = <EditEntryForm />
+  		showForm = <EditEntryForm onClick={this.handleEditClick} />
   	} else {
-  		showForm = <AddEntry onClick={this.handleEditClick}/>
+  		showForm = <AddEntry onClick={this.handleEditClick} />
   	}
 
   	return (

@@ -60,6 +60,7 @@ class EditEntry extends Component {
 			<div className="EditEntry">
 				<form onSubmit={this.onSubmit}>
 					<div className="theme">
+						<a href="#test" onClick={this.props.onClick}>Close</a>
 						<p>Pick Theme</p>
 						<select value={this.state.theme} name="theme" onChange={this.onChange}>
 							<option value="make">Make / Craft</option>
@@ -78,7 +79,6 @@ class EditEntry extends Component {
 					</div>
 					<button type="submit">Add Note</button>
 				</form>
-				<hr />
 			</div>
 		)
 	}
