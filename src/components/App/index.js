@@ -6,8 +6,8 @@ import * as ROUTES from '../../constants/routes';
 import UtilityBar from '../UtilityBar';
 import Navigation from '../Navigation';
 import EditEntry from '../EditEntry';
-import EditModal from '../EditEntry/modal';
 import DisplayEntries from '../DisplayEntries';
+import AddEntry from '../AddEntry';
 import {ColorCodesContext, colorCodes} from '../KeyTheme';
 import { withFirebase } from '../Firebase';
 
@@ -16,11 +16,27 @@ class App extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
-    	
+    	showEditForm : false
     }
+
+    this.handleEditClick = this.handleEditClick.bind(this);
+  }
+
+  // Toggle showing the edit form
+  handleEditClick(){
+  	let currentShow = this.state.showEditForm
+  	this.setState({showEditForm : !currentShow})
   }
 
   render(){
+  	let showForm = null
+
+  	if (this.state.showEditForm){
+  		showForm = <EditEntryForm />
+  	} else {
+  		showForm = <AddEntry onClick={this.handleEditClick}/>
+  	}
+
   	return (
       <Router>
     		<div className="app">
@@ -30,7 +46,8 @@ class App extends Component {
   			  	<UtilityBar />
   		  	</ColorCodesContext.Provider>
 
-          <EditEntryForm />
+          {showForm}
+          <hr />
           <Route exact path={ROUTES.HOME} component={DisplayEntryList} />
 
   		  </div>

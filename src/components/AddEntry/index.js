@@ -1,15 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 
-function AddEntry(){
+function AddEntry(props){
 	return(
-		<Link to={{
-			pathname: "/form", 
-			state: {modal: true}
-		}} className="AddEntry"
-		>
-			+
-		</Link>
+		<button className="AddEntry" onClick={props.onClick}>
+			Add New Entry
+		</button>
 	)
 }
 

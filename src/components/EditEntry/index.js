@@ -1,10 +1,5 @@
 import React, {Component} from 'react';
-// import Firebase from '../Firebase';
 import 'firebase/firestore';
-// import 'firebase/functions';
-
-// const entryDate = new Date();
-// const dayEntry = entryDate.toISOString().slice(0,10)
 
 const initialState = {
 	shortText : '',
