@@ -20,7 +20,10 @@ class Day extends Component {
 		.then((querySnapshot) => {
 			let notes = []
 			querySnapshot.forEach((note) => {
-				notes.push(note.data())
+				let data = note.data()
+				data.id = note.id
+				data.day = this.props.day
+				notes.push(data)
 			})
 			return notes
 		})
@@ -42,7 +45,10 @@ class Day extends Component {
 			userDb.onSnapshot((notes) => {
 				let newData = []
 				notes.forEach((note) => {
-					newData.push(note.data())
+					let data = note.data()
+					data.id = note.id
+					data.day = this.props.day
+					newData.push(data)
 				})
 				this.setState({
 					notes : newData
@@ -55,7 +61,15 @@ class Day extends Component {
 	render(){
 		const entryList = this.state.notes.slice().map((note, i) => {
 			return(
-				<Entry shortText={note.shortText} theme={note.theme} longText={note.longText} key={"note" + i} onEdit={this.props.onEdit} />
+				<Entry 
+					shortText={note.shortText} 
+					theme={note.theme} 
+					longText={note.longText} 
+					id={note.id}
+					day={note.day}
+					key={"note" + i} 
+					onEdit={this.props.onEdit} 
+				/>
 			)
 		})
 

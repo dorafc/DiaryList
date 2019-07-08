@@ -55,8 +55,6 @@ class EditEntry extends Component {
   }
 
 	render(){
-		// set initial state
-
 		return (
 			<div className="EditEntry">
 				<form onSubmit={this.onSubmit}>
