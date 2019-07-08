@@ -54,10 +54,42 @@ class EditEntry extends Component {
 		});
   }
 
+  onEditSubmit(event, day, id){
+  	event.preventDefault();
+  	const db = this.props.firebase.db;
+  	const docRef = db.collection('users').doc('dcaswell').collection('dates').doc(day).collection('notes').doc(id)
+
+  // 	docRef.get().then(function(doc) {
+	 //    if (doc.exists) {
+	 //        console.log("Document data:", doc.data());
+	 //    } else {
+	 //        // doc.data() will be undefined in this case
+	 //        console.log("No such document!");
+	 //    }
+		// }).catch(function(error) {
+		//     console.log("Error getting document:", error);
+		// });
+
+		db.runTransaction((transaction) => {
+			return transaction.get(docRef)
+			.then((entry) => {
+				if (!entry.exists) {
+            throw "Entry does not exist!";
+        } else {
+        	transaction.update(docRef, {shortText : this.state.shortText})
+        }
+			})
+		})
+  }
+
 	render(){
+		// editing or writing
+		const onSub = (this.props.id === '') ? this.onSubmit : (e) => {this.onEditSubmit(e, this.props.day, this.props.id)}
+
+		console.log(onSub)
 		return (
 			<div className="EditEntry">
-				<form onSubmit={this.onSubmit}>
+				<form onSubmit={onSub}>
 					<div className="theme">
 						<a href="#closeform" onClick={this.props.onClick}>Close</a>
 						<p>Pick Theme</p>
