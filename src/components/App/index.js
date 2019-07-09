@@ -19,9 +19,6 @@ class App extends Component {
     	showEditForm : false,
 
       // value of currently editing 
-    	shortText : '',
-      longText : '',
-      theme : 'make',
       id : '',
       day : ''
     }
@@ -30,13 +27,10 @@ class App extends Component {
   }
 
   // Toggle showing the edit form
-  handleEditClick(e, passShow, shortText, longText, theme, id, day){
+  handleEditClick(e, passShow, id, day){
   	e.preventDefault()
-  	if (shortText !== undefined){
+  	if (id !== undefined){
   		this.setState({
-        shortText : shortText, 
-        longText : longText, 
-        theme : theme,
         id: id,
         day: day
       })
@@ -59,9 +53,6 @@ class App extends Component {
   	if (this.state.showEditForm){
   		showForm = <EditEntryForm 
         onClick={this.handleEditClick} 
-        shortText={this.state.shortText} 
-        longText={this.state.longText}
-        theme={this.state.theme}
         id={this.state.id}
         day={this.state.day}
       />

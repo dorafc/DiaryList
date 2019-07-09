@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import Entry from '../Entry'
-import AddEntry from '../AddEntry'
 
 class Day extends Component {
 	constructor(props) {
@@ -76,9 +75,6 @@ class Day extends Component {
 		return (
 			<div className="day">
 				<DateHeader date={this.props.label} />
-				{((this.props.label === 'Today') || (this.props.label === 'Yesterday')) &&
-					<AddEntry />
-				}
 				<ul>{entryList}</ul>
 				<hr />
 			</div>

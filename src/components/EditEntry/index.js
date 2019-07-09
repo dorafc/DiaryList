@@ -85,8 +85,9 @@ class EditEntry extends Component {
 		    longText : this.state.longText,
 		    theme : this.state.theme
 		})
-		.then(function() {
+		.then(() => {
 		    console.log("Entry successfully updated!");
+		    this.setState({ ...initialState })
 		})
 		.catch(function(error) {
 		    // The document probably doesn't exist.
