@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import 'firebase/firestore';
 
 const initialState = {
+	id : '',
 	shortText : '',
 	longText : '',
 	theme : 'make',
@@ -33,9 +34,32 @@ class EditEntry extends Component {
   		const db = this.props.firebase.db;
 	  	const docRef = db.collection('users').doc('dcaswell').collection('dates').doc(day).collection('notes').doc(id)
 
-	  	 docRef.get()
+	  	docRef.get()
 	  	.then((entry) => {
 	  		this.setState({
+	  			id : this.props.id, 
+	  			shortText : entry.data().shortText,
+	  			longText : entry.data().longText,
+	  			theme : entry.data().theme
+	  		})
+	  	})
+	  	.catch(function(error) {
+			  console.log("Error getting document:", error);
+			})
+  	}
+  }
+
+  componentDidUpdate(prevProps){
+  	if (prevProps.id !== this.props.id){
+  		const id = this.props.id
+  		const day = this.props.day
+  		const db = this.props.firebase.db;
+	  	const docRef = db.collection('users').doc('dcaswell').collection('dates').doc(day).collection('notes').doc(id)
+
+	  	docRef.get()
+	  	.then((entry) => {
+	  		this.setState({
+	  			id : this.props.id, 
 	  			shortText : entry.data().shortText,
 	  			longText : entry.data().longText,
 	  			theme : entry.data().theme
@@ -133,7 +157,7 @@ class EditEntry extends Component {
 		const showDelete = (!isEdit) ? '' : <a href="#delete" onClick={(e) => {this.onDelete(e, this.props.day, this.props.id)}}>Delete</a>
 
 		return (
-			<div className="EditEntry">
+			<div className="EditEntry" id="editForm">
 				<form onSubmit={onSub}>
 					<div className="theme">
 						<a href="#closeform" onClick={this.props.close}>Close</a>
