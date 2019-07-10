@@ -16,38 +16,32 @@ class App extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
-    	showEditForm : false,
 
       // value of currently editing 
       id : '',
       day : ''
     }
 
+    this.handleAddEntry = this.handleAddEntry.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.closeForm = this.closeForm.bind(this)
+    this.showForm = this.showForm.bind(this)
+  }
+
+  handleAddEntry(e){
+    e.preventDefault()
+
+    this.showForm('', '')
   }
 
   // Toggle showing the edit form
-  handleEditClick(e, passShow, id, day){
+  handleEditClick(e, id, day){
   	e.preventDefault()
-  	if (id !== undefined){
-  		this.setState({
-        id: id,
-        day: day
-      })
-  	}
-
-  	let currentShow
-
-  	// override default toggling for showing the form with a parameter
-  	if (passShow === undefined){
-  		currentShow = !this.state.showEditForm
-  	} else {
-  		currentShow = passShow
-  	}
-  	this.setState({showEditForm : currentShow})
+  	
+    this.showForm(id, day)
   }
 
+  // closes edit form
   closeForm(){
     this.setState({
       showEditForm : false,
@@ -56,18 +50,26 @@ class App extends Component {
     })
   }
 
+  // show form
+  showForm(id, day){
+    this.setState({
+      showEditForm : true,
+      id : id,
+      day : day
+    })
+  }
+
   render(){
   	let showForm = null
 
   	if (this.state.showEditForm){
   		showForm = <EditEntryForm 
-        onClick={this.handleEditClick} 
         id={this.state.id}
         day={this.state.day}
         close={this.closeForm}
       />
   	} else {
-  		showForm = <AddEntry onClick={this.handleEditClick} />
+  		showForm = <AddEntry onClick={this.handleAddEntry} />
   	}
 
   	return (

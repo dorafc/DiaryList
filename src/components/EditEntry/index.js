@@ -5,7 +5,7 @@ const initialState = {
 	shortText : '',
 	longText : '',
 	theme : 'make',
-	date : new Date()
+	date : new Date(),
 }
 
 class EditEntry extends Component {
@@ -33,7 +33,7 @@ class EditEntry extends Component {
   		const db = this.props.firebase.db;
 	  	const docRef = db.collection('users').doc('dcaswell').collection('dates').doc(day).collection('notes').doc(id)
 
-	  	docRef.get()
+	  	 docRef.get()
 	  	.then((entry) => {
 	  		this.setState({
 	  			shortText : entry.data().shortText,
@@ -66,7 +66,12 @@ class EditEntry extends Component {
 		});
 
   	// write note document
-  	db.collection('users').doc('dcaswell').collection('dates').doc(dateDoc).collection('notes').doc().set(this.state)
+  	db.collection('users').doc('dcaswell').collection('dates').doc(dateDoc).collection('notes').doc().set({
+  		shortText : this.state.shortText,
+			longText : this.state.longText,
+			theme : this.state.theme,
+			date : this.state.date
+  	})
   	.then(() => {
 		    console.log("Note document successfully written!");
 		    this.setState({ ...initialState })
@@ -122,15 +127,16 @@ class EditEntry extends Component {
 
 	render(){
 		// editing or writing
-		const onSub = (this.props.id === '') ? this.onSubmit : (e) => {this.onEditSubmit(e, this.props.day, this.props.id)}
-		const buttonText = (this.props.id === '') ? 'Add Note' : 'Edit Note'
-		const showDelete = (this.props.id === '') ? '' : <a href="#delete" onClick={(e) => {this.onDelete(e, this.props.day, this.props.id)}}>Delete</a>
+		const isEdit = (this.props.id !== '')
+		const onSub = (!isEdit) ? this.onSubmit : (e) => {this.onEditSubmit(e, this.props.day, this.props.id)}
+		const buttonText = (!isEdit) ? 'Add Note' : 'Edit Note'
+		const showDelete = (!isEdit) ? '' : <a href="#delete" onClick={(e) => {this.onDelete(e, this.props.day, this.props.id)}}>Delete</a>
 
 		return (
 			<div className="EditEntry">
 				<form onSubmit={onSub}>
 					<div className="theme">
-						<a href="#closeform" onClick={this.props.onClick}>Close</a>
+						<a href="#closeform" onClick={this.props.close}>Close</a>
 						<p>Pick Theme</p>
 						<select value={this.state.theme} name="theme" onChange={this.onChange}>
 							<option value="make">Make / Craft</option>
