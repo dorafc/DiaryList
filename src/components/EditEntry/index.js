@@ -27,47 +27,35 @@ class EditEntry extends Component {
   	})
   }
 
+  getData(){
+  	const id = this.props.id
+		const day = this.props.day
+		const db = this.props.firebase.db;
+  	const docRef = db.collection('users').doc('dcaswell').collection('dates').doc(day).collection('notes').doc(id)
+
+  	docRef.get()
+  	.then((entry) => {
+  		this.setState({
+  			id : this.props.id, 
+  			shortText : entry.data().shortText,
+  			longText : entry.data().longText,
+  			theme : entry.data().theme
+  		})
+  	})
+  	.catch(function(error) {
+		  console.log("Error getting document:", error);
+		})
+  }
+
   componentDidMount(){
   	if (this.props.id !== ''){
-  		const id = this.props.id
-  		const day = this.props.day
-  		const db = this.props.firebase.db;
-	  	const docRef = db.collection('users').doc('dcaswell').collection('dates').doc(day).collection('notes').doc(id)
-
-	  	docRef.get()
-	  	.then((entry) => {
-	  		this.setState({
-	  			id : this.props.id, 
-	  			shortText : entry.data().shortText,
-	  			longText : entry.data().longText,
-	  			theme : entry.data().theme
-	  		})
-	  	})
-	  	.catch(function(error) {
-			  console.log("Error getting document:", error);
-			})
+  		this.getData()
   	}
   }
 
   componentDidUpdate(prevProps){
   	if (prevProps.id !== this.props.id){
-  		const id = this.props.id
-  		const day = this.props.day
-  		const db = this.props.firebase.db;
-	  	const docRef = db.collection('users').doc('dcaswell').collection('dates').doc(day).collection('notes').doc(id)
-
-	  	docRef.get()
-	  	.then((entry) => {
-	  		this.setState({
-	  			id : this.props.id, 
-	  			shortText : entry.data().shortText,
-	  			longText : entry.data().longText,
-	  			theme : entry.data().theme
-	  		})
-	  	})
-	  	.catch(function(error) {
-			  console.log("Error getting document:", error);
-			})
+  		this.getData()
   	}
   }
 
