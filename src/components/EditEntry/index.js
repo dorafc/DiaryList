@@ -70,6 +70,9 @@ class EditEntry extends Component {
 		    console.log("Note document successfully written!");
 		    this.setState({ ...initialState })
 		})
+		.then(() => {
+			this.props.close()
+		})
 		.catch(function(error) {
 		    console.error("Error writing note document: ", error);
 		});
@@ -88,6 +91,9 @@ class EditEntry extends Component {
 		.then(() => {
 		    console.log("Entry successfully updated!");
 		    this.setState({ ...initialState })
+		})
+		.then(() => {
+			this.props.close()
 		})
 		.catch(function(error) {
 		    // The document probably doesn't exist.
@@ -121,7 +127,7 @@ class EditEntry extends Component {
 					<div className="longText">
 						<textarea name="longText" value={this.state.longText} onChange={this.onChange} />
 					</div>
-					<button type="submit">{buttonText}</button>
+					<button type="submit" >{buttonText}</button>
 				</form>
 			</div>
 		)

@@ -24,6 +24,7 @@ class App extends Component {
     }
 
     this.handleEditClick = this.handleEditClick.bind(this);
+    this.closeForm = this.closeForm.bind(this)
   }
 
   // Toggle showing the edit form
@@ -47,6 +48,14 @@ class App extends Component {
   	this.setState({showEditForm : currentShow})
   }
 
+  closeForm(){
+    this.setState({
+      showEditForm : false,
+      id : '',
+      day : ''
+    })
+  }
+
   render(){
   	let showForm = null
 
@@ -55,6 +64,7 @@ class App extends Component {
         onClick={this.handleEditClick} 
         id={this.state.id}
         day={this.state.day}
+        close={this.closeForm}
       />
   	} else {
   		showForm = <AddEntry onClick={this.handleEditClick} />
