@@ -62,7 +62,7 @@ class EditEntry extends Component {
   onSubmit(event){
   	const db = this.props.firebase.db;
   	const dateDoc = this.state.date.toISOString().slice(0,10);
-  	const day = new Date( this.state.date.getFullYear(), this.state.date.getMonth(), this.state.date.getDay())
+  	const day = new Date( this.state.date.getFullYear(), this.state.date.getMonth(), this.state.date.getDate())
 
   	event.preventDefault();
 
