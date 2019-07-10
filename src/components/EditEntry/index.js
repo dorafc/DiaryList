@@ -16,6 +16,7 @@ class EditEntry extends Component {
 
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+    this.onDelete = this.onDelete.bind(this)
 	}
 
   onChange(event){
@@ -101,10 +102,29 @@ class EditEntry extends Component {
 		});
   }
 
+  onDelete(event, day, id){
+  	event.preventDefault();
+  	const db = this.props.firebase.db;
+  	const docRef = db.collection('users').doc('dcaswell').collection('dates').doc(day).collection('notes').doc(id)
+
+  	docRef.delete()
+  	.then(() => {
+	    console.log("Note successfully deleted!");
+	    this.setState({ ...initialState })
+		})
+		.then(() => {
+			this.props.close()
+		})
+		.catch(function(error) {
+	    console.error("Note removing document: ", error);
+		});
+  }
+
 	render(){
 		// editing or writing
 		const onSub = (this.props.id === '') ? this.onSubmit : (e) => {this.onEditSubmit(e, this.props.day, this.props.id)}
 		const buttonText = (this.props.id === '') ? 'Add Note' : 'Edit Note'
+		const showDelete = (this.props.id === '') ? '' : <a href="#delete" onClick={(e) => {this.onDelete(e, this.props.day, this.props.id)}}>Delete</a>
 
 		return (
 			<div className="EditEntry">
@@ -128,6 +148,7 @@ class EditEntry extends Component {
 						<textarea name="longText" value={this.state.longText} onChange={this.onChange} />
 					</div>
 					<button type="submit" >{buttonText}</button>
+					{showDelete}
 				</form>
 			</div>
 		)
