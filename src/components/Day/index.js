@@ -64,6 +64,7 @@ class Day extends Component {
 					shortText={note.shortText} 
 					theme={note.theme} 
 					longText={note.longText} 
+					isFuture={note.isFuture}
 					id={note.id}
 					day={note.day}
 					key={"note" + i} 
