@@ -6,6 +6,7 @@ const initialState = {
 	shortText : '',
 	longText : '',
 	theme : 'make',
+	isFuture : false,
 	date : new Date(),
 }
 
@@ -21,8 +22,9 @@ class EditEntry extends Component {
 	}
 
   onChange(event){
+  	const value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
   	this.setState({
-  		[event.target.name] : event.target.value,
+  		[event.target.name] : value,
   		date : new Date()
   	})
   }
@@ -82,6 +84,7 @@ class EditEntry extends Component {
   		shortText : this.state.shortText,
 			longText : this.state.longText,
 			theme : this.state.theme,
+			isFuture : this.state.isFuture,
 			date : this.state.date
   	})
   	.then(() => {
@@ -104,6 +107,7 @@ class EditEntry extends Component {
   	return docRef.update({
 		    shortText : this.state.shortText,
 		    longText : this.state.longText,
+		    isFuture : this.state.isFuture,
 		    theme : this.state.theme
 		})
 		.then(() => {
@@ -164,6 +168,12 @@ class EditEntry extends Component {
 					</div>
 					<div className="longText">
 						<textarea name="longText" value={this.state.longText} onChange={this.onChange} />
+					</div>
+					<div className="isFuture">
+						<label> 
+							<input type="checkbox" name="isFuture" value={this.state.isFuture} onChange={this.onChange} />	
+							For Later?
+						</label>
 					</div>
 					<button type="submit" >{buttonText}</button>
 					{showDelete}
