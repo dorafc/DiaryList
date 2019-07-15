@@ -1,13 +1,13 @@
 import React from 'react';
+import Navigation from '../Navigation';
 
-import SignIn from '../SignIn'
 import { ColorCodesContext } from '../KeyTheme';
 
 function UtilityBar(props) {
 	return(
 		<div className="UtilityBar">
 			<h1>Lifey McLifeface</h1>
-			<SignIn />
+			<Navigation />
 			<ShowKey />
 			<hr />
 		</div>
