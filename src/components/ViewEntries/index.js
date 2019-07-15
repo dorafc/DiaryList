@@ -1,21 +1,12 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
 
-// import * as ROUTES from '../../constants/routes';
-
-import UtilityBar from '../UtilityBar';
-import Navigation from '../Navigation';
 import EditEntry from '../EditEntry';
-import ViewEntries from '../ViewEntries';
 import DisplayEntries from '../DisplayEntries';
 import AddEntry from '../AddEntry';
-import Landing from '../Landing';
-import SignIn from '../SignIn';
 import {ColorCodesContext, colorCodes} from '../KeyTheme';
 import { withFirebase } from '../Firebase';
 
-
-class App extends Component {
+class ViewEntries extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
@@ -75,20 +66,13 @@ class App extends Component {
   	}
 
   	return (
-      <Router>
-    		<div className="app">
-          <Navigation />
+  		<div className="ViewEntries">
 
-    			<ColorCodesContext.Provider value={colorCodes.codes}>
-  			  	<UtilityBar />
-  		  	</ColorCodesContext.Provider>
+        {showForm}
+        <hr />
+        <DisplayEntryList onEdit={this.handleEditClick} />
 
-          <Route exact path="/" component={Landing} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/home" component={ViewEntries} />
-
-  		  </div>
-      </Router>
+		  </div>
   	)
   }
 }
@@ -97,4 +81,4 @@ class App extends Component {
 const EditEntryForm = withFirebase(EditEntry);
 const DisplayEntryList = withFirebase(DisplayEntries);
 
-export default App;
+export default ViewEntries;

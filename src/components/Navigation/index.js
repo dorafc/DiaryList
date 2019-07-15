@@ -7,11 +7,11 @@ function Navigation(){
 	return(
 		<nav>
 			<ul>
-	      <li>
-	        <Link to={ROUTES.SIGNUP}>Sign In</Link>
+				<li>
+	        <Link to={ROUTES.LANDING}>Landing</Link>
 	      </li>
 	      <li>
-	        <Link to={ROUTES.LANDING}>Landing</Link>
+	        <Link to={ROUTES.SIGNIN}>Sign In</Link>
 	      </li>
 	      <li>
 	        <Link to={ROUTES.HOME}>Home</Link>

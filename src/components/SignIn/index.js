@@ -2,9 +2,9 @@ import React from 'react';
 
 function SignIn() {
 	return(
-		<div className="signIn">
-			<a href="#temp">Sign In</a>
-		</div>
+		<h2>
+			Sign In
+		</h2>
 	)
 }
 
