@@ -35,7 +35,6 @@ const colorCodes = {
 			]
 }
 
-
 const ColorCodesContext = React.createContext(null)
 
 export {ColorCodesContext, colorCodes};

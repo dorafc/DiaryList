@@ -17,19 +17,6 @@ class Firebase {
 
     // Firestore Database
     this.db = app.firestore();
-
-    // temporary testing to add a user document
-    // this.db.collection("users").doc('dcaswell').set({
-    //   first: "Dora",
-    //   last: "Caswell",
-    // }, { merge: true })
-    // .then(function() {
-    //     console.log("Document written with ID: ");
-    // })
-    // .catch(function(error) {
-    //     console.error("Error adding document: ", error);
-    // });
-
   }
 }
 
