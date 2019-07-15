@@ -8,7 +8,6 @@ import ViewEntries from '../ViewEntries';
 import Landing from '../Landing';
 import SignIn from '../SignIn';
 import {ColorCodesContext, colorCodes} from '../KeyTheme';
-import { withFirebase } from '../Firebase';
 
 
 class App extends Component {

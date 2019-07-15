@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import EditEntry from '../EditEntry';
 import DisplayEntries from '../DisplayEntries';
 import AddEntry from '../AddEntry';
-import {ColorCodesContext, colorCodes} from '../KeyTheme';
+// import {ColorCodesContext, colorCodes} from '../KeyTheme';
 import { withFirebase } from '../Firebase';
 
 class ViewEntries extends Component {
