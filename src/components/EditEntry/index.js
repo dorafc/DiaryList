@@ -62,9 +62,24 @@ class EditEntry extends Component {
   }
 
   onSubmit(event){
+
+  	// const { date } = this.state
+  	// const currentDate = this.state.date
+
+  	const currentDate = new Date('July 16, 2019 23:00:00')
   	const db = this.props.firebase.db;
-  	const dateDoc = this.state.date.toISOString().slice(0,10);
-  	const day = new Date( this.state.date.getFullYear(), this.state.date.getMonth(), this.state.date.getDate())
+  	
+  	const year = currentDate.getFullYear()
+  	const month = currentDate.getMonth()
+  	const monthplus1 = month + 1
+  	const date = currentDate.getDate()
+  	const zeroPaddedMonth = (monthplus1 < 10) ? '0'+ monthplus1 : monthplus1.toString()
+
+  	const dateDoc = year + "-" + zeroPaddedMonth + "-" + date;
+
+  	// const dateDoc = this.state.date.getFullYear() + "-" + (this.state.gate.getMonth()+1) + "-" + this.state.date.getDate()
+  	const day = new Date( currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())
+  	console.log(year + "-" + zeroPaddedMonth + "-" + date)
 
   	event.preventDefault();
 
@@ -85,7 +100,7 @@ class EditEntry extends Component {
 			longText : this.state.longText,
 			theme : this.state.theme,
 			isFuture : this.state.isFuture,
-			date : this.state.date
+			date : currentDate
   	})
   	.then(() => {
 		    console.log("Note document successfully written!");
