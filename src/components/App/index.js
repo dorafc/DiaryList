@@ -7,7 +7,7 @@ import UtilityBar from '../UtilityBar';
 import ViewEntries from '../ViewEntries';
 import Landing from '../Landing';
 import SignIn from '../SignIn';
-import { withFirebase, FirebaseContext } from '../Firebase';
+import { withFirebase } from '../Firebase';
 import {ColorCodesContext, colorCodes} from '../KeyTheme';
 
 class App extends Component {

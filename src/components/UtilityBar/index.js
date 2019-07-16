@@ -22,7 +22,6 @@ class UtilityBar extends Component {
             // console.log(doc.id, " => ", doc.data());
             themes.push(doc.data())
         });
-      console.log(themes)
     })
     .then(()=>{
     	this.props.setColor(themes)
@@ -49,7 +48,6 @@ class UtilityBar extends Component {
 }
 
 function ShowKey() {
-	console.log('boop')
 	return (
 			<div className="ShowKey">
 				<h3>Key</h3>
