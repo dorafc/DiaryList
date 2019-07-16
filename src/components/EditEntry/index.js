@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import 'firebase/firestore';
 
+import { ColorCodesContext } from '../KeyTheme';
+
 const initialState = {
 	id : '',
 	shortText : '',
@@ -166,18 +168,27 @@ class EditEntry extends Component {
 		return (
 			<div className="EditEntry" id="editForm">
 				<form onSubmit={onSub}>
+
+				
 					<div className="theme">
 						<a href="#closeform" onClick={this.props.close}>Close</a>
+
+						
+
 						<p>Pick Theme</p>
 						<select value={this.state.theme} name="theme" onChange={this.onChange}>
-							<option value="make">Make / Craft</option>
-							<option value="care">Self-Care</option>
-							<option value="media">Media / Arts</option>
-							<option value="community">Community</option>
-							<option value="experience">Experience</option>
-							<option value="learning">Learning</option>
+							<ColorCodesContext.Consumer>
+								{codes => (
+										codes.map((code, i) => 
+											<option value={code.name} key={i}>{code.text}</option>
+										)
+									)
+								}
+							</ColorCodesContext.Consumer>
 						</select>
 					</div>
+					
+
 					<div className="shortText">
 						<input type="text" name="shortText" value={this.state.shortText} onChange={this.onChange} />
 					</div>

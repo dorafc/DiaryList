@@ -38,9 +38,6 @@ class Day extends Component {
 			console.log("Error getting notes documents: ", error);
 		})
 
-		// listen for changes, doesn't work quite right yet
-		// if (this.props.label === 'Today'){
-
 			userDb.onSnapshot((notes) => {
 				let newData = []
 				notes.forEach((note) => {
@@ -52,8 +49,10 @@ class Day extends Component {
 				this.setState({
 					notes : newData
 				})
+
+				// var source = notes.metadata.fromCache ? "local cache" : "server";
+    		// console.log("Data came from " + source);
 			})
-		// }
 
 	}
 
