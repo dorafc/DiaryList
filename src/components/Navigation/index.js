@@ -6,7 +6,7 @@ import * as styles from '../../constants/styles.js';
 
 import * as ROUTES from '../../constants/routes';
 
-function Navigation(){
+function Navigation(props){
 	return(
 		<Nav>
 			<NavList>
@@ -17,7 +17,7 @@ function Navigation(){
 	        <Link to={ROUTES.SIGNIN}>Sign In</Link>
 	      </NavListItem>
 	      <NavListItem>
-	        <Link to={ROUTES.HOME}>Home</Link>
+	        <a href="#showKey" onClick={(e)=>props.setKey(e,true)}>Key</a>
 	      </NavListItem>
 	    </NavList>
 		</Nav>

@@ -9,14 +9,17 @@ import Landing from '../Landing';
 import SignIn from '../SignIn';
 import { withFirebase } from '../Firebase';
 import {ColorCodesContext, colorCodes} from '../KeyTheme';
+import ShowKey from '../ShowKey';
 
 class App extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
-      colorCodes : colorCodes.codes
+      colorCodes : colorCodes.codes,
+      keyVisible : false,
     }
     this.setColorCodes = this.setColorCodes.bind(this)
+    this.showKey = this.showKey.bind(this)
   }
 
   setColorCodes(color) {
@@ -25,13 +28,23 @@ class App extends Component {
     })
   }
 
+  showKey(e, isVis){
+    e.preventDefault()
+		this.setState({
+			keyVisible : isVis
+		})
+	}
+
   render(){
+    const key = (this.state.keyVisible) ? <ShowKey setKey={this.showKey} /> : ''
+
   	return (
       <Router>
     		<div className="app">
 
     			<ColorCodesContext.Provider value={this.state.colorCodes}>
-  			  	<UtilityBarData setColor={this.setColorCodes} />
+  			  	<UtilityBarData setColor={this.setColorCodes} setKey={this.showKey} />
+            {key}
   		  	</ColorCodesContext.Provider>
 
           <Route exact path={ROUTES.LANDING} component={Landing} />

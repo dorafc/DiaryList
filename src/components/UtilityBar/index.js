@@ -1,16 +1,22 @@
 import React, {Component} from 'react';
 import Navigation from '../Navigation';
-import { Route } from "react-router-dom";
+
+// import { Route } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import styled, { css } from 'styled-components'
 import * as styles from '../../constants/styles.js';
 
 import * as ROUTES from '../../constants/routes';
 
-import { ColorCodesContext } from '../KeyTheme';
-
-
 class UtilityBar extends Component {
+
+	constructor(props) {
+		super(props);
+    this.state = {
+			keyVisible : false,
+		}
+	}
 
 	componentDidMount(){
     const db = this.props.firebase.db;
@@ -39,32 +45,17 @@ class UtilityBar extends Component {
   }
 
 	render(){
+		
 		return(
 			<Masthead>
-				<Title>Lifey McLifeface</Title>
-				<Navigation />
-				<Route path={ROUTES.HOME} component={ShowKey} />
+				<Title><Link to={ROUTES.HOME}>Lifey McLifeface</Link></Title>
+				<Navigation setKey={this.props.setKey} />
 			</Masthead>
 		)
 	}
 }
 
-function ShowKey() {
-	return (
-			<Key>
-				<h3>Key</h3>
-				<ul>
-					<ColorCodesContext.Consumer>
-					{ codes => (
-						codes.map((code, i) => (
-							<li style={{color: code.color}} key={i}>{code.text}</li>
-						))
-					)}
-					</ColorCodesContext.Consumer>
-				</ul>
-			</Key>
-	)
-}
+
 
 // style components
 const Masthead = styled.div`
@@ -80,6 +71,28 @@ const Masthead = styled.div`
 	align-items: middle;
 
   margin-bottom: 10px;
+
+	a{
+		color: white;
+		text-decoration: none;
+	}
+
+	a:hover{
+		${'' /* color: rgba(255,255,255,.8); */}
+	}
+
+	a::after{
+		display: block;
+		content: '';
+		background-color: rgba(255,255,255,.6);
+		height: 2px;
+		width: 0%;
+    transition:width .5s ease-out;
+	}
+
+	a:hover::after{
+		width: 100%;
+	}
 `
 const Title = styled.h1`
 	font-weight: 400;
@@ -87,10 +100,5 @@ const Title = styled.h1`
 	line-height: 1em;
 	margin: 0;
 `
-
-const Key = styled.div`
-	display: none;
-`
-
 
 export default UtilityBar;
