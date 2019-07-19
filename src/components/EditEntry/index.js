@@ -66,9 +66,9 @@ class EditEntry extends Component {
   onSubmit(event){
 
   	// const { date } = this.state
-  	// const currentDate = this.state.date
+  	const currentDate = this.state.date
 
-  	const currentDate = new Date('July 16, 2019 23:00:00')
+  	// const currentDate = new Date('July 16, 2019 23:00:00')
   	const db = this.props.firebase.db;
   	
   	const year = currentDate.getFullYear()
