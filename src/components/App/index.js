@@ -25,29 +25,6 @@ class App extends Component {
     })
   }
 
-  // componentDidMount(){
-  //   const db = this.props.firebase.db;
-  //   const docRef = db.collection('users').doc('dcaswell').collection('themes')
-
-  //   let themes=[]
-
-  //   docRef.get()
-  //   .then((entry) => {
-  //     entry.forEach(function(doc) {
-  //           // doc.data() is never undefined for query doc snapshots
-  //           // console.log(doc.id, " => ", doc.data());
-  //           themes.push(doc.data())
-  //       });
-  //   })
-  //   .catch(function(error) {
-  //     console.log("Error getting document:", error);
-  //   })
-
-  //   this.setState({
-  //     colorCodes : themes
-  //   })
-  // }
-
   render(){
   	return (
       <Router>

@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import Navigation from '../Navigation';
 import { Route } from "react-router-dom";
 
+import styled, { css } from 'styled-components'
+import * as styles from '../../constants/styles.js';
+
 import * as ROUTES from '../../constants/routes';
 
 import { ColorCodesContext } from '../KeyTheme';
@@ -37,19 +40,18 @@ class UtilityBar extends Component {
 
 	render(){
 		return(
-			<div className="UtilityBar">
-				<h1>Lifey McLifeface</h1>
+			<Masthead>
+				<Title>Lifey McLifeface</Title>
 				<Navigation />
 				<Route path={ROUTES.HOME} component={ShowKey} />
-				<hr />
-			</div>
+			</Masthead>
 		)
 	}
 }
 
 function ShowKey() {
 	return (
-			<div className="ShowKey">
+			<Key>
 				<h3>Key</h3>
 				<ul>
 					<ColorCodesContext.Consumer>
@@ -60,8 +62,35 @@ function ShowKey() {
 					)}
 					</ColorCodesContext.Consumer>
 				</ul>
-			</div>
+			</Key>
 	)
 }
+
+// style components
+const Masthead = styled.div`
+	background-color: ${styles.green};
+	color: #fff;
+	padding: 12px;
+	font-weight: 400;
+  box-shadow: 0 1px 2px #bbb;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: middle;
+
+  margin-bottom: 10px;
+`
+const Title = styled.h1`
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 1em;
+	margin: 0;
+`
+
+const Key = styled.div`
+	display: none;
+`
+
 
 export default UtilityBar;
