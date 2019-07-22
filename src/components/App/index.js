@@ -43,20 +43,22 @@ class App extends Component {
 
   	return (
       <Router>
-    		<div className="app">
+    		<AppWrap>
 
     			<ColorCodesContext.Provider value={this.state.colorCodes}>
   			  	<UtilityBarData setColor={this.setColorCodes} setKey={this.showKey} />
             {key}
   		  	</ColorCodesContext.Provider>
 
-          <Route exact path={ROUTES.LANDING} component={Landing} />
-          <Route path={ROUTES.SIGNIN} component={SignIn} />
-          <ColorCodesContext.Provider value={this.state.colorCodes}>
-            <Route path={ROUTES.HOME} component={ViewEntries}/>
-          </ColorCodesContext.Provider>
+          <Content>
+            <Route exact path={ROUTES.LANDING} component={Landing} />
+            <Route path={ROUTES.SIGNIN} component={SignIn} />
+            <ColorCodesContext.Provider value={this.state.colorCodes}>
+              <Route path={ROUTES.HOME} component={ViewEntries}/>
+            </ColorCodesContext.Provider>
+          </Content>
 
-  		  </div>
+  		  </AppWrap>
       </Router>
   	)
   }
@@ -70,6 +72,16 @@ const Key = styled.div`
   width: 30%;
   right: 0;
   top: 46px;
+`
+
+const AppWrap = styled.div`
+  ${'' /* background-color: pink; */}
+`
+
+const Content = styled.div`
+  padding: 75px 20px 0 20px;
+  min-height: 100vh;
+  background-color: ${styles.pale};
 `
 
 export default App;

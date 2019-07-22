@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+import styled, { css } from 'styled-components'
+import * as styles from '../../constants/styles.js';
+
 import Entry from '../Entry'
 
 class Day extends Component {
@@ -73,24 +76,43 @@ class Day extends Component {
 		})
 
 		return (
-			<div className="day">
+			<DayView>
 				<DateHeader date={this.props.label} />
-				<ul>{entryList}</ul>
-				<hr />
-			</div>
+				<EntryList>{entryList}</EntryList>
+			</DayView>
 		)
 	}
 }
 
 function DateHeader(props) {
-	return <h2 className="dateHeader">{props.date}</h2>
+	return <DateTitle>{props.date}</DateTitle>
 }
 
-// function AddEntry(){
-// 	return(
-// 		<a className="AddEntry" href="#test">+</a>
-// 	)
-// }
+// Styles
 
+const DayView = styled.div`
+	background-color: white;
+	${'' /* padding:  10px; */}
+	margin: 0 0 14px 0;
+	padding: 0 0 10px 0;
+	border-radius: 4px;
+	box-shadow: 0 3px 3px -4px gray;
+`
+
+const DateTitle = styled.h2`
+	color: ${styles.green};
+	margin: 0;
+	${'' /* letter-spacing: 1px; */}
+	border-bottom: solid 1px ${styles.green};
+	padding: 10px;
+	font-size: 14px;
+	text-transform: uppercase;
+`
+
+const EntryList = styled.ul`
+	margin: 10px;
+	padding: 0;
+	list-style: none;
+`
 
 export default Day;
