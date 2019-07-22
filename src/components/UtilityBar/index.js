@@ -71,6 +71,8 @@ const Masthead = styled.div`
 	align-items: middle;
 
   margin-bottom: 10px;
+	position: fixed;
+	width: 100%;
 
 	a{
 		color: white;

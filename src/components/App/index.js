@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
+import styled, { css } from 'styled-components'
+import * as styles from '../../constants/styles.js';
+
 import * as ROUTES from '../../constants/routes';
 
 import UtilityBar from '../UtilityBar';
@@ -36,7 +39,7 @@ class App extends Component {
 	}
 
   render(){
-    const key = (this.state.keyVisible) ? <ShowKey setKey={this.showKey} /> : ''
+    const key = (this.state.keyVisible) ? <Key><ShowKey setKey={this.showKey} /></Key> : ''
 
   	return (
       <Router>
@@ -58,6 +61,15 @@ class App extends Component {
   	)
   }
 }
-
+// components with data
 const UtilityBarData = withFirebase(UtilityBar)
+
+// styled components
+const Key = styled.div`
+  position: fixed;
+  width: 30%;
+  right: 0;
+  top: 46px;
+`
+
 export default App;

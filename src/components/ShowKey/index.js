@@ -10,8 +10,8 @@ function ShowKey(props) {
 	return (
 			<Key>
 				<Close closeThis={props.setKey} />
-				<Title>Key to Colors</Title>
-				<ul>
+				<Title>Guide to Colors</Title>
+				<ColorList>
 					<ColorCodesContext.Consumer>
 					{ codes => (
 						codes.map((code, i) => (
@@ -19,18 +19,37 @@ function ShowKey(props) {
 						))
 					)}
 					</ColorCodesContext.Consumer>
-				</ul>
-				<hr />
+				</ColorList>
 			</Key>
 	)
 }
 
 const Key = styled.div`
-	${'' /* display: none; */}
+	${'' /* border: solid 1px grey; */}
+	border-bottom-left-radius: 9px;
+	border-bottom-right-radius: 9px;
+	box-shadow: 0 1px 2px lightgrey;
+	padding: 8px;
+	margin-bottom: 10px;
+	position: relative;
+	background-color: white;
+
+	.close{
+		position: absolute;
+		right: 8px;
+	}
 `
 
 const Title = styled.h3`
-	color: hotpink;
+	font-weight: ${styles.normal};
+	margin: 0 0 10px 0;
+	font-size: 14px;
+`
+const ColorList = styled.ul`
+	list-style: none;
+	${'' /* margin: 0; */}
+	padding: 0;
+	font-size: 14px;
 `
 
 export default ShowKey;

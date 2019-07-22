@@ -5,7 +5,7 @@ import * as styles from '../../constants/styles.js';
 
 function Close(props) {
   return(
-    <CloseLink href="#close" onClick={(e)=>props.closeThis(e,false)} className="material-icons">
+    <CloseLink href="#close" onClick={(e)=>props.closeThis(e,false)} className="material-icons close">
       close
     </CloseLink>
   )
