@@ -85,7 +85,8 @@ class Day extends Component {
 }
 
 function DateHeader(props) {
-	return <DateTitle>{props.date}</DateTitle>
+	const dateHeadStyle = (props.date === 'Today' || props.date === 'Yesterday') ? props.date : ''
+	return <DateTitle bgDate={dateHeadStyle}>{props.date}</DateTitle>
 }
 
 // Styles
@@ -101,10 +102,17 @@ const DayView = styled.div`
 const DateTitle = styled.h2`
 	color: ${styles.green};
 	margin: 0;
-	border-bottom: solid 1px ${styles.green};
+	${'' /* border-bottom: solid 1px ${styles.green}; */}
 	padding: 10px;
 	font-size: 14px;
 	text-transform: uppercase;
+	${props => (props.bgDate ==='Today') && css`
+    background: ${styles.lightGreen};
+    color: white;
+  `}
+	${props => (props.bgDate ==='Yesterday') && css`
+    background: ${styles.paleGreen};
+  `}
 `
 
 const EntryList = styled.ul`

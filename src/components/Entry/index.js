@@ -23,10 +23,10 @@ class Entry extends Component{
 					return codes.map((code,i) => {
 						if (this.props.theme === code.name){
 							return (
-								<EntryFunTimes className={"entry "+this.props.theme+" "+this.props.future} key={i} bgColor={code.color}>
+								<EntryView className={"entry "+this.props.theme+" "+this.props.future} key={i} bgColor={code.color}>
 									{this.props.shortText}
 									<Edit onEdit={this.props.onEdit} id={this.props.id} day={this.props.day}/>
-								</EntryFunTimes>
+								</EntryView>
 							)
 						}
 						
@@ -53,7 +53,7 @@ function Edit(props){
 	)
 }
 
-const EntryFunTimes = styled.li`
+const EntryView = styled.li`
 	background-color: ${props => props.bgColor};
 	color: #3f3f3f;
 	margin: 0 10px 10px 0;

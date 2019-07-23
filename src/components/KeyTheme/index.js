@@ -3,32 +3,32 @@ import React from 'react';
 const colorCodes = {
 	codes : [
 				{
-					theme : 'make',
+					name : 'make',
 					text : 'Make / Craft',
 					color : 'teal'
 				},
 				{
-					theme : 'care',
+					name : 'care',
 					text : 'Self Care',
 					color : 'gray'
 				},
 				{
-					theme : 'media',
+					name : 'media',
 					text : 'Media / Arts',
 					color : 'hotpink'
 				},
 				{
-					theme : 'community',
+					name : 'community',
 					text : 'Community',
 					color : 'limegreen'
 				},
 				{
-					theme : 'experience',
+					name : 'experience',
 					text : 'Experience',
 					color : 'orange'
 				},
 				{
-					theme : 'learning',
+					name : 'learning',
 					text : 'Learning',
 					color : 'mediumvioletred'
 				}
