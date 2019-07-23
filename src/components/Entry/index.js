@@ -62,6 +62,7 @@ const EntryFunTimes = styled.li`
 	display: flex;
 	transition: .3s all ease-out;
 	position: relative;
+	z-index: 1;
 
 	:hover a.edit{
 		opacity: 1;

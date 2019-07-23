@@ -64,6 +64,7 @@ const Masthead = styled.div`
 	padding: 12px;
 	font-weight: 400;
   box-shadow: 0 1px 2px #bbb;
+	z-index: 2;
 
 	display: flex;
 	flex-direction: row;

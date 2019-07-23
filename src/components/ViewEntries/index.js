@@ -69,7 +69,6 @@ class ViewEntries extends Component {
   		<div className="ViewEntries">
 
         {showForm}
-        <hr />
         <DisplayEntryList onEdit={this.handleEditClick} />
 
 		  </div>
