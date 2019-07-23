@@ -92,7 +92,6 @@ function DateHeader(props) {
 
 const DayView = styled.div`
 	background-color: white;
-	${'' /* padding:  10px; */}
 	margin: 0 0 14px 0;
 	padding: 0 0 10px 0;
 	border-radius: 4px;
@@ -102,7 +101,6 @@ const DayView = styled.div`
 const DateTitle = styled.h2`
 	color: ${styles.green};
 	margin: 0;
-	${'' /* letter-spacing: 1px; */}
 	border-bottom: solid 1px ${styles.green};
 	padding: 10px;
 	font-size: 14px;
@@ -113,6 +111,9 @@ const EntryList = styled.ul`
 	margin: 10px;
 	padding: 0;
 	list-style: none;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 `
 
 export default Day;
