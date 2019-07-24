@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import styled, { css } from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import * as styles from '../../constants/styles.js';
 
 import * as ROUTES from '../../constants/routes';
@@ -77,11 +77,20 @@ const Key = styled.div`
 const AppWrap = styled.div`
   ${'' /* background-color: pink; */}
 `
+const rainbowKeyframes =  keyframes` 
+  0%{background-position:0% 82%}
+  50%{background-position:100% 19%}
+  100%{background-position:0% 82%}
+`
 
 const Content = styled.div`
   padding: 75px 20px 0 20px;
   min-height: 100vh;
-  background-color: ${styles.pale};
+  ${'' /* background-color: ${styles.pale}; */}
+  background: linear-gradient(90deg, #fceae8, #ffebeb, #fff9e8, #ffffeb, #edfff0, #e8feff, #eeedff, #fdedff, #fdebff);
+  background-size: 1800% 1800%;
+  animation: ${rainbowKeyframes} 30s ease infinite;
+
 `
 
 export default App;
