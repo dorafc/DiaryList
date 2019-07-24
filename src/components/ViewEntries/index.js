@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+import styled, { css } from 'styled-components'
+import * as styles from '../../constants/styles.js';
+
 import EditEntry from '../EditEntry';
 import DisplayEntries from '../DisplayEntries';
 import AddEntry from '../AddEntry';
@@ -62,7 +65,7 @@ class ViewEntries extends Component {
         close={this.closeForm}
       />
   	} else {
-  		showForm = <AddEntry onClick={this.handleAddEntry} />
+  		showForm = <ShowAddArea><AddEntry onClick={this.handleAddEntry} /></ShowAddArea>
   	}
 
   	return (
@@ -75,6 +78,13 @@ class ViewEntries extends Component {
   	)
   }
 }
+
+// styled components
+const ShowAddArea = styled.div`
+  margin: 10px 0 40px 0;
+  display: flex;
+  justify-content: space-around;
+`
 
 // higher order components with Firebase
 const EditEntryForm = withFirebase(EditEntry);

@@ -76,7 +76,7 @@ class Day extends Component {
 		})
 
 		return (
-			<DayView>
+			<DayView day={this.props.label}>
 				<DateHeader date={this.props.label} />
 				<EntryList>{entryList}</EntryList>
 			</DayView>
@@ -97,6 +97,9 @@ const DayView = styled.div`
 	padding: 0 0 10px 0;
 	border-radius: 4px;
 	box-shadow: 0 3px 3px -4px gray;
+	${props => (props.day ==='Today') && css`
+    ${'' /* border: solid 1px ${styles.lightGreen}; */}
+  `}
 `
 
 const DateTitle = styled.h2`
