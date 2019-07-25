@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import 'firebase/firestore';
+import Close from '../Close';
+
+import styled, { css, keyframes } from 'styled-components'
+import * as styles from '../../constants/styles.js';
 
 import { ColorCodesContext } from '../KeyTheme';
 
@@ -162,21 +166,18 @@ class EditEntry extends Component {
 		// editing or writing
 		const isEdit = (this.props.id !== '')
 		const onSub = (!isEdit) ? this.onSubmit : (e) => {this.onEditSubmit(e, this.props.day, this.props.id)}
-		const buttonText = (!isEdit) ? 'Add Note' : 'Edit Note'
+		const buttonText = (!isEdit) ? 'Add Note' : 'Save Note'
 		const showDelete = (!isEdit) ? '' : <a href="#delete" onClick={(e) => {this.onDelete(e, this.props.day, this.props.id)}}>Delete</a>
 
 		return (
-			<div className="EditEntry" id="editForm">
-				<form onSubmit={onSub}>
-
+			<EditEntryContainer id="editForm">
+				<EditForm onSubmit={onSub}>
+					<Close closeThis={this.props.close} />
+					<FormGreeting>Hello, World!</FormGreeting>
 				
-					<div className="theme">
-						<a href="#closeform" onClick={this.props.close}>Close</a>
-
-						
-
+					<Theme>
 						<p>Pick Theme</p>
-						<select value={this.state.theme} name="theme" onChange={this.onChange}>
+						<Select value={this.state.theme} name="theme" onChange={this.onChange}>
 							<ColorCodesContext.Consumer>
 								{codes => (
 										codes.map((code, i) => 
@@ -185,13 +186,13 @@ class EditEntry extends Component {
 									)
 								}
 							</ColorCodesContext.Consumer>
-						</select>
-					</div>
+						</Select>
+					</Theme>
 					
 
-					<div className="shortText">
-						<input type="text" name="shortText" value={this.state.shortText} onChange={this.onChange} />
-					</div>
+					<ShortText type="text" name="shortText" value={this.state.shortText} onChange={this.onChange} />
+					
+
 					<div className="longText">
 						<textarea name="longText" value={this.state.longText} onChange={this.onChange} />
 					</div>
@@ -201,13 +202,120 @@ class EditEntry extends Component {
 							For Later?
 						</label>
 					</div>
-					<button type="submit" >{buttonText}</button>
+					<SubmitBtn type="submit" >{buttonText}</SubmitBtn>
 					{showDelete}
-				</form>
-			</div>
+				</EditForm>
+			</EditEntryContainer>
 		)
 	}
 }
+
+// styles
+
+const fadeColor =  keyframes` 
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+`
+const raiseForm = keyframes`
+	0%{bottom: -100%}
+	100%{bottom: 0}
+`
+
+const EditEntryContainer = styled.div`
+	background-color: rgba(0,0,0,.7);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 5;
+	animation: ${fadeColor} .3s ease;
+`
+
+const EditForm = styled.form`
+	background-color: ${styles.pale};
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	padding: 20px 60px;
+	animation: ${raiseForm} .35s ease-in;
+	color: ${styles.green};
+
+	.close{
+		float: right;
+	}
+`
+
+const Theme = styled.div`
+	margin: 10px 0;
+	p{
+		margin: 0;
+	}
+`
+
+const Select = styled.select`
+	display: block;
+	background-color: white;
+	width: 200px;
+	padding: 7px;
+	font-size: 16px;
+	font-weight: ${styles.normal};
+	font-weight: ${styles.bold};
+	color: ${styles.green};
+	box-sizing: border-box;
+	appearance: none;
+	border: solid 2px ${styles.green};
+	border-radius: 8px;
+	box-shadow: 2px 2px ${styles.lightGreen};
+
+	::after{
+		content: '';
+		display: block;
+		height: 10px;
+		width: 10px;
+		background-color: red;
+	}
+`
+
+const FormGreeting = styled.h3`
+	color: ${styles.green};
+`
+
+const SubmitBtn = styled.button`
+	background-color: ${styles.green};
+	padding: 10px 20px;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-weight: ${styles.bold};
+	box-shadow: 4px 4px ${styles.lightGreen};
+	margin: 10px 0;
+	transition: all .3s ease-in-out;
+
+	:hover{
+		border-radius: 0;
+		box-shadow: -4px -4px ${styles.lightGreen};
+	}
+
+	:active{
+		border-radius: 0;
+		box-shadow: -4px -4px ${styles.lightGreen};
+		transform: translate(2px, 2px);
+	}
+
+	:focus{
+		outline: none;
+	}
+`
+
+const ShortText = styled.input`
+	border: solid 2px ${styles.green};
+	width: 400px;
+	padding: 5px;
+	border-radius: 8px;
+	margin: 10px 0;
+	color: ${styles.green}
+`
 
 // LOOK AT LATER
 

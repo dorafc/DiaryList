@@ -31,6 +31,7 @@ const AddButton = styled.button `
 		box-shadow: none;
 		box-shadow: -4px -4px ${styles.lightGreen};
 		outline: none;
+		transform: translate(4px, 4px);
 	}
 
 	:focus{
