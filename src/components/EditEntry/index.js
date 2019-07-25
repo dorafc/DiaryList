@@ -167,7 +167,7 @@ class EditEntry extends Component {
 		const isEdit = (this.props.id !== '')
 		const onSub = (!isEdit) ? this.onSubmit : (e) => {this.onEditSubmit(e, this.props.day, this.props.id)}
 		const buttonText = (!isEdit) ? 'Add Note' : 'Save Note'
-		const showDelete = (!isEdit) ? '' : <a href="#delete" onClick={(e) => {this.onDelete(e, this.props.day, this.props.id)}}>Delete</a>
+		const showDelete = (!isEdit) ? '' : <DeleteBtn href="#delete" onClick={(e) => {this.onDelete(e, this.props.day, this.props.id)}}>Delete</DeleteBtn>
 
 		return (
 			<EditEntryContainer id="editForm">
@@ -189,12 +189,13 @@ class EditEntry extends Component {
 						</Select>
 					</Theme>
 					
-
+					<Label for="shortText">Whats up?</Label>
 					<ShortText type="text" name="shortText" value={this.state.shortText} onChange={this.onChange} />
 					
 
 					<div className="longText">
-						<textarea name="longText" value={this.state.longText} onChange={this.onChange} />
+						<Label for="longText">More details?</Label>
+						<LongText name="longText" value={this.state.longText} onChange={this.onChange} />
 					</div>
 					<div className="isFuture">
 						<label> 
@@ -313,17 +314,32 @@ const ShortText = styled.input`
 	width: 400px;
 	padding: 5px;
 	border-radius: 8px;
-	margin: 10px 0;
-	color: ${styles.green}
+	margin: 2px 0 10px 0;
+	color: ${styles.green};
 `
 
-// LOOK AT LATER
+const LongText = styled.textarea`
+	border: solid 2px ${styles.green};
+	min-width: 400px;
+	min-height: 150px;
+	padding: 5px;
+	border-radius: 8px;
+	margin: 2px 0 10px 0;
+	resize: none;
+`	
+const Label = styled.label`
+	display: block;
+`
 
-// function Delete(){
-// 	return(
-// 		<div className="Delete">
-// 			<a href="#delete">Delete</a>
-// 		</div>
-// 	)
-// }
+const DeleteBtn = styled.a`
+	display: inline-block;
+	font-weight: ${styles.bold};
+	margin-left: 10px;
+	color: ${styles.green};
+	transition: all .2s ease-in-out;
+	:hover{
+		transform: translate(2px, 2px);
+	}
+`
+
 export default EditEntry;
