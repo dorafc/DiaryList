@@ -16,6 +16,7 @@ class Entry extends Component{
 
 	render(){
 		const future = (this.props.isFuture) ? 'isFuture' : ''
+		const done = (this.props.isFuture) ? <Done /> : ''
 		
 		return(
 			<ColorCodesContext.Consumer>
@@ -23,9 +24,13 @@ class Entry extends Component{
 					return codes.map((code,i) => {
 						if (this.props.theme === code.name){
 							return (
-								<EntryView className={"entry "+this.props.theme+" "+this.props.future} key={i} bgColor={code.color}>
+								<EntryView className={"entry "+this.props.theme+" "+future} key={i} bgColor={code.color} isFuture={this.props.isFuture}>
+									
 									{this.props.shortText}
-									<Edit onEdit={this.props.onEdit} id={this.props.id} day={this.props.day}/>
+									<Editors className="editors">
+										{done}
+										<Edit onEdit={this.props.onEdit} id={this.props.id} day={this.props.day}/>
+									</Editors>
 								</EntryView>
 							)
 						}
@@ -38,18 +43,15 @@ class Entry extends Component{
 	
 }
 
-// function EntryContent(props){
-// 	return (
-// 		<EntryItem className={"entry "+props.theme+" "+props.future}>
-// 			{props.shortText}
-// 			<a href="#editentry" onClick={(e) => props.onEdit(e, props.id, props.day)}>Edit</a>
-// 		</EntryItem>
-// 	)
-// }
-
 function Edit(props){
 	return(
 		<EditButton href="#editentry" onClick={(e) => props.onEdit(e, props.id, props.day)} className="material-icons edit">edit</EditButton>
+	)
+}
+
+function Done(props){
+	return(
+		<DoneButton href="#complete" onClick={(e) => e.preventDefault()} className="material-icons done">done</DoneButton>
 	)
 }
 
@@ -63,26 +65,48 @@ const EntryView = styled.li`
 	transition: .3s all ease-out;
 	position: relative;
 	z-index: 1;
+	height: 32px;
+	${props => (props.isFuture) && css`
+		box-sizing: border-box;
+    background-color: white;
+		border: solid 2px ${props => props.bgColor};
+  `}
 
-	:hover a.edit{
+	:hover .editors{
 		opacity: 1;
 	}
 
 	:hover{
 		padding: 7px 30px 7px 10px;
 	}
+	${props => (props.isFuture) && css`
+		:hover{
+			padding: 7px 50px 7px 10px;
+		}
+  `}
 `
 
 const EditButton = styled.a`
-	display: block;
-	position: absolute;
-	right: 7px;
-
 	margin-left: 3px;
 	color: #4f4f4f;
 	text-decoration: none;
 	font-size: 16px;
 	line-height: 1em;
+	transition: .3s all ease-in-out;
+`
+
+const DoneButton = styled.a`
+	margin-left: 3px;
+	color: #4f4f4f;
+	text-decoration: none;
+	font-size: 16px;
+	line-height: 1em;
+	transition: .3s all ease-in-out;
+`
+
+const Editors = styled.div`
+	position: absolute;
+	right: 7px;
 	opacity: 0;
 	transition: .3s all ease-in-out;
 `
