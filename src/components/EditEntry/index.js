@@ -189,12 +189,12 @@ class EditEntry extends Component {
 						</Select>
 					</Theme>
 					
-					<Label for="shortText">Whats up?</Label>
+					<Label htmlFor="shortText">Whats up?</Label>
 					<ShortText type="text" name="shortText" value={this.state.shortText} onChange={this.onChange} />
 					
 
 					<div className="longText">
-						<Label for="longText">More details?</Label>
+						<Label htmlFor="longText">More details?</Label>
 						<LongText name="longText" value={this.state.longText} onChange={this.onChange} />
 					</div>
 					<div className="isFuture">
