@@ -9,7 +9,8 @@ class Day extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
-    	notes : []
+			notes : [],
+			hasFuture : false
     }
 	}
 
@@ -37,6 +38,13 @@ class Day extends Component {
 				notes : data
 			})
 		})
+		.then(() => {
+			const futureNotes = this.state.notes.slice().filter(note => note.isFuture)
+
+			this.setState({
+				hasFuture : (futureNotes.length >= 1)
+			})
+		})
 		.catch((error) => {
 			console.log("Error getting notes documents: ", error);
 		})
@@ -57,30 +65,51 @@ class Day extends Component {
     		// console.log("Data came from " + source);
 			})
 
+			
 	}
 
+	// componentDidUpdate(){
+	// 	const futureNotes = this.state.notes.slice().filter(note => note.isFuture)
+
+	// 		console.log(futureNotes)
+	// 		this.setState({
+	// 			hasFuture : (futureNotes.length >= 1)
+	// 		})
+	// }
+
 	render(){
+		
 		const entryList = this.state.notes.slice().map((note, i) => {
-			return(
-				<Entry 
-					shortText={note.shortText} 
-					theme={note.theme} 
-					longText={note.longText} 
-					isFuture={note.isFuture}
-					id={note.id}
-					day={note.day}
-					key={"note" + i} 
-					onEdit={this.props.onEdit} 
-				/>
-			)
+			if ((this.props.showAll) || (!this.props.showAll && note.isFuture)) {
+				return(
+					<Entry 
+						shortText={note.shortText} 
+						theme={note.theme} 
+						longText={note.longText} 
+						isFuture={note.isFuture}
+						id={note.id}
+						day={note.day}
+						key={"note" + i} 
+						onEdit={this.props.onEdit} 
+					/>
+				)
+			}
+			else {
+				return '';
+			}
+			
 		})
 
-		return (
-			<DayView day={this.props.label}>
-				<DateHeader date={this.props.label} />
-				<EntryList>{entryList}</EntryList>
-			</DayView>
-		)
+		if (this.state.hasFuture === true || this.props.showAll === true){
+			return (
+				<DayView day={this.props.label}>
+					<DateHeader date={this.props.label} />
+					<EntryList>{entryList}</EntryList>
+				</DayView>
+			)
+		} else {
+			return '';
+		}
 	}
 }
 

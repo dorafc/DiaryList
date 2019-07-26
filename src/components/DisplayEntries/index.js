@@ -55,13 +55,12 @@ class DisplayEntries extends Component {
 			}
 
 			return(
-				<DayData day={date} key={date} label={label} onEdit={this.props.onEdit}/>
+				<DayData day={date} key={date} label={label} onEdit={this.props.onEdit} showAll={this.props.showAll} />
 			)
 		})
 
 		let emptyToday = ''
 		if (this.state.dateEntries[0] !== today && this.state.dateEntries[0] !== undefined) {
-			console.log(this.state.dateEntries[0])
 			emptyToday = <DayData day={today} key={today} label='Today' onEdit={this.props.onEdit}/>
 		}
 

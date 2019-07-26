@@ -47,9 +47,17 @@ class EditEntry extends Component {
   			id : this.props.id, 
   			shortText : entry.data().shortText,
   			longText : entry.data().longText,
-  			theme : entry.data().theme
+				theme : entry.data().theme,
+				isFuture : entry.data().isFuture
   		})
-  	})
+		})
+		.then(() => {
+			if (this.props.completed) {
+				this.setState({
+					isFuture : false
+				})
+			}
+		})
   	.catch(function(error) {
 		  console.log("Error getting document:", error);
 		})
@@ -58,7 +66,7 @@ class EditEntry extends Component {
   componentDidMount(){
   	if (this.props.id !== ''){
   		this.getData()
-  	}
+		}
   }
 
   componentDidUpdate(prevProps){
@@ -129,7 +137,8 @@ class EditEntry extends Component {
 		    shortText : this.state.shortText,
 		    longText : this.state.longText,
 		    isFuture : this.state.isFuture,
-		    theme : this.state.theme
+				theme : this.state.theme,
+				isFuture : this.state.isFuture
 		})
 		.then(() => {
 		    console.log("Entry successfully updated!");
@@ -168,12 +177,13 @@ class EditEntry extends Component {
 		const onSub = (!isEdit) ? this.onSubmit : (e) => {this.onEditSubmit(e, this.props.day, this.props.id)}
 		const buttonText = (!isEdit) ? 'Add Note' : 'Save Note'
 		const showDelete = (!isEdit) ? '' : <DeleteBtn href="#delete" onClick={(e) => {this.onDelete(e, this.props.day, this.props.id)}}>Delete</DeleteBtn>
+		const greeting = (this.props.completed) ? "You did it! Completed!" : "Hello, World!"
 
 		return (
 			<EditEntryContainer id="editForm">
 				<EditForm onSubmit={onSub}>
 					<Close closeThis={this.props.close} />
-					<FormGreeting>Hello, World!</FormGreeting>
+					<FormGreeting>{greeting}</FormGreeting>
 				
 					<Theme>
 						<p>Pick Theme</p>
@@ -199,7 +209,7 @@ class EditEntry extends Component {
 					</div>
 					<div className="isFuture">
 						<label> 
-							<input type="checkbox" name="isFuture" value={this.state.isFuture} onChange={this.onChange} />	
+							<input type="checkbox" name="isFuture" checked={this.state.isFuture} onChange={this.onChange} />	
 							For Later?
 						</label>
 					</div>

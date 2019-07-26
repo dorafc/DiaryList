@@ -16,7 +16,7 @@ class Entry extends Component{
 
 	render(){
 		const future = (this.props.isFuture) ? 'isFuture' : ''
-		const done = (this.props.isFuture) ? <Done /> : ''
+		const done = (this.props.isFuture) ? <Done onEdit={this.props.onEdit} id={this.props.id} day={this.props.day} /> : ''
 		
 		return(
 			<ColorCodesContext.Consumer>
@@ -45,13 +45,13 @@ class Entry extends Component{
 
 function Edit(props){
 	return(
-		<EditButton href="#editentry" onClick={(e) => props.onEdit(e, props.id, props.day)} className="material-icons edit">edit</EditButton>
+		<EditButton href="#editentry" onClick={(e) => props.onEdit(e, props.id, props.day, false)} className="material-icons edit">edit</EditButton>
 	)
 }
 
 function Done(props){
 	return(
-		<DoneButton href="#complete" onClick={(e) => e.preventDefault()} className="material-icons done">done</DoneButton>
+		<DoneButton href="#complete" onClick={(e) => props.onEdit(e, props.id, props.day, true)} className="material-icons done" >done</DoneButton>
 	)
 }
 
