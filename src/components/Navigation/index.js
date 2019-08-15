@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import SignOutButton from '../SignOut';
 import styled, { css } from 'styled-components'
 import * as styles from '../../constants/styles.js';
 
@@ -16,6 +17,12 @@ function Navigation(props){
 	      <NavListItem>
 	        <Link to={ROUTES.SIGNIN}>Sign In</Link>
 	      </NavListItem>
+		  <NavListItem>
+	        <Link to={ROUTES.SIGNUP}>Sign Up</Link>
+	      </NavListItem>
+		  <NavListItem>
+			  <SignOutButton />
+		  </NavListItem>
 	      <NavListItem>
 	        <a href="#showKey" onClick={(e)=>props.setKey(e,true)}>Key</a>
 	      </NavListItem>

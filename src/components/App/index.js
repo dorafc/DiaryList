@@ -10,6 +10,7 @@ import UtilityBar from '../UtilityBar';
 import ViewEntries from '../ViewEntries';
 import Landing from '../Landing';
 import SignIn from '../SignIn';
+import SignUp from '../SignUp';
 import { withFirebase } from '../Firebase';
 import {ColorCodesContext, colorCodes} from '../KeyTheme';
 import ShowKey from '../ShowKey';
@@ -53,6 +54,7 @@ class App extends Component {
           <Content>
             <Route exact path={ROUTES.LANDING} component={Landing} />
             <Route path={ROUTES.SIGNIN} component={SignIn} />
+            <Route path={ROUTES.SIGNUP} component={SignUp} />
             <ColorCodesContext.Provider value={this.state.colorCodes}>
               <Route path={ROUTES.HOME} component={ViewEntries}/>
             </ColorCodesContext.Provider>
