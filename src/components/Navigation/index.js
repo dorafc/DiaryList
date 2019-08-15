@@ -21,9 +21,9 @@ function NavigationAuth(props){
         <NavListItem>
           <SignOutButton />
         </NavListItem>
-          <NavListItem>
-            <a href="#showKey" onClick={(e)=>props.setKey(e,true)}>Key</a>
-          </NavListItem>
+				<NavListItem>
+					<a href="#showKey" onClick={(e)=>props.setKey(e,true)}>Key</a>
+				</NavListItem>
 	    </NavList>
 		</Nav>
 	)
@@ -34,9 +34,6 @@ function NavigationNonAuth(){
 	return(
 		<Nav>
 			<NavList>
-				<NavListItem>
-	        <Link to={ROUTES.LANDING}>Landing</Link>
-	      </NavListItem>
 	      <NavListItem>
 	        <Link to={ROUTES.SIGNIN}>Sign In</Link>
 	      </NavListItem>

@@ -42,13 +42,14 @@ class UtilityBar extends Component {
     this.setState({
       colorCodes : themes
     })
-  }
+	}
 
 	render(){
-		
+		const homeLink = this.props.authUser ? ROUTES.HOME : ROUTES.LANDING
+
 		return(
 			<Masthead>
-				<Title><Link to={ROUTES.HOME}>Lifey McLifeface</Link></Title>
+				<Title><Link to={homeLink}>Lifey McLifeface</Link></Title>
 				<Navigation setKey={this.props.setKey} authUser={this.props.authUser}/>
 			</Masthead>
 		)
