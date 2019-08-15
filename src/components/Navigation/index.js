@@ -7,7 +7,30 @@ import * as styles from '../../constants/styles.js';
 
 import * as ROUTES from '../../constants/routes';
 
-function Navigation(props){
+const Navigation = ({ authUser, setKey }) => (
+  <div>{authUser ? <NavigationAuth setKey={setKey}/> : <NavigationNonAuth />}</div>
+);
+
+function NavigationAuth(props){
+	return(
+		<Nav>
+			<NavList>
+				<NavListItem>
+	        <Link to={ROUTES.LANDING}>Landing</Link>
+	      </NavListItem>
+        <NavListItem>
+          <SignOutButton />
+        </NavListItem>
+          <NavListItem>
+            <a href="#showKey" onClick={(e)=>props.setKey(e,true)}>Key</a>
+          </NavListItem>
+	    </NavList>
+		</Nav>
+	)
+}
+
+
+function NavigationNonAuth(){
 	return(
 		<Nav>
 			<NavList>
@@ -17,14 +40,8 @@ function Navigation(props){
 	      <NavListItem>
 	        <Link to={ROUTES.SIGNIN}>Sign In</Link>
 	      </NavListItem>
-		  <NavListItem>
+        <NavListItem>
 	        <Link to={ROUTES.SIGNUP}>Sign Up</Link>
-	      </NavListItem>
-		  <NavListItem>
-			  <SignOutButton />
-		  </NavListItem>
-	      <NavListItem>
-	        <a href="#showKey" onClick={(e)=>props.setKey(e,true)}>Key</a>
 	      </NavListItem>
 	    </NavList>
 		</Nav>

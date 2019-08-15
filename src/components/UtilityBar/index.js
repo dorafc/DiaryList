@@ -49,7 +49,7 @@ class UtilityBar extends Component {
 		return(
 			<Masthead>
 				<Title><Link to={ROUTES.HOME}>Lifey McLifeface</Link></Title>
-				<Navigation setKey={this.props.setKey} />
+				<Navigation setKey={this.props.setKey} authUser={this.props.authUser}/>
 			</Masthead>
 		)
 	}

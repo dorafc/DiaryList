@@ -19,8 +19,9 @@ class App extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
-      colorCodes : colorCodes.codes,
-      keyVisible : false,
+      colorCodes : colorCodes.codes,      // default color codes
+      keyVisible : false,                 // key visitbility
+      authUser: null,                     // current auth state
     }
     this.setColorCodes = this.setColorCodes.bind(this)
     this.showKey = this.showKey.bind(this)
@@ -37,7 +38,19 @@ class App extends Component {
 		this.setState({
 			keyVisible : isVis
 		})
-	}
+  }
+  
+  componentDidMount() {
+    this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? this.setState({ authUser })
+        : this.setState({ authUser: null });
+    });
+  }
+
+  componentWillUnmount() {
+    this.listener();
+  }
 
   render(){
     const key = (this.state.keyVisible) ? <Key><ShowKey setKey={this.showKey} /></Key> : ''
@@ -47,7 +60,11 @@ class App extends Component {
     		<AppWrap>
 
     			<ColorCodesContext.Provider value={this.state.colorCodes}>
-  			  	<UtilityBarData setColor={this.setColorCodes} setKey={this.showKey} />
+            <UtilityBarData 
+              setColor={this.setColorCodes} 
+              setKey={this.showKey} 
+              authUser={this.state.authUser}
+            />
             {key}
   		  	</ColorCodesContext.Provider>
 
@@ -95,4 +112,4 @@ const Content = styled.div`
 
 `
 
-export default App;
+export default withFirebase(App);
