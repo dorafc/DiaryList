@@ -42,6 +42,12 @@ class SignInFormBase extends Component {
     event.preventDefault();
   };
 
+  onClick = event => {
+    // let provider = new this.props.firebase.auth.GoogleAuthProvider();
+    this.props.firebase.doSignInWithRedirect()
+    // console.log(this.props.firebase.auth.GoogleAuthProvider())
+  }
+
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -52,27 +58,11 @@ class SignInFormBase extends Component {
     const isInvalid = password === '' || email === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
-
-        {error && <p>{error.message}</p>}
-      </form>
+      <button onClick={this.onClick}>
+        Sign In
+      </button>
+      
+      
     );
   }
 }

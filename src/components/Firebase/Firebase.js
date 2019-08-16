@@ -35,6 +35,8 @@ class Firebase {
 
     // authentication
     this.auth = app.auth();
+    this.provider = new app.auth.GoogleAuthProvider()
+    // this.provider = new app.auth.GoogleAuthProvider();
   }
 
   // *** Auth API ***
@@ -53,6 +55,11 @@ class Firebase {
 
   doPasswordUpdate = password =>
     this.auth.currentUser.updatePassword(password);
+
+  doSignInWithRedirect = () => {
+    
+    this.auth.signInWithRedirect(this.provider)
+  }
 }
 
 export default Firebase;
