@@ -66,22 +66,21 @@ class ViewEntries extends Component {
 
   // toggle showAll
   toggleShowAll(){
-    const nesdkjfhw = !(this.state.showAll)
-    // console.log(nesdkjfhw)
+    const switchAll = !(this.state.showAll)
     this.setState(
-      {showAll : nesdkjfhw}
+      {showAll : switchAll}
     )
   }
 
   render(){
   	let showForm = null
-
   	if (this.state.showEditForm){
   		showForm = <EditEntryForm 
         id={this.state.id}
         day={this.state.day}
         close={this.closeForm}
         completed={this.state.completed}
+        userId={this.props.userId}
       />
   	} else {
   		showForm = <ShowAddArea><AddEntry onClick={this.handleAddEntry} /></ShowAddArea>
@@ -95,7 +94,7 @@ class ViewEntries extends Component {
         <div className="filters">
           <button onClick={this.toggleShowAll}>{showText}</button>
         </div>
-        <DisplayEntryList onEdit={this.handleEditClick} showAll={this.state.showAll} />
+        <DisplayEntryList onEdit={this.handleEditClick} showAll={this.state.showAll} userId={this.props.userId} />
 
 		  </div>
   	)

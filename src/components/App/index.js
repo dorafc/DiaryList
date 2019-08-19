@@ -54,7 +54,15 @@ class App extends Component {
 
   render(){
     const key = (this.state.keyVisible) ? <Key><ShowKey setKey={this.showKey} /></Key> : ''
-
+    const userID = (this.state.authUser !== null) ? this.state.authUser.uid : null
+    let pathHome;
+    if (this.state.authUser !== null){
+      pathHome = <ColorCodesContext.Provider value={this.state.colorCodes}>
+        <Route path={ROUTES.HOME} render={(props) => <ViewEntries userId={userID} />}/>
+      </ColorCodesContext.Provider>
+    } else {
+      pathHome = ''
+    }
   	return (
       <Router>
     		<AppWrap>
@@ -72,9 +80,7 @@ class App extends Component {
             <Route exact path={ROUTES.LANDING} component={Landing} />
             <Route path={ROUTES.SIGNIN} component={SignIn} />
             <Route path={ROUTES.SIGNUP} component={SignUp} />
-            <ColorCodesContext.Provider value={this.state.colorCodes}>
-              <Route path={ROUTES.HOME} component={ViewEntries}/>
-            </ColorCodesContext.Provider>
+            {pathHome}
           </Content>
 
   		  </AppWrap>

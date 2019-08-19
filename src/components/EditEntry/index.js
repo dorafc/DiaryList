@@ -39,7 +39,7 @@ class EditEntry extends Component {
   	const id = this.props.id
 		const day = this.props.day
 		const db = this.props.firebase.db;
-  	const docRef = db.collection('users').doc('dcaswell').collection('dates').doc(day).collection('notes').doc(id)
+  	const docRef = db.collection('users').doc(this.props.userId).collection('dates').doc(day).collection('notes').doc(id)
 
   	docRef.get()
   	.then((entry) => {
@@ -98,7 +98,7 @@ class EditEntry extends Component {
   	event.preventDefault();
 
   	// write date document
-  	db.collection('users').doc('dcaswell').collection('dates').doc(dateDoc).set({
+  	db.collection('users').doc(this.props.userId).collection('dates').doc(dateDoc).set({
   		date : day
   	})
   	.then(() => {
@@ -109,7 +109,7 @@ class EditEntry extends Component {
 		});
 
   	// write note document
-  	db.collection('users').doc('dcaswell').collection('dates').doc(dateDoc).collection('notes').doc().set({
+  	db.collection('users').doc(this.props.userId).collection('dates').doc(dateDoc).collection('notes').doc().set({
   		shortText : this.state.shortText,
 			longText : this.state.longText,
 			theme : this.state.theme,
@@ -131,7 +131,7 @@ class EditEntry extends Component {
   onEditSubmit(event, day, id){
   	event.preventDefault();
   	const db = this.props.firebase.db;
-  	const docRef = db.collection('users').doc('dcaswell').collection('dates').doc(day).collection('notes').doc(id)
+  	const docRef = db.collection('users').doc(this.props.userId).collection('dates').doc(day).collection('notes').doc(id)
 
   	return docRef.update({
 		    shortText : this.state.shortText,
@@ -156,7 +156,7 @@ class EditEntry extends Component {
   onDelete(event, day, id){
   	event.preventDefault();
   	const db = this.props.firebase.db;
-  	const docRef = db.collection('users').doc('dcaswell').collection('dates').doc(day).collection('notes').doc(id)
+  	const docRef = db.collection('users').doc(this.props.userId).collection('dates').doc(day).collection('notes').doc(id)
 
   	docRef.delete()
   	.then(() => {

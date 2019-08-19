@@ -15,8 +15,8 @@ class Day extends Component {
 	}
 
 	componentDidMount(){
-  	const db = this.props.firebase.db;
-		const userDb = db.collection('users').doc('dcaswell').collection('dates').doc(this.props.day).collection("notes").orderBy("date", "asc")
+    const db = this.props.firebase.db;
+		const userDb = db.collection('users').doc(this.props.userId).collection('dates').doc(this.props.day).collection("notes").orderBy("date", "asc")
 
 		// get notes collections
 		userDb.get()

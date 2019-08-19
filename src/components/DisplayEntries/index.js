@@ -12,27 +12,27 @@ class DisplayEntries extends Component {
   }
 
   componentDidMount(){
-  	const db = this.props.firebase.db;
-		const userDb = db.collection('users').doc('dcaswell').collection("dates").orderBy("date", "desc")
+    const db = this.props.firebase.db;
+    const userDb = db.collection('users').doc(this.props.userId).collection("dates").orderBy("date", "desc")
 
-		// get date collections
-		userDb.get()
-		.then((querySnapshot) => {
-			let dates = [];
+    // get date collections
+    userDb.get()
+    .then((querySnapshot) => {
+      let dates = [];
 
-			querySnapshot.forEach((doc) => {
-				dates.push(doc.id)
-			})
-			return dates
-		})
-		.then((data) => {
-			this.setState({
-				dateEntries : data
-			})
-		})
-		.catch((error) => {
-			console.log("Error getting dates documents: ", error);
-		})
+      querySnapshot.forEach((doc) => {
+        dates.push(doc.id)
+      })
+      return dates
+    })
+    .then((data) => {
+      this.setState({
+        dateEntries : data
+      })
+    })
+    .catch((error) => {
+      console.log("Error getting dates documents: ", error);
+    })
   }
 
 	render(){
@@ -55,13 +55,13 @@ class DisplayEntries extends Component {
 			}
 
 			return(
-				<DayData day={date} key={date} label={label} onEdit={this.props.onEdit} showAll={this.props.showAll} />
+				<DayData day={date} key={date} label={label} onEdit={this.props.onEdit} showAll={this.props.showAll} userId={this.props.userId} />
 			)
 		})
 
 		let emptyToday = ''
 		if (this.state.dateEntries[0] !== today && this.state.dateEntries[0] !== undefined) {
-			emptyToday = <DayData day={today} key={today} label='Today' onEdit={this.props.onEdit}/>
+			emptyToday = <DayData day={today} key={today} label='Today' onEdit={this.props.onEdit} userId={this.props.userId} />
 		}
 
 		return (
