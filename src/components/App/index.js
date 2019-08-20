@@ -56,26 +56,28 @@ class App extends Component {
     const key = (this.state.keyVisible) ? <Key><ShowKey setKey={this.showKey} /></Key> : ''
     const userID = (this.state.authUser !== null) ? this.state.authUser.uid : null
     let pathHome;
+    let utilComp;
     if (this.state.authUser !== null){
       pathHome = <ColorCodesContext.Provider value={this.state.colorCodes}>
-        <Route path={ROUTES.HOME} render={(props) => <ViewEntries userId={userID} />}/>
-      </ColorCodesContext.Provider>
+                    <Route path={ROUTES.HOME} render={(props) => <ViewEntries userId={userID} />}/>
+                  </ColorCodesContext.Provider>
+      utilComp = <ColorCodesContext.Provider value={this.state.colorCodes}>
+                  <UtilityBarData 
+                    setColor={this.setColorCodes} 
+                    setKey={this.showKey} 
+                    authUser={this.state.authUser}
+                    userId={userID}
+                  />
+                  {key}
+                </ColorCodesContext.Provider>
     } else {
       pathHome = ''
+      utilComp = ''
     }
   	return (
       <Router>
     		<AppWrap>
-
-    			<ColorCodesContext.Provider value={this.state.colorCodes}>
-            <UtilityBarData 
-              setColor={this.setColorCodes} 
-              setKey={this.showKey} 
-              authUser={this.state.authUser}
-            />
-            {key}
-  		  	</ColorCodesContext.Provider>
-
+    			{utilComp}
           <Content>
             <Route exact path={ROUTES.LANDING} component={Landing} />
             <Route path={ROUTES.SIGNIN} component={SignIn} />

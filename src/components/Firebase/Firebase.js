@@ -57,7 +57,6 @@ class Firebase {
     this.auth.currentUser.updatePassword(password);
 
   doSignInWithRedirect = () => {
-    
     this.auth.signInWithRedirect(this.provider)
   }
 }

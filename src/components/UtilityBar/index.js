@@ -20,7 +20,7 @@ class UtilityBar extends Component {
 
 	componentDidMount(){
     const db = this.props.firebase.db;
-    const docRef = db.collection('users').doc('dcaswell').collection('themes').where('active', '==', true)
+    const docRef = db.collection('users').doc(this.props.userId).collection('themes').where('active', '==', true)
 
     let themes=[]
 
