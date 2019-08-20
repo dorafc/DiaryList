@@ -15,9 +15,6 @@ function NavigationAuth(props){
 	return(
 		<Nav>
 			<NavList>
-				<NavListItem>
-	        <Link to={ROUTES.LANDING}>Landing</Link>
-	      </NavListItem>
         <NavListItem>
           <SignOutButton />
         </NavListItem>
@@ -34,12 +31,9 @@ function NavigationNonAuth(){
 	return(
 		<Nav>
 			<NavList>
-	      <NavListItem>
+	      {/* <NavListItem>
 	        <Link to={ROUTES.SIGNIN}>Sign In</Link>
-	      </NavListItem>
-        <NavListItem>
-	        <Link to={ROUTES.SIGNUP}>Sign Up</Link>
-	      </NavListItem>
+	      </NavListItem> */}
 	    </NavList>
 		</Nav>
 	)

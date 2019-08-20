@@ -19,29 +19,32 @@ class UtilityBar extends Component {
 	}
 
 	componentDidMount(){
-    const db = this.props.firebase.db;
-    const docRef = db.collection('users').doc(this.props.userId).collection('themes').where('active', '==', true)
+	const db = this.props.firebase.db;
+	if (this.props.authUser){
+		const docRef = db.collection('users').doc(this.props.userId).collection('themes').where('active', '==', true)
 
-    let themes=[]
+		let themes=[]
 
-    docRef.get()
-    .then((entry) => {
-      entry.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            // console.log(doc.id, " => ", doc.data());
-            themes.push(doc.data())
-        });
-    })
-    .then(()=>{
-    	this.props.setColor(themes)
-    })
-    .catch(function(error) {
-      console.log("Error getting document:", error);
-    })
+		docRef.get()
+		.then((entry) => {
+		entry.forEach(function(doc) {
+				// doc.data() is never undefined for query doc snapshots
+				// console.log(doc.id, " => ", doc.data());
+				themes.push(doc.data())
+			});
+		})
+		.then(()=>{
+			this.props.setColor(themes)
+		})
+		.catch(function(error) {
+		console.log("Error getting document:", error);
+		})
 
-    this.setState({
-      colorCodes : themes
-    })
+		this.setState({
+		colorCodes : themes
+		})
+	}
+    
 	}
 
 	render(){
