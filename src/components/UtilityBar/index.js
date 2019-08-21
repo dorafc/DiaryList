@@ -51,7 +51,7 @@ const Masthead = styled.div`
 		text-decoration: none;
 	}
 
-	a::after{
+	a:not(.material-icons)::after{
 		display: block;
 		content: '';
 		background-color: rgba(255,255,255,.6);

@@ -18,9 +18,9 @@ function NavigationAuth(props){
         <NavListItem>
           <SignOutButton />
         </NavListItem>
-				<NavListItem>
-					<a href="#showKey" onClick={(e)=>props.setKey(e,true)}>Key</a>
-				</NavListItem>
+				<IconListItem>
+					<a href="#showKey" onClick={(e)=>props.setKey(e,true)} className="material-icons setting">settings</a>
+				</IconListItem>
 	    </NavList>
 		</Nav>
 	)
@@ -60,17 +60,13 @@ const NavListItem = styled.li`
 	letter-spacing: 1px;
 	padding-left: 10px;
 	line-height: 1em;
+`
 
-	a {
-		color: white;
-		text-decoration: none;
-	}
+const TextLink = styled.a`
+	color: white;
+	text-decoration: none;
 
-	a:hover{
-		${'' /* color: rgba(255,255,255,.8); */}
-	}
-
-	a::after{
+	&::after{
 		display: block;
 		content: '';
 		background-color: rgba(255,255,255,.6);
@@ -79,8 +75,24 @@ const NavListItem = styled.li`
     transition:width .5s ease-out;
 	}
 
-	a:hover::after{
+	&:hover::after{
 		width: 100%;
+	}
+`
+
+const IconListItem = styled.li`
+	font-size: 12px;
+	padding-left: 10px;
+	line-height: 1em;
+	position: relative;
+	top: -6px;
+	a {
+		transition: transform .4s ease-in-out;
+		color: white;
+		text-decoration: none;
+	}
+	a:hover{
+		transform: rotate(180deg);
 	}
 `
 
