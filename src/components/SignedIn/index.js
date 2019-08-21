@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 
 import styled, { keyframes } from 'styled-components'
-import * as styles from '../../constants/styles.js';
-import { withFirebase } from '../Firebase';
 
 import UtilityBar from '../UtilityBar';
 import {ColorCodesContext, colorCodes} from '../KeyTheme';
@@ -33,13 +31,41 @@ class SignedIn extends Component{
 		})
   }
 
+  componentDidMount(){
+		const db = this.props.firebase.db;
+		if (this.props.authUser){
+			const docRef = db.collection('users').doc(this.props.userId).collection('themes').where('active', '==', true)
+
+			let themes=[]
+
+			docRef.get()
+			.then((entry) => {
+			entry.forEach(function(doc) {
+					// doc.data() is never undefined for query doc snapshots
+					// console.log(doc.id, " => ", doc.data());
+					themes.push(doc.data())
+				});
+			})
+			.then(()=>{
+				this.props.setColor(themes)
+			})
+			.catch(function(error) {
+			console.log("Error getting document:", error);
+			})
+
+			this.setState({
+				colorCodes : themes
+			})
+		}
+	}
+
   render() {
     const key = (this.state.keyVisible) ? <Key><ShowKey setKey={this.showKey} /></Key> : ''
 
     return(
       <Wrapper>
         <ColorCodesContext.Provider value={this.state.colorCodes}>
-          <UtilityBarData 
+          <UtilityBar 
             setColor={this.setColorCodes} 
             setKey={this.showKey} 
             authUser={this.props.authUser}
@@ -56,9 +82,6 @@ class SignedIn extends Component{
     )
   }
 }
-
-// components with data
-const UtilityBarData = withFirebase(UtilityBar)
 
 // styled components
 const Key = styled.div`
@@ -82,7 +105,6 @@ const Wrapper = styled.div`
 const Content = styled.div`
   padding: 75px 20px 0;
   min-height: 100vh;
-  ${'' /* background-color: ${styles.pale}; */}
   background: linear-gradient(90deg, #fceae8, #ffebeb, #fff9e8, #ffffeb, #edfff0, #e8feff, #eeedff, #fdedff, #fdebff);
   background-size: 1800% 1800%;
   animation: ${rainbowKeyframes} 30s ease infinite;

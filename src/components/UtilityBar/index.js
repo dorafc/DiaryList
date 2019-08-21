@@ -18,48 +18,15 @@ class UtilityBar extends Component {
 		}
 	}
 
-	componentDidMount(){
-	const db = this.props.firebase.db;
-	if (this.props.authUser){
-		const docRef = db.collection('users').doc(this.props.userId).collection('themes').where('active', '==', true)
-
-		let themes=[]
-
-		docRef.get()
-		.then((entry) => {
-		entry.forEach(function(doc) {
-				// doc.data() is never undefined for query doc snapshots
-				// console.log(doc.id, " => ", doc.data());
-				themes.push(doc.data())
-			});
-		})
-		.then(()=>{
-			this.props.setColor(themes)
-		})
-		.catch(function(error) {
-		console.log("Error getting document:", error);
-		})
-
-		this.setState({
-		colorCodes : themes
-		})
-	}
-    
-	}
-
 	render(){
-		const homeLink = this.props.authUser ? ROUTES.HOME : ROUTES.LANDING
-
 		return(
 			<Masthead>
-				<Title><Link to={homeLink}>Lifey McLifeface</Link></Title>
+				<Title><Link to={ROUTES.LANDING}>Lifey McLifeface</Link></Title>
 				<Navigation setKey={this.props.setKey} authUser={this.props.authUser}/>
 			</Masthead>
 		)
 	}
 }
-
-
 
 // style components
 const Masthead = styled.div`
@@ -82,10 +49,6 @@ const Masthead = styled.div`
 	a{
 		color: white;
 		text-decoration: none;
-	}
-
-	a:hover{
-		${'' /* color: rgba(255,255,255,.8); */}
 	}
 
 	a::after{

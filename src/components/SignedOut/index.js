@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 
 import styled, { keyframes } from 'styled-components'
-import * as styles from '../../constants/styles.js';
-import { withFirebase } from '../Firebase';
 
 import UtilityBar from '../UtilityBar';
 
@@ -18,7 +16,7 @@ class SignedOut extends Component{
   render() {
     return(
       <Wrapper>
-        <UtilityBarData 
+        <UtilityBar 
           setColor={null} 
           setKey={false} 
           authUser={null}
@@ -35,9 +33,6 @@ class SignedOut extends Component{
   }
 }
 
-// components with data
-const UtilityBarData = withFirebase(UtilityBar)
-
 // styled components
 const rainbowKeyframes =  keyframes` 
   0%{background-position:0% 82%}
@@ -53,7 +48,6 @@ const Wrapper = styled.div`
 const Content = styled.div`
   padding: 75px 20px 0;
   min-height: 100vh;
-  ${'' /* background-color: ${styles.pale}; */}
   background: linear-gradient(90deg, #fceae8, #ffebeb, #fff9e8, #ffffeb, #edfff0, #e8feff, #eeedff, #fdedff, #fdebff);
   background-size: 1800% 1800%;
   animation: ${rainbowKeyframes} 30s ease infinite;
