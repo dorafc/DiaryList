@@ -14,14 +14,7 @@ class SignedIn extends Component{
       colorCodes : colorCodes.codes,      // default color codes
       keyVisible : false,                 // key visitbility
     }
-    this.setColorCodes = this.setColorCodes.bind(this)
     this.showKey = this.showKey.bind(this)
-  }
-
-  setColorCodes(color) {
-    this.setState({
-      colorCodes : color
-    })
   }
 
   showKey(e, isVis){
