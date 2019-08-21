@@ -6,6 +6,7 @@ import UtilityBar from '../UtilityBar';
 import {ColorCodesContext, colorCodes} from '../KeyTheme';
 import ShowKey from '../ShowKey';
 import ViewEntries from '../ViewEntries';
+import { ENGINE_METHOD_RAND } from 'constants';
 
 class SignedIn extends Component{
   constructor(props) {
@@ -24,6 +25,24 @@ class SignedIn extends Component{
 		})
   }
 
+  getDefaultThemes(){
+    const db = this.props.firebase.db;
+    const defaultTheme = db.collection('defaultTheme')
+    const user = db.collection('users').doc(this.props.userId)
+
+    defaultTheme.get()
+    .then((themes) => {
+      console.log('set theme')
+      themes.forEach((theme) => {
+        console.log(theme.data())
+        user.collection('themes').doc().set(theme.data())
+      })
+    })
+    .catch(function(error) {
+      console.log("Error getting default themes:", error);
+    })
+  }
+
   componentDidMount(){
 		const db = this.props.firebase.db;
 		if (this.props.authUser){
@@ -33,11 +52,15 @@ class SignedIn extends Component{
 
 			docRef.get()
 		  .then((entry) => {
-			  entry.forEach(function(doc) {
-					// doc.data() is never undefined for query doc snapshots
-					// console.log(doc.id, " => ", doc.data());
-					themes.push(doc.data())
-				});
+        if (entry.size === 0){
+          // check if themes have been set
+          this.getDefaultThemes()
+        } else {
+          // themes have been set
+          entry.forEach(function(doc) {
+            themes.push(doc.data())
+          });
+        }
       })
       .then(() => {
         this.setState({
