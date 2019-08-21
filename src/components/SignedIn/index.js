@@ -32,22 +32,20 @@ class SignedIn extends Component{
 			let themes=[]
 
 			docRef.get()
-			.then((entry) => {
-			entry.forEach(function(doc) {
+		  .then((entry) => {
+			  entry.forEach(function(doc) {
 					// doc.data() is never undefined for query doc snapshots
 					// console.log(doc.id, " => ", doc.data());
 					themes.push(doc.data())
 				});
-			})
-			.then(()=>{
-				this.props.setColor(themes)
-			})
+      })
+      .then(() => {
+        this.setState({
+          colorCodes : themes
+        })
+      })
 			.catch(function(error) {
-			console.log("Error getting document:", error);
-			})
-
-			this.setState({
-				colorCodes : themes
+		  	console.log("Error getting document:", error);
 			})
 		}
 	}

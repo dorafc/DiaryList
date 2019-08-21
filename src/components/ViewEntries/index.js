@@ -45,7 +45,7 @@ class ViewEntries extends Component {
 
   // closes edit form
   closeForm(e){
-    // e.preventDefault()
+    if (e) {e.preventDefault()}
     this.setState({
       showEditForm : false,
       id : '',
