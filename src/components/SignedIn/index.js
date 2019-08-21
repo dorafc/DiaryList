@@ -25,6 +25,7 @@ class SignedIn extends Component{
 		})
   }
 
+  // sets default theme information if nothing has been set
   getDefaultThemes(){
     const db = this.props.firebase.db;
     const defaultTheme = db.collection('defaultTheme')
@@ -32,9 +33,7 @@ class SignedIn extends Component{
 
     defaultTheme.get()
     .then((themes) => {
-      console.log('set theme')
       themes.forEach((theme) => {
-        console.log(theme.data())
         user.collection('themes').doc().set(theme.data())
       })
     })
@@ -117,7 +116,7 @@ const Wrapper = styled.div`
 `
 
 const Content = styled.div`
-  padding: 75px 20px 0;
+  padding: 75px 30px 0;
   min-height: 100vh;
   background: linear-gradient(90deg, #fceae8, #ffebeb, #fff9e8, #ffffeb, #edfff0, #e8feff, #eeedff, #fdedff, #fdebff);
   background-size: 1800% 1800%;

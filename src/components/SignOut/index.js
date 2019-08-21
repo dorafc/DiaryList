@@ -11,9 +11,9 @@ class SignOutButton extends Component {
 
   render(){
     return(
-      <button type="button" onClick={this.signOutClick}>
+      <a href="#signout" onClick={this.signOutClick}>
         Sign Out
-      </button>
+      </a>
     )
   }
 }
