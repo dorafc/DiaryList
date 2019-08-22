@@ -7,8 +7,8 @@ import * as styles from '../../constants/styles.js';
 
 import * as ROUTES from '../../constants/routes';
 
-const Navigation = ({ authUser, setKey }) => (
-  <div>{authUser ? <NavigationAuth setKey={setKey}/> : <NavigationNonAuth />}</div>
+const Navigation = ({ authUser, showPref }) => (
+  <div>{authUser ? <NavigationAuth showPref={showPref}/> : <NavigationNonAuth />}</div>
 );
 
 function NavigationAuth(props){
@@ -19,7 +19,7 @@ function NavigationAuth(props){
           <SignOutButton />
         </NavListItem>
 				<IconListItem>
-					<a href="#showKey" onClick={(e)=>props.setKey(e,true)} className="material-icons setting">settings</a>
+					<a href="#showPref" onClick={(e)=>props.showPref(e,true)} className="material-icons setting">settings</a>
 				</IconListItem>
 	    </NavList>
 		</Nav>

@@ -5,23 +5,23 @@ import styled, { keyframes } from 'styled-components'
 import UtilityBar from '../UtilityBar';
 import {ColorCodesContext, colorCodes} from '../KeyTheme';
 import ShowKey from '../ShowKey';
+import Preferences from '../Preferences';
 import ViewEntries from '../ViewEntries';
-import { ENGINE_METHOD_RAND } from 'constants';
 
 class SignedIn extends Component{
   constructor(props) {
 		super(props);
     this.state = {
       colorCodes : colorCodes.codes,      // default color codes
-      keyVisible : false,                 // key visitbility
+      prefVisible : false,                 // key visitbility
     }
-    this.showKey = this.showKey.bind(this)
+    this.showPref = this.showPref.bind(this)
   }
 
-  showKey(e, isVis){
+  showPref(e, isVis){
     e.preventDefault()
 		this.setState({
-			keyVisible : isVis
+			prefVisible : isVis
 		})
   }
 
@@ -73,18 +73,18 @@ class SignedIn extends Component{
 	}
 
   render() {
-    const key = (this.state.keyVisible) ? <Key><ShowKey setKey={this.showKey} /></Key> : ''
+    const preferences = (this.state.prefVisible) ? <Preferences showPref={this.showPref} /> : ''
 
     return(
       <Wrapper>
         <ColorCodesContext.Provider value={this.state.colorCodes}>
           <UtilityBar 
             setColor={this.setColorCodes} 
-            setKey={this.showKey} 
+            showPref={this.showPref} 
             authUser={this.props.authUser}
             userId={this.props.userId}
           />
-          {key}
+          {preferences}
         </ColorCodesContext.Provider>
         <Content>
           <ColorCodesContext.Provider value={this.state.colorCodes}>
@@ -97,12 +97,6 @@ class SignedIn extends Component{
 }
 
 // styled components
-const Key = styled.div`
-  position: fixed;
-  width: 30%;
-  right: 0;
-  top: 46px;
-`
 
 const rainbowKeyframes =  keyframes` 
   0%{background-position:0% 82%}
