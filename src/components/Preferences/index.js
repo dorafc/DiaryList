@@ -11,13 +11,15 @@ class Preferences extends Component{
       <PreferenceMenuContainer>
         <PreferenceMenu className="preferenceMenu">
           <Close closeThis={this.props.showPref} />
-          <FormGreeting>Preferences</FormGreeting>
-          <div className="preferenceContent">
-            <div className="colorGuide">
-              <p>Guide to Colors</p>
+          <PreferenceContent>
+            <ColorGuide>
+              <PrefTitle>Guide to Colors</PrefTitle>
               <ShowKey />
-            </div>
-          </div>
+            </ColorGuide>
+            <PrefGuide>
+              <PrefTitle>Preferences</PrefTitle>
+            </PrefGuide>
+          </PreferenceContent>
         </PreferenceMenu>
       </PreferenceMenuContainer>
      )
@@ -25,6 +27,30 @@ class Preferences extends Component{
 }
 
 // styles
+const PreferenceContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+`
+const ColorGuide = styled.div`
+  border: solid 2px ${styles.green};
+  padding: 10px;
+  position: relative;
+  flex-basis: 46%;
+`
+const PrefGuide = styled.div`
+  border: solid 2px ${styles.green};
+  padding: 10px;
+  position: relative;
+  flex-basis: 46%;
+`
+const PrefTitle = styled.h3`
+  background-color: ${styles.pale};
+  margin: 0;
+  padding: 0 10px;
+  position: absolute;
+  top: -10px
+`
 
 const fadeColor =  keyframes` 
   0%{opacity: 0;}
@@ -33,9 +59,6 @@ const fadeColor =  keyframes`
 const lowerForm = keyframes`
 	0%{top: -15%}
 	100%{top: 0}
-`
-const FormGreeting = styled.h3`
-	color: ${styles.green};
 `
 
 const PreferenceMenuContainer = styled.div`

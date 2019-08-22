@@ -13,7 +13,7 @@ class SignedIn extends Component{
 		super(props);
     this.state = {
       colorCodes : colorCodes.codes,      // default color codes
-      prefVisible : false,                 // key visitbility
+      prefVisible : true,                 // key visitbility
     }
     this.showPref = this.showPref.bind(this)
   }
