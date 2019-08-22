@@ -4,7 +4,6 @@ import styled, { keyframes } from 'styled-components'
 
 import UtilityBar from '../UtilityBar';
 import {ColorCodesContext, colorCodes} from '../KeyTheme';
-import ShowKey from '../ShowKey';
 import Preferences from '../Preferences';
 import ViewEntries from '../ViewEntries';
 
@@ -13,9 +12,11 @@ class SignedIn extends Component{
 		super(props);
     this.state = {
       colorCodes : colorCodes.codes,      // default color codes
-      prefVisible : true,                 // key visitbility
+      prefVisible : false,                // key visitbility
+      showAll : true                      // show future events or all events
     }
     this.showPref = this.showPref.bind(this)
+    this.toggleShowAll = this.toggleShowAll.bind(this)
   }
 
   showPref(e, isVis){
@@ -70,10 +71,20 @@ class SignedIn extends Component{
 		  	console.log("Error getting document:", error);
 			})
 		}
-	}
+  }
+  
+  // toggle showAll for showing future events or not
+  toggleShowAll(e){
+    e.preventDefault()
+    const switchAll = !(this.state.showAll)
+    this.setState(
+      {showAll : switchAll}
+    )
+  }
 
   render() {
-    const preferences = (this.state.prefVisible) ? <Preferences showPref={this.showPref} /> : ''
+    const showBtnText = (this.state.showAll) ? 'Show Future Only' : 'Show All'
+    const preferences = (this.state.prefVisible) ? <Preferences showPref={this.showPref} toggleShowAll={this.toggleShowAll} btnText={showBtnText}/> : ''
 
     return(
       <Wrapper>
@@ -88,7 +99,7 @@ class SignedIn extends Component{
         </ColorCodesContext.Provider>
         <Content>
           <ColorCodesContext.Provider value={this.state.colorCodes}>
-            <ViewEntries userId={this.props.userId} />
+            <ViewEntries userId={this.props.userId} showAll={this.state.showAll} />
           </ColorCodesContext.Provider>
         </Content>
       </Wrapper>

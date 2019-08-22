@@ -29,7 +29,6 @@ class ViewEntries extends Component {
     this.handleEditClick = this.handleEditClick.bind(this);
     this.closeForm = this.closeForm.bind(this)
     this.showForm = this.showForm.bind(this)
-    this.toggleShowAll = this.toggleShowAll.bind(this)
   }
 
   handleAddEntry(e){
@@ -64,14 +63,6 @@ class ViewEntries extends Component {
     })
   }
 
-  // toggle showAll
-  toggleShowAll(){
-    const switchAll = !(this.state.showAll)
-    this.setState(
-      {showAll : switchAll}
-    )
-  }
-
   render(){
   	let showForm = null
   	if (this.state.showEditForm){
@@ -86,15 +77,13 @@ class ViewEntries extends Component {
   		showForm = <ShowAddArea><AddEntry onClick={this.handleAddEntry} /></ShowAddArea>
     }
     
-    const showText = (this.state.showAll) ? "Show Future Only" : "Show All"
+    
   	return (
   		<div className="ViewEntries">
 
         {showForm}
-        <div className="filters">
-          <button onClick={this.toggleShowAll}>{showText}</button>
-        </div>
-        <DisplayEntryList onEdit={this.handleEditClick} showAll={this.state.showAll} userId={this.props.userId} />
+  
+        <DisplayEntryList onEdit={this.handleEditClick} showAll={this.props.showAll} userId={this.props.userId} />
 
 		  </div>
   	)

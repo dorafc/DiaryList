@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Close from '../Close';
 import ShowKey from '../ShowKey';
+import ShowFuture from '../ShowFuture';
 
 import styled, { css, keyframes } from 'styled-components'
 import * as styles from '../../constants/styles.js';
@@ -18,6 +19,7 @@ class Preferences extends Component{
             </ColorGuide>
             <PrefGuide>
               <PrefTitle>Preferences</PrefTitle>
+              <ShowFuture toggleShowAll={this.props.toggleShowAll} btnText={this.props.btnText}/>
             </PrefGuide>
           </PreferenceContent>
         </PreferenceMenu>

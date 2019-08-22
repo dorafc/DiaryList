@@ -7,8 +7,8 @@ import * as styles from '../../constants/styles.js';
 
 import * as ROUTES from '../../constants/routes';
 
-const Navigation = ({ authUser, showPref }) => (
-  <div>{authUser ? <NavigationAuth showPref={showPref}/> : <NavigationNonAuth />}</div>
+const Navigation = ({ authUser, showPref, toggleShowAll }) => (
+  <div>{authUser ? <NavigationAuth showPref={showPref} toggleShowAll={toggleShowAll}/> : <NavigationNonAuth />}</div>
 );
 
 function NavigationAuth(props){

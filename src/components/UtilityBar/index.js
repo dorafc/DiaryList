@@ -22,7 +22,7 @@ class UtilityBar extends Component {
 		return(
 			<Masthead>
 				<Title><Link to={ROUTES.LANDING}>Lifey McLifeface</Link></Title>
-				<Navigation showPref={this.props.showPref} authUser={this.props.authUser}/>
+				<Navigation showPref={this.props.showPref} authUser={this.props.authUser} />
 			</Masthead>
 		)
 	}
