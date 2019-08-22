@@ -75,7 +75,9 @@ class SignedIn extends Component{
   
   // toggle showAll for showing future events or not
   toggleShowAll(e){
-    e.preventDefault()
+    if (e){
+      e.preventDefault()
+    }
     const switchAll = !(this.state.showAll)
     this.setState(
       {showAll : switchAll}
@@ -83,8 +85,7 @@ class SignedIn extends Component{
   }
 
   render() {
-    const showBtnText = (this.state.showAll) ? 'Show Future Only' : 'Show All'
-    const preferences = (this.state.prefVisible) ? <Preferences showPref={this.showPref} toggleShowAll={this.toggleShowAll} btnText={showBtnText}/> : ''
+    const preferences = (this.state.prefVisible) ? <Preferences showPref={this.showPref} toggleShowAll={this.toggleShowAll} /> : ''
 
     return(
       <Wrapper>
