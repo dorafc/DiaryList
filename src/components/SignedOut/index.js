@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import styled, { keyframes } from 'styled-components'
+import * as styles from '../../constants/styles.js';
 
 import UtilityBar from '../UtilityBar';
 
@@ -22,11 +23,29 @@ class SignedOut extends Component{
           authUser={null}
         />
         <Content>
-          <p>LOGIN HEREEEEE! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <WelcomeText>
+            <Title>How was your day?</Title>
+            <h4>Welcome to Lifey McLifeface</h4>
+            <ul>
+              <li>I am a friendly App</li>
+              <li>Made at RC</li>
+              <li>React + Firebase === TECHNOLOGY</li>
+              <li>Won't judge you, unlike to-do lists</li>
+              <li>Reflect on your day</li>
+              <li>Made by me, Dora!</li>
+              <li>Need to make a demo account</li>
+              <li>Real accounts for friends, also I can see ur data</li>
+            </ul>
 
-          <button onClick={this.onClick}>
-            Sign In
-          </button>
+            
+          </WelcomeText>
+          
+          <BtnWrapper>
+            <SignInBtn onClick={this.onClick}>
+              Sign In
+            </SignInBtn>
+          </BtnWrapper>
+          
         </Content>
       </Wrapper>
     )
@@ -34,6 +53,39 @@ class SignedOut extends Component{
 }
 
 // styled components
+const BtnWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+const SignInBtn = styled.button`
+  border-radius: 10px;
+	border: solid 3px ${styles.green};
+	background-color: transparent;
+	color: ${styles.green};
+	padding: 20px 100px;
+	${'' /* font-weight: 700; */}
+	font-size: 19px;
+  margin: 60px;
+	transition: all .3s ease-in-out;
+
+	:hover{
+		${'' /* background-color: ${styles.paleGreen} */}
+		border-radius: 0;
+		box-shadow: 4px 4px ${styles.lightGreen};
+	}
+
+	:active{
+		box-shadow: none;
+		box-shadow: -4px -4px ${styles.lightGreen};
+		outline: none;
+		transform: translate(4px, 4px);
+	}
+
+	:focus{
+		outline: none;
+	}
+`
+
 const rainbowKeyframes =  keyframes` 
   0%{background-position:0% 82%}
   50%{background-position:100% 19%}
@@ -52,5 +104,22 @@ const Content = styled.div`
   background-size: 1800% 1800%;
   animation: ${rainbowKeyframes} 30s ease infinite;
 `
-
+const WelcomeText = styled.div`
+  position: relative;
+  border: solid 3px ${styles.green};
+  padding: 10px 20px;
+  *{
+    color: ${styles.green}
+  }
+`
+const Title = styled.h3`
+  background: linear-gradient(90deg, #fceae8, #ffebeb, #fff9e8, #ffffeb, #edfff0, #e8feff, #eeedff, #fdedff, #fdebff);
+  background-size: 1800% 1800%;
+  animation: ${rainbowKeyframes} 30s ease infinite;
+  color: ${styles.green};
+  margin: 0;
+  padding: 0 10px;
+  position: absolute;
+  top: -10px
+`
 export default SignedOut;
