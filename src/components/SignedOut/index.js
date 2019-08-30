@@ -65,7 +65,7 @@ const SignInBtn = styled.button`
 	padding: 20px 100px;
 	${'' /* font-weight: 700; */}
 	font-size: 19px;
-  margin: 60px;
+  margin: 60px 0;
 	transition: all .3s ease-in-out;
 
 	:hover{
@@ -84,6 +84,10 @@ const SignInBtn = styled.button`
 	:focus{
 		outline: none;
 	}
+
+  @media (max-width: 450px) {
+    padding: 20px 60px;
+  }
 `
 
 const rainbowKeyframes =  keyframes` 
@@ -103,6 +107,9 @@ const Content = styled.div`
   background: linear-gradient(90deg, #fceae8, #ffebeb, #fff9e8, #ffffeb, #edfff0, #e8feff, #eeedff, #fdedff, #fdebff);
   background-size: 1800% 1800%;
   animation: ${rainbowKeyframes} 30s ease infinite;
+  @media (max-width: 650px){
+    padding: 75px 17px 0;
+  }
 `
 const WelcomeText = styled.div`
   position: relative;

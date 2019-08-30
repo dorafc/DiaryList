@@ -127,6 +127,9 @@ const Content = styled.div`
   background: linear-gradient(90deg, #fceae8, #ffebeb, #fff9e8, #ffffeb, #edfff0, #e8feff, #eeedff, #fdedff, #fdebff);
   background-size: 1800% 1800%;
   animation: ${rainbowKeyframes} 30s ease infinite;
+  @media (max-width: 650px){
+    padding: 75px 17px 0;
+  }
 `
 
 export default SignedIn;

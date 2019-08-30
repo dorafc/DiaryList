@@ -33,18 +33,26 @@ const PreferenceContent = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 `
 const ColorGuide = styled.div`
   border: solid 2px ${styles.green};
   padding: 10px;
   position: relative;
   flex-basis: 46%;
+  @media (max-width: 575px){
+    flex-basis: 100%;
+    margin-bottom: 30px;
+  }
 `
 const PrefGuide = styled.div`
   border: solid 2px ${styles.green};
   padding: 10px;
   position: relative;
   flex-basis: 46%;
+  @media (max-width: 575px){
+    flex-basis: 100%;
+  }
 `
 const PrefTitle = styled.h3`
   background-color: ${styles.pale};
@@ -86,6 +94,10 @@ const PreferenceMenu = styled.form`
 	.close{
 		float: right;
 	}
+
+  @media (max-width: 575px){
+    padding: 20px
+  }
 `
 
 export default Preferences;

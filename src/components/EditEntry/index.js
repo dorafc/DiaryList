@@ -237,7 +237,7 @@ const EditEntryContainer = styled.div`
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100%;
+	${'' /* width: 100vw; */}
 	height: 100vh;
 	z-index: 5;
 	animation: ${fadeColor} .3s ease;
@@ -247,13 +247,17 @@ const EditForm = styled.form`
 	background-color: ${styles.pale};
 	position: fixed;
 	bottom: 0;
-	width: 100%;
+	width: 100vw;
 	padding: 20px 60px;
 	animation: ${raiseForm} .35s ease-in;
 	color: ${styles.green};
 
 	.close{
 		float: right;
+	}
+
+	@media (max-width: 375px){
+		padding: 20px;
 	}
 `
 
@@ -321,7 +325,7 @@ const SubmitBtn = styled.button`
 
 const ShortText = styled.input`
 	border: solid 2px ${styles.green};
-	width: 400px;
+	width: 100%;
 	padding: 5px;
 	border-radius: 8px;
 	margin: 2px 0 10px 0;
@@ -330,7 +334,7 @@ const ShortText = styled.input`
 
 const LongText = styled.textarea`
 	border: solid 2px ${styles.green};
-	min-width: 400px;
+	min-width: 100%;
 	min-height: 150px;
 	padding: 5px;
 	border-radius: 8px;
