@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import styled, { css } from 'styled-components'
-import * as styles from '../../constants/styles.js';
 
 import { ColorCodesContext } from '../KeyTheme';
 
@@ -21,6 +20,7 @@ class Entry extends Component{
 		return(
 			<ColorCodesContext.Consumer>
 				{ (codes) => {
+					{console.log(codes)}
 					return codes.map((code,i) => {
 						if (this.props.theme === code.name){
 							return (

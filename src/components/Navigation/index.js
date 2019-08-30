@@ -1,11 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import SignOutButton from '../SignOut';
-import styled, { css } from 'styled-components'
-import * as styles from '../../constants/styles.js';
-
-import * as ROUTES from '../../constants/routes';
+import styled from 'styled-components'
 
 const Navigation = ({ authUser, showPref, toggleShowAll }) => (
   <div>{authUser ? <NavigationAuth showPref={showPref} toggleShowAll={toggleShowAll}/> : <NavigationNonAuth />}</div>
@@ -61,25 +57,6 @@ const NavListItem = styled.li`
 	padding-left: 10px;
 	line-height: 1em;
 `
-
-const TextLink = styled.a`
-	color: white;
-	text-decoration: none;
-
-	&::after{
-		display: block;
-		content: '';
-		background-color: rgba(255,255,255,.6);
-		height: 2px;
-		width: 0%;
-    transition:width .5s ease-out;
-	}
-
-	&:hover::after{
-		width: 100%;
-	}
-`
-
 const IconListItem = styled.li`
 	font-size: 12px;
 	padding-left: 10px;

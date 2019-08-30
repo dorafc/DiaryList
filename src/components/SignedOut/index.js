@@ -5,9 +5,9 @@ import * as styles from '../../constants/styles.js';
 
 import UtilityBar from '../UtilityBar';
 
-function onClick(event) {
-  this.props.firebase.doSignInWithRedirect()
-}
+// function onClick(event) {
+//   this.props.firebase.doSignInWithRedirect()
+// }
 
 class SignedOut extends Component{
   onClick = event => {

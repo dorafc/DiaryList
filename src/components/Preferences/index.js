@@ -3,7 +3,7 @@ import Close from '../Close';
 import ShowKey from '../ShowKey';
 import ShowFuture from '../ShowFuture';
 
-import styled, { css, keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import * as styles from '../../constants/styles.js';
 
 class Preferences extends Component{

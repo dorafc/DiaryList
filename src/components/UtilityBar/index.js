@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import Navigation from '../Navigation';
 
-// import { Route } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import * as styles from '../../constants/styles.js';
 
 import * as ROUTES from '../../constants/routes';

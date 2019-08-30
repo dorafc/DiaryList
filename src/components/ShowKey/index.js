@@ -1,7 +1,6 @@
 import React from 'react';
 
-import styled, { css } from 'styled-components'
-import * as styles from '../../constants/styles.js';
+import styled from 'styled-components'
 
 import { ColorCodesContext } from '../KeyTheme';
 

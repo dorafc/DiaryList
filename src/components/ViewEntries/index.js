@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 
-import styled, { css } from 'styled-components'
-import * as styles from '../../constants/styles.js';
+import styled from 'styled-components'
 
 import EditEntry from '../EditEntry';
 import DisplayEntries from '../DisplayEntries';
 import AddEntry from '../AddEntry';
-// import {ColorCodesContext, colorCodes} from '../KeyTheme';
 import { withFirebase } from '../Firebase';
 
 class ViewEntries extends Component {

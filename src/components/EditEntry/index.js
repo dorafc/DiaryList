@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import 'firebase/firestore';
 import Close from '../Close';
 
-import styled, { css, keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import * as styles from '../../constants/styles.js';
 
 import { ColorCodesContext } from '../KeyTheme';
@@ -138,7 +138,6 @@ class EditEntry extends Component {
 		    longText : this.state.longText,
 		    isFuture : this.state.isFuture,
 				theme : this.state.theme,
-				isFuture : this.state.isFuture
 		})
 		.then(() => {
 		    console.log("Entry successfully updated!");
@@ -237,7 +236,6 @@ const EditEntryContainer = styled.div`
 	position: fixed;
 	top: 0;
 	left: 0;
-	${'' /* width: 100vw; */}
 	height: 100vh;
 	z-index: 5;
 	animation: ${fadeColor} .3s ease;
