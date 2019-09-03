@@ -21,14 +21,14 @@ class DisplayEntries extends Component {
       let dates = [];
 
       querySnapshot.forEach((doc) => {
-        dates.push(doc.id)
+        dates.push(doc.data().date.toDate().toISOString().slice(0,10))
       })
       return dates
     })
     .then((data) => {
       this.setState({
         dateEntries : data
-      })
+			})
     })
     .catch((error) => {
       console.log("Error getting dates documents: ", error);

@@ -49,33 +49,19 @@ class Day extends Component {
 			console.log("Error getting notes documents: ", error);
 		})
 
-			userDb.onSnapshot((notes) => {
-				let newData = []
-				notes.forEach((note) => {
-					let data = note.data()
-					data.id = note.id
-					data.day = this.props.day
-					newData.push(data)
-				})
-				this.setState({
-					notes : newData
-				})
-
-				// var source = notes.metadata.fromCache ? "local cache" : "server";
-    		// console.log("Data came from " + source);
+		userDb.onSnapshot((notes) => {
+			let newData = []
+			notes.forEach((note) => {
+				let data = note.data()
+				data.id = note.id
+				data.day = this.props.day
+				newData.push(data)
 			})
-
-			
+			this.setState({
+				notes : newData
+			})
+		})	
 	}
-
-	// componentDidUpdate(){
-	// 	const futureNotes = this.state.notes.slice().filter(note => note.isFuture)
-
-	// 		console.log(futureNotes)
-	// 		this.setState({
-	// 			hasFuture : (futureNotes.length >= 1)
-	// 		})
-	// }
 
 	render(){
 		
@@ -134,7 +120,6 @@ const DayView = styled.div`
 const DateTitle = styled.h2`
 	color: ${styles.green};
 	margin: 0;
-	${'' /* border-bottom: solid 1px ${styles.green}; */}
 	padding: 10px;
 	font-size: 14px;
 	text-transform: uppercase;

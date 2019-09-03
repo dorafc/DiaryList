@@ -76,26 +76,15 @@ class EditEntry extends Component {
   }
 
   onSubmit(event){
-
-  	// const { date } = this.state
+		event.preventDefault();
   	const currentDate = this.state.date
 
-  	// const currentDate = new Date('July 16, 2019 23:00:00')
   	const db = this.props.firebase.db;
-  	
-  	const year = currentDate.getFullYear()
-  	const month = currentDate.getMonth()
-  	const monthplus1 = month + 1
-  	const date = currentDate.getDate()
-  	const zeroPaddedMonth = (monthplus1 < 10) ? '0'+ monthplus1 : monthplus1.toString()
-
-  	const dateDoc = year + "-" + zeroPaddedMonth + "-" + date;
-
-  	// const dateDoc = this.state.date.getFullYear() + "-" + (this.state.gate.getMonth()+1) + "-" + this.state.date.getDate()
-  	const day = new Date( currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())
-  	console.log(year + "-" + zeroPaddedMonth + "-" + date)
-
-  	event.preventDefault();
+		
+		// get current date without time
+		const day = new Date( currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())
+		// convert date to formatted string
+		const dateDoc = day.toISOString().slice(0,10)
 
   	// write date document
   	db.collection('users').doc(this.props.userId).collection('dates').doc(dateDoc).set({
