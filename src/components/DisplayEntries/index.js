@@ -18,12 +18,12 @@ class DisplayEntries extends Component {
     // get date collections
     userDb.get()
     .then((querySnapshot) => {
-      let dates = [];
+      let datesIds = [];
 
       querySnapshot.forEach((doc) => {
-        dates.push(doc.data().date.toDate().toISOString().slice(0,10))
-      })
-      return dates
+        datesIds.push(doc.id)
+			})
+      return datesIds
     })
     .then((data) => {
       this.setState({
@@ -38,17 +38,25 @@ class DisplayEntries extends Component {
 	render(){
 
 		let today = new Date()
-		today = today.toISOString().slice(0,10)
+		const month = ((today.getMonth()+1).toString()).padStart(2, '0')
+		const day = ((today.getDay()+1).toString()).padStart(2, '0')
+		const year = today.getFullYear()
+		today = year+"-"+month+"-"+day
+
 		let yesterday = new Date()
 		yesterday.setDate(yesterday.getDate() - 1)
+		const ymonth = ((yesterday.getMonth()+1).toString()).padStart(2, '0')
+		const yday = ((yesterday.getDay()+1).toString()).padStart(2, '0')
+		const yyear = yesterday.getFullYear()
+		yesterday = yyear+"-"+ymonth+"-"+yday
 
-		const days = this.state.dateEntries.slice().map((date,i) => {
+		const days = this.state.dateEntries.slice().map((date) => {
 			// calc date labels
 			let label;
 
 			if (date === today){
 				label = "Today"
-			} else if (date === yesterday.toISOString().slice(0,10)){
+			} else if (date === yesterday){
 				label = "Yesterday"
 			} else {
 				label = new Date(date).toDateString()

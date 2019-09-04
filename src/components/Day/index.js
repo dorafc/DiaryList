@@ -64,7 +64,6 @@ class Day extends Component {
 	}
 
 	render(){
-		
 		const entryList = this.state.notes.slice().map((note, i) => {
 			if ((this.props.showAll) || (!this.props.showAll && note.isFuture)) {
 				return(
