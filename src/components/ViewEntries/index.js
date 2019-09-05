@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import EditEntry from '../EditEntry';
 import DisplayEntries from '../DisplayEntries';
 import AddEntry from '../AddEntry';
-import { withFirebase } from '../Firebase';
 
 class ViewEntries extends Component {
 	constructor(props) {
@@ -13,8 +12,7 @@ class ViewEntries extends Component {
     this.state = {
 
       // value of currently editing 
-      id : '',
-      day : '',
+      noteRef : '',
 
       // if the current form is showing a completed entry
       completed : false,
@@ -35,9 +33,9 @@ class ViewEntries extends Component {
   }
 
   // Toggle showing the edit form
-  handleEditClick(e, id, day, completed){
+  handleEditClick(e, noteRef, completed){
   	e.preventDefault()
-    this.showForm(id, day, completed)
+    this.showForm(noteRef, completed)
   }
 
   // closes edit form
@@ -45,18 +43,15 @@ class ViewEntries extends Component {
     if (e) {e.preventDefault()}
     this.setState({
       showEditForm : false,
-      id : '',
-      day : '',
       completed : false
     })
   }
 
   // show form
-  showForm(id, day, completed){
+  showForm(noteRef, completed){
     this.setState({
       showEditForm : true,
-      id : id,
-      day : day,
+      noteRef : noteRef,
       completed: completed
     })
   }
@@ -64,9 +59,8 @@ class ViewEntries extends Component {
   render(){
   	let showForm = null
   	if (this.state.showEditForm){
-  		showForm = <EditEntryForm 
-        id={this.state.id}
-        day={this.state.day}
+  		showForm = <EditEntry
+        noteRef = {this.state.noteRef}
         close={this.closeForm}
         completed={this.state.completed}
         userId={this.props.userId}
@@ -81,7 +75,11 @@ class ViewEntries extends Component {
 
         {showForm}
   
-        <DisplayEntries onEdit={this.handleEditClick} showAll={this.props.showAll} userId={this.props.userId} />
+        <DisplayEntries
+          onEdit={this.handleEditClick} 
+          showAll={this.props.showAll} 
+          userId={this.props.userId} 
+        />
 
 		  </div>
   	)
@@ -96,7 +94,7 @@ const ShowAddArea = styled.div`
 `
 
 // higher order components with Firebase
-const EditEntryForm = withFirebase(EditEntry);
+// const EditEntryForm = withFirebase(EditEntry);
 // const DisplayEntryList = withFirebase(DisplayEntries);
 
 export default ViewEntries;

@@ -6,6 +6,7 @@ import styled, { keyframes } from 'styled-components'
 import * as styles from '../../constants/styles.js';
 
 import { ColorCodesContext } from '../KeyTheme';
+import { withFirebase } from '../Firebase';
 
 const initialState = {
 	id : '',
@@ -35,16 +36,10 @@ class EditEntry extends Component {
   	})
   }
 
-  getData(){
-  	const id = this.props.id
-		const day = this.props.day
-		const db = this.props.firebase.db;
-  	const docRef = db.collection('users').doc(this.props.userId).collection('dates').doc(day).collection('notes').doc(id)
-
-  	docRef.get()
+  getData(noteRef){
+  	noteRef.get()
   	.then((entry) => {
   		this.setState({
-  			id : this.props.id, 
   			shortText : entry.data().shortText,
   			longText : entry.data().longText,
 				theme : entry.data().theme,
@@ -64,15 +59,9 @@ class EditEntry extends Component {
   }
 
   componentDidMount(){
-  	if (this.props.id !== ''){
-  		this.getData()
+  	if (this.props.noteRef){
+  		this.getData(this.props.noteRef)
 		}
-  }
-
-  componentDidUpdate(prevProps){
-  	if (prevProps.id !== this.props.id){
-  		this.getData()
-  	}
   }
 
   onSubmit(event){
@@ -117,10 +106,9 @@ class EditEntry extends Component {
 		});
   }
 
-  onEditSubmit(event, day, id){
+  onEditSubmit(event, noteRef){
   	event.preventDefault();
-  	const db = this.props.firebase.db;
-  	const docRef = db.collection('users').doc(this.props.userId).collection('dates').doc(day).collection('notes').doc(id)
+  	const docRef = noteRef
 
   	return docRef.update({
 		    shortText : this.state.shortText,
@@ -141,10 +129,9 @@ class EditEntry extends Component {
 		});
   }
 
-  onDelete(event, day, id){
+  onDelete(event, noteRef){
   	event.preventDefault();
-  	const db = this.props.firebase.db;
-  	const docRef = db.collection('users').doc(this.props.userId).collection('dates').doc(day).collection('notes').doc(id)
+  	const docRef = this.props.noteRef
 
   	docRef.delete()
   	.then(() => {
@@ -161,10 +148,10 @@ class EditEntry extends Component {
 
 	render(){
 		// editing or writing
-		const isEdit = (this.props.id !== '')
-		const onSub = (!isEdit) ? this.onSubmit : (e) => {this.onEditSubmit(e, this.props.day, this.props.id)}
+		const isEdit = (this.props.noteRef)
+		const onSub = (!isEdit) ? this.onSubmit : (e) => {this.onEditSubmit(e, this.props.noteRef)}
 		const buttonText = (!isEdit) ? 'Add Note' : 'Save Note'
-		const showDelete = (!isEdit) ? '' : <DeleteBtn href="#delete" onClick={(e) => {this.onDelete(e, this.props.day, this.props.id)}}>Delete</DeleteBtn>
+		const showDelete = (!isEdit) ? '' : <DeleteBtn href="#delete" onClick={(e) => {this.onDelete(e, this.props.noteRef)}}>Delete</DeleteBtn>
 		const greeting = (this.props.completed) ? "You did it! Completed!" : "Hello, World!"
 
 		return (
@@ -343,4 +330,4 @@ const DeleteBtn = styled.a`
 	}
 `
 
-export default EditEntry;
+export default withFirebase(EditEntry);

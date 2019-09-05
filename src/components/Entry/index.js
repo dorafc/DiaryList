@@ -18,7 +18,7 @@ class Entry extends Component{
 		const done = (this.props.isFuture) ? <Done onEdit={this.props.onEdit} id={this.props.id} day={this.props.day} /> : ''
 
 		const data = this.props.note.data()
-		
+
 		return(
 			<ColorCodesContext.Consumer>
 				{ (codes) => {
@@ -30,7 +30,12 @@ class Entry extends Component{
 									{data.shortText}
 									<Editors className="editors">
 										{done}
-										<Edit onEdit={this.props.onEdit} id={this.props.note.id} day={this.props.day}/>
+										<Edit 
+											onEdit={this.props.onEdit} 
+											id={this.props.note.id} 
+											day={this.props.day}
+											noteRef={this.props.note.ref}
+										/>
 									</Editors>
 								</EntryView>
 							)
@@ -47,13 +52,17 @@ class Entry extends Component{
 
 function Edit(props){
 	return(
-		<EditButton href="#editentry" onClick={(e) => props.onEdit(e, props.id, props.day, false)} className="material-icons edit">edit</EditButton>
+		<EditButton 
+			href="#editentry" 
+			onClick={(e) => props.onEdit(e, props.noteRef, false)} 
+			className="material-icons edit"
+		>edit</EditButton>
 	)
 }
 
 function Done(props){
 	return(
-		<DoneButton href="#complete" onClick={(e) => props.onEdit(e, props.id, props.day, true)} className="material-icons done" >done</DoneButton>
+		<DoneButton href="#complete" onClick={(e) => props.onEdit(e, props.noteRef, true)} className="material-icons done" >done</DoneButton>
 	)
 }
 
