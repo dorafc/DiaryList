@@ -32,8 +32,9 @@ class Entry extends Component{
 									</Editors>
 								</EntryView>
 							)
+						} else {
+							return ''
 						}
-						
 			 		})
 			 	}}
 			 </ColorCodesContext.Consumer>
