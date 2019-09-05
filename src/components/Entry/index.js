@@ -3,32 +3,34 @@ import React, {Component} from 'react';
 import styled, { css } from 'styled-components'
 
 import { ColorCodesContext } from '../KeyTheme';
+import { withFirebase } from '../Firebase';
 
 class Entry extends Component{
 	constructor(props) {
 		super(props);
     this.state = {
-    	color : 'red',
+    	
     }
 	}
-
 
 	render(){
 		const future = (this.props.isFuture) ? 'isFuture' : ''
 		const done = (this.props.isFuture) ? <Done onEdit={this.props.onEdit} id={this.props.id} day={this.props.day} /> : ''
+
+		const data = this.props.note.data()
 		
 		return(
 			<ColorCodesContext.Consumer>
 				{ (codes) => {
 					return codes.map((code,i) => {
-						if (this.props.theme === code.name){
+						if (data.theme === code.name){
 							return (
-								<EntryView className={"entry "+this.props.theme+" "+future} key={i} bgColor={code.color} isFuture={this.props.isFuture}>
+								<EntryView className={"entry "+data.theme+" "+future} key={i} bgColor={code.color} isFuture={data.isFuture}>
 									
-									{this.props.shortText}
+									{data.shortText}
 									<Editors className="editors">
 										{done}
-										<Edit onEdit={this.props.onEdit} id={this.props.id} day={this.props.day}/>
+										<Edit onEdit={this.props.onEdit} id={this.props.note.id} day={this.props.day}/>
 									</Editors>
 								</EntryView>
 							)
@@ -111,4 +113,4 @@ const Editors = styled.div`
 	transition: .3s all ease-in-out;
 `
 
-export default Entry;
+export default withFirebase(Entry);

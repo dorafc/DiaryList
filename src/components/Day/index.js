@@ -11,59 +11,17 @@ class Day extends Component {
 		super(props);
     this.state = {
 			notes : [],
-			queryNotes : [],
 			hasFuture : false,
 			date : ''
     }
 	}
 
 	componentDidMount(){
-    // const db = this.props.firebase.db;
 		const userDb = this.props.day.ref.collection("notes").orderBy("date", "asc")
 
-		// get notes collections
-		userDb.get()
-		.then((querySnapshot) => {
-			let notes = []
-			querySnapshot.forEach((note) => {
-				let data = note.data()
-				data.id = note.id
-				data.day = this.props.day.id
-				notes.push(data)
-			})
-			this.setState({
-				queryNotes : querySnapshot
-			})
-
-			return notes
-		})
-		.then((data) => {
-			// Set State
-			this.setState({
-				notes : data
-			})
-		})
-		.then(() => {
-			const futureNotes = this.state.notes.slice().filter(note => note.isFuture)
-
-			this.setState({
-				hasFuture : (futureNotes.length >= 1)
-			})
-		})
-		.catch((error) => {
-			console.log("Error getting notes documents: ", error);
-		})
-
 		userDb.onSnapshot((notes) => {
-			let newData = []
-			notes.forEach((note) => {
-				let data = note.data()
-				data.id = note.id
-				data.day = this.props.day.id
-				newData.push(data)
-			})
 			this.setState({
-				notes : newData
+				notes : notes.docs
 			})
 		})	
 	}
@@ -73,14 +31,12 @@ class Day extends Component {
 			if ((this.props.showAll) || (!this.props.showAll && note.isFuture)) {
 				return(
 					<Entry 
-						shortText={note.shortText} 
-						theme={note.theme} 
-						longText={note.longText} 
-						isFuture={note.isFuture}
-						id={note.id}
-						day={note.day}
-						key={"note" + i} 
-						onEdit={this.props.onEdit} 
+						note = {note}
+						key = {"note" + i}
+						showAll = {this.props.showAll} 
+						onEdit = {this.props.onEdit}
+
+						day={this.props.day.id}
 					/>
 				)
 			}
