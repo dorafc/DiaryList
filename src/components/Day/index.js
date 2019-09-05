@@ -4,19 +4,22 @@ import styled, { css } from 'styled-components'
 import * as styles from '../../constants/styles.js';
 
 import Entry from '../Entry'
+import { withFirebase } from '../Firebase';
 
 class Day extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
 			notes : [],
-			hasFuture : false
+			queryNotes : [],
+			hasFuture : false,
+			date : ''
     }
 	}
 
 	componentDidMount(){
-    const db = this.props.firebase.db;
-		const userDb = db.collection('users').doc(this.props.userId).collection('dates').doc(this.props.day).collection("notes").orderBy("date", "asc")
+    // const db = this.props.firebase.db;
+		const userDb = this.props.day.ref.collection("notes").orderBy("date", "asc")
 
 		// get notes collections
 		userDb.get()
@@ -25,14 +28,16 @@ class Day extends Component {
 			querySnapshot.forEach((note) => {
 				let data = note.data()
 				data.id = note.id
-				data.day = this.props.day
+				data.day = this.props.day.id
 				notes.push(data)
 			})
+			this.setState({
+				queryNotes : querySnapshot
+			})
+
 			return notes
 		})
 		.then((data) => {
-
-
 			// Set State
 			this.setState({
 				notes : data
@@ -54,7 +59,7 @@ class Day extends Component {
 			notes.forEach((note) => {
 				let data = note.data()
 				data.id = note.id
-				data.day = this.props.day
+				data.day = this.props.day.id
 				newData.push(data)
 			})
 			this.setState({
@@ -88,7 +93,7 @@ class Day extends Component {
 		if (this.state.hasFuture === true || this.props.showAll === true){
 			return (
 				<DayView day={this.props.label}>
-					<DateHeader date={this.props.label} />
+					<DateHeader date={this.props.day.data().date.toDate().toDateString()}/>
 					<EntryList>{entryList}</EntryList>
 				</DayView>
 			)
@@ -99,12 +104,25 @@ class Day extends Component {
 }
 
 function DateHeader(props) {
-	const dateHeadStyle = (props.date === 'Today' || props.date === 'Yesterday') ? props.date : ''
-	return <DateTitle bgDate={dateHeadStyle}>{props.date}</DateTitle>
+	let today = new Date().toDateString()
+	let yesterday = new Date()
+	yesterday.setDate(yesterday.getDate() - 1)
+	yesterday = yesterday.toDateString()
+
+	let dateHeadStyle = '';
+	let dateLabel = props.date
+	if (props.date === today){
+		dateHeadStyle = 'Today'
+		dateLabel = 'Today'
+	} else if (props.date === yesterday){
+		dateHeadStyle = 'Yesterday'
+		dateLabel = 'Yesterday'
+	}
+
+	return <DateTitle bgDate={dateHeadStyle}>{dateLabel}</DateTitle>
 }
 
 // Styles
-
 const DayView = styled.div`
 	background-color: white;
 	margin: 0 0 14px 0;
@@ -140,4 +158,4 @@ const EntryList = styled.ul`
 	flex-wrap: wrap;
 `
 
-export default Day;
+export default withFirebase(Day);

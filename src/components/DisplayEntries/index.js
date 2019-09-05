@@ -7,18 +7,23 @@ class DisplayEntries extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
-    	dateEntries : []
+			dateEntries : [],
+			queryDocs : []
     }
   }
 
   componentDidMount(){
     const db = this.props.firebase.db;
-    const userDb = db.collection('users').doc(this.props.userId).collection("dates").orderBy("date", "desc")
-
+		const userDb = db.collection('users').doc(this.props.userId).collection("dates").orderBy("date", "desc")
+		
     // get date collections
     userDb.get()
     .then((querySnapshot) => {
-      let datesIds = [];
+			let datesIds = [];
+
+			this.setState({
+				queryDocs : querySnapshot.docs
+			})
 
       querySnapshot.forEach((doc) => {
         datesIds.push(doc.id)
@@ -37,50 +42,67 @@ class DisplayEntries extends Component {
 
 	render(){
 
-		let today = new Date()
-		const month = ((today.getMonth()+1).toString()).padStart(2, '0')
-		const day = ((today.getDay()+1).toString()).padStart(2, '0')
-		const year = today.getFullYear()
-		today = year+"-"+month+"-"+day
+		// const days = this.state.dateEntries.slice().map((date) => {
+		// 	// calc date labels
+		// 	let label;
 
-		let yesterday = new Date()
-		yesterday.setDate(yesterday.getDate() - 1)
-		const ymonth = ((yesterday.getMonth()+1).toString()).padStart(2, '0')
-		const yday = ((yesterday.getDay()+1).toString()).padStart(2, '0')
-		const yyear = yesterday.getFullYear()
-		yesterday = yyear+"-"+ymonth+"-"+yday
+		// 	if (date === today){
+		// 		label = "Today"
+		// 	} else if (date === yesterday){
+		// 		label = "Yesterday"
+		// 	} else {
+		// 		label = new Date(date).toDateString()
+		// 	}
 
-		const days = this.state.dateEntries.slice().map((date) => {
+		// 	return(
+		// 		<DayData 
+		// 			day={date} 
+		// 			key={date} 
+		// 			label={label} 
+		// 			onEdit={this.props.onEdit} 
+		// 			showAll={this.props.showAll} 
+		// 			userId={this.props.userId} 
+		// 		/>
+		// 	)
+		// })
+
+		const days = this.state.queryDocs.slice().map((date, i) => {
 			// calc date labels
-			let label;
+			// let label = 'foo';
 
-			if (date === today){
-				label = "Today"
-			} else if (date === yesterday){
-				label = "Yesterday"
-			} else {
-				label = new Date(date).toDateString()
-			}
+			// if (date === today){
+			// 	label = "Today"
+			// } else if (date === yesterday){
+			// 	label = "Yesterday"
+			// } else {
+			// 	label = new Date(date).toDateString()
+			// }
 
 			return(
-				<DayData day={date} key={date} label={label} onEdit={this.props.onEdit} showAll={this.props.showAll} userId={this.props.userId} />
+				<Day 
+					day={date}
+					key={'day'+i} 
+					onEdit={this.props.onEdit} 
+					showAll={this.props.showAll} 
+					userId={this.props.userId} 
+				/>
 			)
 		})
 
-		let emptyToday = ''
-		if (this.state.dateEntries[0] !== today && this.state.dateEntries[0] !== undefined) {
-			emptyToday = <DayData day={today} key={today} label='Today' onEdit={this.props.onEdit} userId={this.props.userId} />
-		}
+		// let emptyToday = ''
+		// if (this.state.dateEntries[0] !== today && this.state.dateEntries[0] !== undefined) {
+		// 	emptyToday = <DayData day={today} key={today} label='Today' onEdit={this.props.onEdit} userId={this.props.userId} />
+		// }
 
 		return (
 			<div className="DisplayEntries">
-				{emptyToday}
+				{/* {emptyToday} */}
 				{days}
 			</div>
 		)
 	}
 }
 
-const DayData = withFirebase(Day)
+// const DayData = withFirebase(Day)
 
-export default DisplayEntries;
+export default withFirebase(DisplayEntries);

@@ -81,7 +81,7 @@ class ViewEntries extends Component {
 
         {showForm}
   
-        <DisplayEntryList onEdit={this.handleEditClick} showAll={this.props.showAll} userId={this.props.userId} />
+        <DisplayEntries onEdit={this.handleEditClick} showAll={this.props.showAll} userId={this.props.userId} />
 
 		  </div>
   	)
@@ -97,6 +97,6 @@ const ShowAddArea = styled.div`
 
 // higher order components with Firebase
 const EditEntryForm = withFirebase(EditEntry);
-const DisplayEntryList = withFirebase(DisplayEntries);
+// const DisplayEntryList = withFirebase(DisplayEntries);
 
 export default ViewEntries;
