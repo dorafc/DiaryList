@@ -16,9 +16,6 @@ class ViewEntries extends Component {
 
       // if the current form is showing a completed entry
       completed : false,
-
-      // show future events or all events
-      showAll : true
     }
 
     this.handleAddEntry = this.handleAddEntry.bind(this);
