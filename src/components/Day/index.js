@@ -13,11 +13,20 @@ class Day extends Component {
 			notes : [],
 			hasFuture : false,
 			date : ''
-    }
+		}
 	}
 
 	componentDidMount(){
 		const userDb = this.props.day.ref.collection("notes").orderBy("date", "asc")
+
+		this.props.day.ref.collection("notes").where("isFuture", "==", true)
+		.onSnapshot((query) => {
+			if(query.docs.length > 0){
+				this.setState({
+					hasFuture : true
+				})
+			}
+		})
 
 		userDb.onSnapshot((notes) => {
 			this.setState({
@@ -28,7 +37,7 @@ class Day extends Component {
 
 	render(){
 		const entryList = this.state.notes.slice().map((note, i) => {
-			if ((this.props.showAll) || (!this.props.showAll && note.isFuture)) {
+			if ((this.props.showAll) || (!this.props.showAll && this.state.hasFuture)) {
 				return(
 					<Entry 
 						note = {note}
@@ -46,7 +55,7 @@ class Day extends Component {
 			
 		})
 
-		if (this.state.hasFuture === true || this.props.showAll === true){
+		if ((this.props.showAll) || (!this.props.showAll && this.state.hasFuture)) {
 			return (
 				<DayView day={this.props.label}>
 					<DateHeader date={this.props.day.data().date.toDate().toDateString()}/>

@@ -9,21 +9,20 @@ class Entry extends Component{
 	constructor(props) {
 		super(props);
     this.state = {
-    	
+    	// visible : true
     }
 	}
 
 	render(){
-		const future = (this.props.isFuture) ? 'isFuture' : ''
-		const done = (this.props.isFuture) ? <Done onEdit={this.props.onEdit} id={this.props.id} day={this.props.day} /> : ''
-
 		const data = this.props.note.data()
+		const future = (data.isFuture) ? 'isFuture' : ''
+		const done = (data.isFuture) ? <Done onEdit={this.props.onEdit} noteRef={this.props.note.ref} /> : ''
 
 		return(
 			<ColorCodesContext.Consumer>
 				{ (codes) => {
 					return codes.map((code,i) => {
-						if (data.theme === code.name){
+						if (data.theme === code.name && (this.props.showAll || (!this.props.showAll && data.isFuture))){
 							return (
 								<EntryView className={"entry "+data.theme+" "+future} key={i} bgColor={code.color} isFuture={data.isFuture}>
 									
@@ -32,8 +31,6 @@ class Entry extends Component{
 										{done}
 										<Edit 
 											onEdit={this.props.onEdit} 
-											id={this.props.note.id} 
-											day={this.props.day}
 											noteRef={this.props.note.ref}
 										/>
 									</Editors>
