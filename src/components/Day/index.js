@@ -52,7 +52,6 @@ class Day extends Component {
 			else {
 				return '';
 			}
-			
 		})
 
 		if ((this.props.showAll) || (!this.props.showAll && this.state.hasFuture)) {

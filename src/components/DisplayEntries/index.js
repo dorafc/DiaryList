@@ -16,15 +16,20 @@ class DisplayEntries extends Component {
 		const userDb = db.collection('users').doc(this.props.userId).collection("dates").orderBy("date", "desc")
 		
     // get date collections
-    userDb.get()
-    .then((querySnapshot) => {
+    // userDb.get()
+    // .then((querySnapshot) => {
+		// 	this.setState({
+		// 		queryDocs : querySnapshot.docs
+		// 	})
+    // })
+    // .catch((error) => {
+    //   console.log("Error getting dates documents: ", error);
+		// })
+		userDb.onSnapshot((querySnapshot)=>{
 			this.setState({
 				queryDocs : querySnapshot.docs
 			})
-    })
-    .catch((error) => {
-      console.log("Error getting dates documents: ", error);
-    })
+		})
   }
 
 	render(){
@@ -33,19 +38,14 @@ class DisplayEntries extends Component {
 			return(
 				<Day 
 					day={date}
-					key={'day'+i} 
+					key={date.id} 
 					onEdit={this.props.onEdit} 
 					showAll={this.props.showAll} 
 					userId={this.props.userId} 
 				/>
 			)
 		})
-
-		// let emptyToday = ''
-		// if (this.state.dateEntries[0] !== today && this.state.dateEntries[0] !== undefined) {
-		// 	emptyToday = <DayData day={today} key={today} label='Today' onEdit={this.props.onEdit} userId={this.props.userId} />
-		// }
-
+		
 		return (
 			<div className="DisplayEntries">
 				{/* {emptyToday} */}
