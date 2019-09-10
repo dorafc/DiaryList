@@ -9,15 +9,16 @@ class App extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
-      authUser: null
+      authUser: null,
+      loading: true
     }
   }
   
   componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
       authUser
-        ? this.setState({ authUser })
-        : this.setState({ authUser: null });
+        ? this.setState({ authUser, loading: false })
+        : this.setState({ authUser: null, loading: false });
     });
   }
 
@@ -26,7 +27,19 @@ class App extends Component {
   }
 
   render(){
-    const content = (this.state.authUser !== null) ? <SignedInData userId={this.state.authUser.uid} authUser={this.state.authUser} /> : <SignedOutData />
+    // const content = (this.state.authUser !== null) ? <SignedInData userId={this.state.authUser.uid} authUser={this.state.authUser} /> : <SignedOutData />
+
+    let content;
+
+    if (this.state.loading === true){
+      content = <Spinny />
+    } else {
+      if (this.state.authUser !== null){
+        content = <SignedInData userId={this.state.authUser.uid} authUser={this.state.authUser} />
+      } else {
+        content = <SignedOutData />
+      }
+    }
   	return (
       <Router>
         {content}
@@ -35,6 +48,11 @@ class App extends Component {
   	)
   }
 }
+
+function Spinny(props){
+  return <h1>SPINNING WHEEL OF WAITING</h1>
+}
+
 // components with data
 const SignedOutData = withFirebase(SignedOut)
 const SignedInData = withFirebase(SignedIn)
