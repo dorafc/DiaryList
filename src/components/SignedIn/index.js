@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 import UtilityBar from '../UtilityBar';
 import {ColorCodesContext, colorCodes} from '../KeyTheme';
@@ -110,12 +110,6 @@ class SignedIn extends Component{
 
 // styled components
 
-const rainbowKeyframes =  keyframes` 
-  0%{background-position:0% 82%}
-  50%{background-position:100% 19%}
-  100%{background-position:0% 82%}
-`
-
 const Wrapper = styled.div`
   padding: 0;
   margin: 0;
@@ -124,9 +118,6 @@ const Wrapper = styled.div`
 const Content = styled.div`
   padding: 75px 30px 0;
   min-height: 100vh;
-  background: linear-gradient(90deg, #fceae8, #ffebeb, #fff9e8, #ffffeb, #edfff0, #e8feff, #eeedff, #fdedff, #fdebff);
-  background-size: 1800% 1800%;
-  animation: ${rainbowKeyframes} 30s ease infinite;
   @media (max-width: 650px){
     padding: 75px 17px 0;
   }
