@@ -12,6 +12,7 @@ class SignedIn extends Component{
 		super(props);
     this.state = {
       colorCodes : colorCodes.codes,      // default color codes
+      updateCodes : false,
       prefVisible : false,                // key visibility
       showAll : true                      // show future events or all events
     }
@@ -44,9 +45,10 @@ class SignedIn extends Component{
   }
 
   componentDidMount(){
-		const db = this.props.firebase.db;
-		if (this.props.authUser){
-			const docRef = db.collection('users').doc(this.props.userId).collection('themes').where('active', '==', true)
+    const db = this.props.firebase.db;
+    
+		// if (this.props.authUser){
+      const docRef = db.collection('users').doc(this.props.userId).collection('themes').where('active', '==', true)
 
 			let themes=[]
 
@@ -64,13 +66,14 @@ class SignedIn extends Component{
       })
       .then(() => {
         this.setState({
-          colorCodes : themes
+          colorCodes : themes,
+          updateCodes : true
         })
       })
 			.catch(function(error) {
 		  	console.log("Error getting document:", error);
 			})
-		}
+		// }
   }
   
   // toggle showAll for showing future events or not
@@ -87,6 +90,8 @@ class SignedIn extends Component{
   render() {
     const preferences = (this.state.prefVisible) ? <Preferences showPref={this.showPref} toggleShowAll={this.toggleShowAll} /> : ''
 
+    const entries = (this.state.updateCodes) ? <ViewEntries userId={this.props.userId} showAll={this.state.showAll} /> : ''
+
     return(
       <Wrapper>
         <ColorCodesContext.Provider value={this.state.colorCodes}>
@@ -100,7 +105,7 @@ class SignedIn extends Component{
         </ColorCodesContext.Provider>
         <Content>
           <ColorCodesContext.Provider value={this.state.colorCodes}>
-            <ViewEntries userId={this.props.userId} showAll={this.state.showAll} />
+            {entries}
           </ColorCodesContext.Provider>
         </Content>
       </Wrapper>

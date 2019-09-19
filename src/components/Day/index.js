@@ -54,7 +54,7 @@ class Day extends Component {
 			}
 		})
 
-		if ((this.props.showAll) || (!this.props.showAll && this.state.hasFuture)) {
+		if (((this.props.showAll) || (!this.props.showAll && this.state.hasFuture)) && (entryList.length > 0)){
 			return (
 				<DayView day={this.props.label}>
 					<DateHeader date={this.props.day.data().date.toDate().toDateString()}/>
