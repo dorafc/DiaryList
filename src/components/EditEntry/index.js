@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import 'firebase/firestore';
 import Close from '../Close';
+import DayPicker from '../DayPicker'
 
 import styled, { keyframes } from 'styled-components'
 import * as styles from '../../constants/styles.js';
@@ -31,8 +32,7 @@ class EditEntry extends Component {
   onChange(event){
   	const value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
   	this.setState({
-  		[event.target.name] : value,
-  		date : new Date()
+  		[event.target.name] : value
   	})
   }
 
@@ -43,7 +43,8 @@ class EditEntry extends Component {
   			shortText : entry.data().shortText,
   			longText : entry.data().longText,
 				theme : entry.data().theme,
-				isFuture : entry.data().isFuture
+				isFuture : entry.data().isFuture,
+				date : entry.data().date.toDate()
   		})
 		})
 		.then(() => {
@@ -108,9 +109,8 @@ class EditEntry extends Component {
 
   onEditSubmit(event, noteRef){
   	event.preventDefault();
-  	const docRef = noteRef
 
-  	return docRef.update({
+  	return noteRef.update({
 		    shortText : this.state.shortText,
 		    longText : this.state.longText,
 		    isFuture : this.state.isFuture,
@@ -173,6 +173,8 @@ class EditEntry extends Component {
 							</ColorCodesContext.Consumer>
 						</Select>
 					</Theme>
+
+					<DayPicker />
 					
 					<Label htmlFor="shortText">Whats up?</Label>
 					<ShortText type="text" name="shortText" value={this.state.shortText} onChange={this.onChange} />
