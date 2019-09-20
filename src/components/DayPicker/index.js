@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+import styled from 'styled-components'
+import * as styles from '../../constants/styles.js';
+
 class DayPicker extends Component{
   constructor(props) {
 		super(props);
@@ -59,16 +62,48 @@ class DayPicker extends Component{
       dayText = this.props.date.toDateString() + ", " + this.state.daysPast + " days ago"
     }
 
-    const nextLink = (this.state.daysPast > 0) ? <a href="#next" onClick={this.nextDay}>Next</a> : ''
+    const nextLink = (this.state.daysPast > 0) ? <Arrow href="#next" onClick={this.nextDay} className="material-icons arrow_forward">arrow_forward</Arrow> : <EmptyArrow></EmptyArrow>
 
     return(
-      <div className="dayPicker">
-        <a href="#pref" onClick={this.prevDay}>Prev</a>
-        <h4>{dayText}</h4>
+      <Picker>
+        <Arrow href="#pref" onClick={this.prevDay} className="material-icons arrow_back">arrow_back</Arrow>
+        <DateText>{dayText}</DateText>
         {nextLink}
-      </div>
+      </Picker>
     )
   }
 }
+
+// styled components
+const Picker = styled.div`
+  border: solid 2px ${styles.green};
+	border-radius: 8px;
+  background-color: white;
+  padding: 7px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
+const DateText = styled.h4`
+  margin: 0;
+  padding: 0;
+  line-height: 24px;
+`
+const Arrow = styled.a`
+  text-decoration: none;
+  color: ${styles.green};
+  transition: transform ease .2s;
+
+  &:hover{
+    transform: scale(1.15)
+  }
+  &:active{
+    transform: scale(1);
+  }
+`
+const EmptyArrow = styled.div`
+  width: 24px;
+  height: 24px;
+`
 
 export default DayPicker
