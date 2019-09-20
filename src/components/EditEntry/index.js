@@ -26,7 +26,8 @@ class EditEntry extends Component {
 
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
-    this.onDelete = this.onDelete.bind(this)
+		this.onDelete = this.onDelete.bind(this)
+		this.setDate = this.setDate.bind(this)
 	}
 
   onChange(event){
@@ -34,7 +35,13 @@ class EditEntry extends Component {
   	this.setState({
   		[event.target.name] : value
   	})
-  }
+	}
+	
+	setDate(date){
+		this.setState({
+			date : date
+		})
+	}
 
   getData(noteRef){
   	noteRef.get()
@@ -174,7 +181,7 @@ class EditEntry extends Component {
 						</Select>
 					</Theme>
 
-					<DayPicker />
+					<DayPicker setDate={this.setDate} />
 					
 					<Label htmlFor="shortText">Whats up?</Label>
 					<ShortText type="text" name="shortText" value={this.state.shortText} onChange={this.onChange} />

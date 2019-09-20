@@ -24,6 +24,7 @@ class DayPicker extends Component{
       date : newDate,
       daysPast : dayCount
     })
+    this.props.setDate(newDate)
   }
 
   prevDay(event){
@@ -38,6 +39,7 @@ class DayPicker extends Component{
       date : newDate,
       daysPast : dayCount
     })
+    this.props.setDate(newDate)
   }
   
   render() {
