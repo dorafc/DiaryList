@@ -1,0 +1,65 @@
+import React, {Component} from 'react';
+
+class DayPicker extends Component{
+  constructor(props) {
+		super(props);
+    this.state = {
+      date : new Date(),
+      daysPast : 0
+    };
+
+    this.nextDay = this.nextDay.bind(this)
+    this.prevDay = this.prevDay.bind(this)
+  }
+
+  nextDay(event){
+    event.preventDefault();
+
+    let newDate = new Date(this.state.date);
+    let dayCount = this.state.daysPast
+    dayCount-=1
+
+    newDate.setDate(newDate.getDate() + 1)
+    this.setState({
+      date : newDate,
+      daysPast : dayCount
+    })
+  }
+
+  prevDay(event){
+    event.preventDefault();
+
+    let newDate = new Date(this.state.date);
+    let dayCount = this.state.daysPast
+    dayCount+=1
+
+    newDate.setDate(newDate.getDate() - 1)
+    this.setState({
+      date : newDate,
+      daysPast : dayCount
+    })
+  }
+  
+  render() {
+    let dayText = ""
+    if (this.state.daysPast === 0){
+      dayText = 'Today'
+    } else if (this.state.daysPast === 1){
+      dayText = 'Yesterday'
+    } else {
+      dayText = this.state.date.toDateString() + ", " + this.state.daysPast + " days ago"
+    }
+
+    const nextLink = (this.state.daysPast > 0) ? <a href="#next" onClick={this.nextDay}>Next</a> : ''
+
+    return(
+      <div className="dayPicker">
+        <a href="#pref" onClick={this.prevDay}>Prev</a>
+        <h4>{dayText}</h4>
+        {nextLink}
+      </div>
+    )
+  }
+}
+
+export default DayPicker
