@@ -12,10 +12,17 @@ class DayPicker extends Component{
     this.prevDay = this.prevDay.bind(this)
   }
 
+  componentDidMount(){
+    const today = new Date()
+    this.setState({
+      daysPast : Math.round((today - this.props.date)/1000/60/60/24)
+    })
+  }
+
   nextDay(event){
     event.preventDefault();
 
-    let newDate = new Date(this.state.date);
+    let newDate = new Date(this.props.date);
     let dayCount = this.state.daysPast
     dayCount-=1
 
@@ -30,7 +37,7 @@ class DayPicker extends Component{
   prevDay(event){
     event.preventDefault();
 
-    let newDate = new Date(this.state.date);
+    let newDate = new Date(this.props.date);
     let dayCount = this.state.daysPast
     dayCount+=1
 
@@ -49,7 +56,7 @@ class DayPicker extends Component{
     } else if (this.state.daysPast === 1){
       dayText = 'Yesterday'
     } else {
-      dayText = this.state.date.toDateString() + ", " + this.state.daysPast + " days ago"
+      dayText = this.props.date.toDateString() + ", " + this.state.daysPast + " days ago"
     }
 
     const nextLink = (this.state.daysPast > 0) ? <a href="#next" onClick={this.nextDay}>Next</a> : ''

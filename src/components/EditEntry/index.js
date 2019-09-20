@@ -16,6 +16,7 @@ const initialState = {
 	theme : 'make',
 	isFuture : false,
 	date : new Date(),
+	dateUpdate : false
 }
 
 class EditEntry extends Component {
@@ -39,7 +40,8 @@ class EditEntry extends Component {
 	
 	setDate(date){
 		this.setState({
-			date : date
+			date : date,
+			dateUpdate : true
 		})
 	}
 
@@ -115,28 +117,35 @@ class EditEntry extends Component {
   }
 
   onEditSubmit(event, noteRef){
-  	event.preventDefault();
+		event.preventDefault();
 
-  	return noteRef.update({
+		// date has not changes
+		if (!this.state.dateUpdate){
+			return noteRef.update({
 		    shortText : this.state.shortText,
 		    longText : this.state.longText,
 		    isFuture : this.state.isFuture,
 				theme : this.state.theme,
-		})
-		.then(() => {
-		    console.log("Entry successfully updated!");
-		    this.setState({ ...initialState })
-		})
-		.then(() => {
-			this.props.close()
-		})
-		.catch(function(error) {
-		    // The document probably doesn't exist.
-		    console.error("Error updating entry: ", error);
-		});
-  }
+			})
+			.then(() => {
+					console.log("Entry successfully updated!");
+					this.setState({ ...initialState })
+			})
+			.then(() => {
+				this.props.close()
+			})
+			.catch(function(error) {
+					// The document probably doesn't exist.
+					console.error("Error updating entry: ", error);
+			});
+		}else {
+			console.log('date changed!')
+			this.onSubmit(event)
+			this.onDelete(event)
+		}
+  } 
 
-  onDelete(event, noteRef){
+  onDelete(event){
   	event.preventDefault();
   	const docRef = this.props.noteRef
 
@@ -161,47 +170,52 @@ class EditEntry extends Component {
 		const showDelete = (!isEdit) ? '' : <DeleteBtn href="#delete" onClick={(e) => {this.onDelete(e, this.props.noteRef)}}>Delete</DeleteBtn>
 		const greeting = (this.props.completed) ? "You did it! Completed!" : "Hello, World!"
 
-		return (
-			<EditEntryContainer id="editForm">
-				<EditForm onSubmit={onSub}>
-					<Close closeThis={this.props.close} />
-					<FormGreeting>{greeting}</FormGreeting>
-				
-					<Theme>
-						<p>Pick Theme</p>
-						<Select value={this.state.theme} name="theme" onChange={this.onChange}>
-							<ColorCodesContext.Consumer>
-								{codes => (
-										codes.map((code, i) => 
-											<option value={code.name} key={i}>{code.text}</option>
+		if ((isEdit && this.state.shortText !== '') || (!isEdit)){
+			return (
+				<EditEntryContainer id="editForm">
+					<EditForm onSubmit={onSub}>
+						<Close closeThis={this.props.close} />
+						<FormGreeting>{greeting}</FormGreeting>
+	
+						<DayPicker setDate={this.setDate} date={this.state.date} />
+					
+						<Theme>
+							<p>Pick Theme</p>
+							<Select value={this.state.theme} name="theme" onChange={this.onChange}>
+								<ColorCodesContext.Consumer>
+									{codes => (
+											codes.map((code, i) => 
+												<option value={code.name} key={i}>{code.text}</option>
+											)
 										)
-									)
-								}
-							</ColorCodesContext.Consumer>
-						</Select>
-					</Theme>
-
-					<DayPicker setDate={this.setDate} />
-					
-					<Label htmlFor="shortText">Whats up?</Label>
-					<ShortText type="text" name="shortText" value={this.state.shortText} onChange={this.onChange} />
-					
-
-					<div className="longText">
-						<Label htmlFor="longText">More details?</Label>
-						<LongText name="longText" value={this.state.longText} onChange={this.onChange} />
-					</div>
-					<div className="isFuture">
-						<label> 
-							<input type="checkbox" name="isFuture" checked={this.state.isFuture} onChange={this.onChange} />	
-							For Later?
-						</label>
-					</div>
-					<SubmitBtn type="submit" >{buttonText}</SubmitBtn>
-					{showDelete}
-				</EditForm>
-			</EditEntryContainer>
-		)
+									}
+								</ColorCodesContext.Consumer>
+							</Select>
+						</Theme>
+						
+						<Label htmlFor="shortText">Whats up?</Label>
+						<ShortText type="text" name="shortText" value={this.state.shortText} onChange={this.onChange} />
+						
+	
+						<div className="longText">
+							<Label htmlFor="longText">More details?</Label>
+							<LongText name="longText" value={this.state.longText} onChange={this.onChange} />
+						</div>
+						<div className="isFuture">
+							<label> 
+								<input type="checkbox" name="isFuture" checked={this.state.isFuture} onChange={this.onChange} />	
+								For Later?
+							</label>
+						</div>
+						<SubmitBtn type="submit" >{buttonText}</SubmitBtn>
+						{showDelete}
+					</EditForm>
+				</EditEntryContainer>
+			)
+		} else {
+			return ('')
+		}
+		
 	}
 }
 
