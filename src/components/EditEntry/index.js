@@ -9,6 +9,8 @@ import * as styles from '../../constants/styles.js';
 import { ColorCodesContext } from '../KeyTheme';
 import { withFirebase } from '../Firebase';
 
+import dropdown from '../../images/dropdown.svg'
+
 const initialState = {
 	id : '',
 	shortText : '',
@@ -268,6 +270,7 @@ const Theme = styled.div`
 const Select = styled.select`
 	display: block;
 	background-color: white;
+	background: url(${dropdown}) no-repeat white 100% 50%;
 	width: 200px;
 	padding: 7px;
 	font-size: 16px;
