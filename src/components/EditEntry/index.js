@@ -143,7 +143,13 @@ class EditEntry extends Component {
 		}else {
 			console.log('date changed!')
 			this.onSubmit(event)
-			this.onDelete(event)
+			noteRef.delete()
+			.then(() => {
+				console.log("Note successfully moved");
+			})
+			.catch(function(error) {
+				console.error("Error removing document: ", error);
+			});
 		}
   } 
 
@@ -160,7 +166,7 @@ class EditEntry extends Component {
 			this.props.close()
 		})
 		.catch(function(error) {
-	    console.error("Note removing document: ", error);
+	    console.error("Error removing document: ", error);
 		});
   }
 
