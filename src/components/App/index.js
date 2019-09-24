@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import styled from 'styled-components'
 
 import SignedOut from '../SignedOut';
+import Spinny from '../Spinny';
 import SignedIn from '../SignedIn';
 import { withFirebase } from '../Firebase';
 
@@ -48,10 +49,6 @@ class App extends Component {
       
   	)
   }
-}
-
-function Spinny(props){
-  return <h1>SPINNING WHEEL OF WAITING</h1>
 }
 
 // styled components
