@@ -27,7 +27,7 @@ class Entry extends Component{
 								<EntryView className={"entry "+data.theme+" "+future} key={i} bgColor={code.color} isFuture={data.isFuture}>
 									
 									{data.shortText}
-									<Editors className="editors">
+									<Editors className="editors" isFuture={data.isFuture}>
 										{done}
 										<Edit 
 											onEdit={this.props.onEdit} 
@@ -67,7 +67,7 @@ const EntryView = styled.li`
 	background-color: ${props => props.bgColor};
 	color: #3f3f3f;
 	margin: 0 10px 10px 0;
-	padding: 7px 10px;
+	padding: 7px 30px;
 	border-radius: 7px;
 	display: flex;
 	transition: .3s all ease-out;
@@ -85,7 +85,7 @@ const EntryView = styled.li`
 	}
 
 	:hover{
-		padding: 7px 30px 7px 10px;
+		padding: 7px 40px 7px 20px;
 	}
 	${props => (props.isFuture) && css`
 		:hover{
@@ -114,9 +114,12 @@ const DoneButton = styled.a`
 
 const Editors = styled.div`
 	position: absolute;
-	right: 7px;
+	right: 17px;
 	opacity: 0;
 	transition: .3s all ease-in-out;
+	${props => (props.isFuture) && css`
+		right: 7px;
+  `}
 `
 
 export default withFirebase(Entry);
