@@ -73,7 +73,6 @@ const EntryView = styled.li`
 	transition: .3s all ease-out;
 	position: relative;
 	z-index: 1;
-	height: 32px;
 	${props => (props.isFuture) && css`
 		box-sizing: border-box;
     background-color: white;
