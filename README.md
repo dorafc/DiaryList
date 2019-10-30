@@ -14,7 +14,7 @@ Diary List is a single page webapp hosted on Firebase used to track daily though
 
 ![preferences view](https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_4sm.png) -->
 
-<img src="https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_1.png" alt="desktop screenshot" />
+<img src="https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_1.png" style="max-width: 500px" alt="desktop screenshot" />
 
 ## Motivation
 
