@@ -18,7 +18,7 @@ Diary List is a single page webapp hosted on Firebase used to track daily though
 
 Inspiration for this app came from chatting with others about how they use digital tools to keep track of their daily life and plan for the future. Many of these tools focus on strict routines (i.e. checking off daily habits, to-do lists) and function by guilting their users into accomplishing an often arbitrary task. I wanted to experiment with creating a system that allows for more flexible planning, shifting personal goals, and encouraging a user to set their own priorities.
 
-## How it works
+## How to use
 
 1. Visit https://diarylist-dfc.web.app
 2. Sign-in with a google account
@@ -26,7 +26,7 @@ Inspiration for this app came from chatting with others about how they use digit
 4. Enter a note/thought/plan/idea for the day
 5. Categorize the note based on a theme (value system)
 
-## Frameworks used
+## Technology used
 
 * Google Firebase
 * React
