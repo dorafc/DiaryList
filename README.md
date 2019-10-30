@@ -6,13 +6,13 @@ Diary List is a single page webapp hosted on Firebase used to track daily though
 
 ## Screenshots
 
-![desktop screenshot](https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_1sm.png)
+![desktop screenshot](https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_1.png)
 
-![mobile screenshot](https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_2sm.png)
+![mobile screenshot](https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_2.png)
 
-![add entry screen](https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_3sm.png)
+![add entry screen](https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_3.png)
 
-![preferences view](https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_4sm.png)
+![preferences view](https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_4.png)
 
 ## Motivation
 
