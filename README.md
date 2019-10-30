@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Diary List is a single page webapp hosted on Firebase used to track daily thoughts, events, and future plans. 
 
-## Screenshots
+## Screenshot
 
 <!-- ![desktop screenshot](https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_1sm.png)
 
