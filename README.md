@@ -1,5 +1,3 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Diary List (AKA Listy McListface)
 
 Diary List is a single page webapp hosted on Firebase used to track daily thoughts, events, and future plans. 
@@ -34,6 +32,8 @@ Inspiration for this app came from chatting with others about how they use digit
 * React
 * Create-react-app
 * Styled Components
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Credits
 
