@@ -13,6 +13,7 @@ Diary List is a single page webapp hosted on Firebase used to track daily though
 ![alt text](http:https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_3sm.png)
 
 ![alt text](http:https://raw.githubusercontent.com/dorafc/DiaryList/master/screenshots/Lifey_McLifeface_4sm.png)
+
 ## Motivation
 
 Inspiration for this app came from chatting with others about how they use digital tools to keep track of their daily life and plan for the future. Many of these tools focus on strict routines (i.e. checking off daily habits, to-do lists) and function by guilting their users into accomplishing an often arbitrary task. I wanted to experiment with creating a system that allows for more flexible planning, shifting personal goals, and encouraging a user to set their own priorities.
