@@ -1,69 +1,32 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Diary List (AKA Listy McListface)
 
-In the project directory, you can run:
+Diary List is a single page webapp hosted on Firebase used to track daily thoughts, events, and future plans. 
 
-### `npm start`
+## Motivation
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Inspiration for this app came from chatting with others about how they use digital tools to keep track of their daily life and plan for the future. Many of these tools focus on strict routines (i.e. checking off daily habits, to-do lists) and function by guilting their users into accomplishing an often arbitrary task. I wanted to experiment with creating a system that allows for more flexible planning, shifting personal goals, and encouraging a user to set their own priorities.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## How it works
 
-### `npm test`
+1. Visit https://diarylist-dfc.web.app
+2. Sign-in with a google account
+3. User clicks "Add new entry"
+4. Enter a note/thought/plan/idea for the day
+5. Categorize the note based on a theme (value system)
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Frameworks used
 
-### `npm run build`
+* Google Firebase
+* React
+* Create-react-app
+* Styled Components
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Credits
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Created at Recurse Center (https://www.recurse.com)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-echo # DiaryList
+## License
+ 
+BSD 3-clause
