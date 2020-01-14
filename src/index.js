@@ -9,6 +9,7 @@ import Firebase, { FirebaseContext } from './components/Firebase';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
+	// Initial the firebase database only once, pass down to child components in context
 	<FirebaseContext.Provider value={new Firebase()}>
 		<App />
 	</FirebaseContext.Provider>, 

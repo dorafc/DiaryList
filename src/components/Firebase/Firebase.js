@@ -2,6 +2,7 @@ import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
+// env variables with firebase auth
 const config = {
 	apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -12,6 +13,8 @@ const config = {
   appId: process.env.REACT_APP_APPID
 }
 
+// <Firebase>: Initialize app once, set needed methods
+// TODO: ensure that all firebase methods go through here
 class Firebase {
   constructor() {
     app.initializeApp(config);
@@ -36,7 +39,6 @@ class Firebase {
     // authentication
     this.auth = app.auth();
     this.provider = new app.auth.GoogleAuthProvider()
-    // this.provider = new app.auth.GoogleAuthProvider();
   }
 
   // *** Auth API ***
@@ -44,6 +46,7 @@ class Firebase {
     this.auth.signOut();
   }
 
+  // *** Sign In ***
   doSignInWithRedirect = () => {
     this.auth.signInWithRedirect(this.provider)
   }
