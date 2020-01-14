@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components'
 import * as styles from '../../constants/styles.js';
 
+// <AddEntry> : button to toggle the add entry form
 function AddEntry(props){
 	return(
 		<AddButton className="AddEntry" onClick={props.onClick}>
