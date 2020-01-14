@@ -5,30 +5,32 @@ import styled, { css } from 'styled-components'
 import { ColorCodesContext } from '../KeyTheme';
 import { withFirebase } from '../Firebase';
 
+// <Entry> : displays note and edit button for each entry
 class Entry extends Component{
 	constructor(props) {
 		super(props);
     this.state = {
-    	// visible : true
     }
 	}
 
 	render(){
 		const data = this.props.note.data()
 		const future = (data.isFuture) ? 'isFuture' : ''
-		const done = (data.isFuture) ? <Done onEdit={this.props.onEdit} noteRef={this.props.note.ref} /> : ''
 
 		return(
 			<ColorCodesContext.Consumer>
 				{ (codes) => {
 					return codes.map((code,i) => {
+						{/* render entry for theme with corresponding color code */}
 						if (data.theme === code.name && (this.props.showAll || (!this.props.showAll && data.isFuture))){
 							return (
 								<EntryView className={"entry "+data.theme+" "+future} key={i} bgColor={code.color} isFuture={data.isFuture}>
 									
 									{data.shortText}
 									<Editors className="editors" isFuture={data.isFuture}>
-										{done}
+										{data.isFuture && 
+											<Done onEdit={this.props.onEdit} noteRef={this.props.note.ref} />
+										}
 										<Edit 
 											onEdit={this.props.onEdit} 
 											noteRef={this.props.note.ref}
@@ -47,6 +49,7 @@ class Entry extends Component{
 	
 }
 
+// <Edit> : Edit button for entry
 function Edit(props){
 	return(
 		<EditButton 
@@ -57,6 +60,7 @@ function Edit(props){
 	)
 }
 
+// <Done> : Checkmark for future items
 function Done(props){
 	return(
 		<DoneButton href="#complete" onClick={(e) => props.onEdit(e, props.noteRef, true)} className="material-icons done" >done</DoneButton>
