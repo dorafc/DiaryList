@@ -5,15 +5,15 @@ import * as styles from '../../constants/styles.js';
 
 import UtilityBar from '../UtilityBar';
 
-// function onClick(event) {
-//   this.props.firebase.doSignInWithRedirect()
-// }
-
+// <SignedOut> : Display content for signed out user
 class SignedOut extends Component{
+
+  // allow user to sign in
   onClick = event => {
     this.props.firebase.doSignInWithRedirect()
   }
 
+  // TODO: Update login text
   render() {
     return(
       <Wrapper>
@@ -36,8 +36,6 @@ class SignedOut extends Component{
               <li>Need to make a demo account</li>
               <li>Real accounts for friends, also I can see ur data</li>
             </ul>
-
-            
           </WelcomeText>
           
           <BtnWrapper>
@@ -63,13 +61,11 @@ const SignInBtn = styled.button`
 	background-color: transparent;
 	color: ${styles.green};
 	padding: 20px 100px;
-	${'' /* font-weight: 700; */}
 	font-size: 19px;
   margin: 60px 0;
 	transition: all .3s ease-in-out;
 
 	:hover{
-		${'' /* background-color: ${styles.paleGreen} */}
 		border-radius: 0;
 		box-shadow: 4px 4px ${styles.lightGreen};
 	}

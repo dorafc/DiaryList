@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import styled, { keyframes } from 'styled-components'
 import * as styles from '../../constants/styles.js';
 
+// <Spinny> : Displays an animation for loading screens
+
 class Spinny extends Component{
   render(){
     return(
