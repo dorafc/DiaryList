@@ -8,12 +8,13 @@ import * as styles from '../../constants/styles.js';
 
 import * as ROUTES from '../../constants/routes';
 
+// <UtilityBar> : utility nav for the top of the page
 class UtilityBar extends Component {
 
 	constructor(props) {
 		super(props);
     this.state = {
-			keyVisible : false,
+			
 		}
 	}
 
