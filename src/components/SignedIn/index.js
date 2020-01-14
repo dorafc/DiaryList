@@ -88,10 +88,6 @@ class SignedIn extends Component{
   }
 
   render() {
-    const preferences = (this.state.prefVisible) ? <Preferences showPref={this.showPref} toggleShowAll={this.toggleShowAll} /> : ''
-
-    const entries = (this.state.updateCodes) ? <ViewEntries userId={this.props.userId} showAll={this.state.showAll} /> : ''
-
     return(
       <Wrapper>
         <ColorCodesContext.Provider value={this.state.colorCodes}>
@@ -101,11 +97,15 @@ class SignedIn extends Component{
             authUser={this.props.authUser}
             userId={this.props.userId}
           />
-          {preferences}
+          {this.state.prefVisible && 
+            <Preferences showPref={this.showPref} toggleShowAll={this.toggleShowAll} />
+          }
         </ColorCodesContext.Provider>
         <Content>
           <ColorCodesContext.Provider value={this.state.colorCodes}>
-            {entries}
+            {this.state.updateCodes && 
+              <ViewEntries userId={this.props.userId} showAll={this.state.showAll} />
+            }
           </ColorCodesContext.Provider>
         </Content>
       </Wrapper>
