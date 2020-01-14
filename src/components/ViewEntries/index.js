@@ -6,37 +6,30 @@ import EditEntry from '../EditEntry';
 import DisplayEntries from '../DisplayEntries';
 import AddEntry from '../AddEntry';
 
+// <ViewEntries>: content of the logged in app that contains the entries and ability to add entries
 class ViewEntries extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
-
-      // value of currently editing 
-      noteRef : '',
-
-      // if the current form is showing a completed entry
-      completed : false,
+      noteRef : '',       // value of currently editing 
+      completed : false,  // if the current form is showing a completed entry
     }
-
-    this.handleAddEntry = this.handleAddEntry.bind(this);
-    this.handleEditClick = this.handleEditClick.bind(this);
-    this.closeForm = this.closeForm.bind(this)
-    this.showForm = this.showForm.bind(this)
   }
 
-  handleAddEntry(e){
+  // *** Toggle showing the add entry form
+  handleAddEntry = (e) => {
     e.preventDefault()
-    this.showForm('', '', false)
+    this.showForm('', '')
   }
 
-  // Toggle showing the edit form
-  handleEditClick(e, noteRef, completed){
+  // *** Toggle showing the edit form
+  handleEditClick = (e, noteRef, completed) =>{
   	e.preventDefault()
     this.showForm(noteRef, completed)
   }
 
-  // closes edit form
-  closeForm(e){
+  // *** closes edit form
+  closeForm = (e) => {
     if (e) {e.preventDefault()}
     this.setState({
       showEditForm : false,
@@ -44,8 +37,8 @@ class ViewEntries extends Component {
     })
   }
 
-  // show form
-  showForm(noteRef, completed){
+  // *** show add or edit form
+  showForm = (noteRef, completed) => {
     this.setState({
       showEditForm : true,
       noteRef : noteRef,
@@ -53,24 +46,24 @@ class ViewEntries extends Component {
     })
   }
 
-  render(){
-  	let showForm = null
-  	if (this.state.showEditForm){
-  		showForm = <EditEntry
-        noteRef = {this.state.noteRef}
-        close={this.closeForm}
-        completed={this.state.completed}
-        userId={this.props.userId}
-      />
-  	} else {
-  		showForm = <ShowAddArea><AddEntry onClick={this.handleAddEntry} /></ShowAddArea>
-    }
-    
-    
+  render(){    
   	return (
   		<div className="ViewEntries">
 
-        {showForm}
+        {/* Show Edit form */}
+        {this.state.showEditForm && 
+          <EditEntry
+            noteRef = {this.state.noteRef}
+            close={this.closeForm}
+            completed={this.state.completed}
+            userId={this.props.userId}
+          />
+        }
+
+        {/* Show Add Entry button */}
+        {!this.state.showEditForm && 
+          <ShowAddArea><AddEntry onClick={this.handleAddEntry} /></ShowAddArea>
+        }
   
         <DisplayEntries
           onEdit={this.handleEditClick} 
@@ -89,9 +82,4 @@ const ShowAddArea = styled.div`
   display: flex;
   justify-content: space-around;
 `
-
-// higher order components with Firebase
-// const EditEntryForm = withFirebase(EditEntry);
-// const DisplayEntryList = withFirebase(DisplayEntries);
-
 export default ViewEntries;
