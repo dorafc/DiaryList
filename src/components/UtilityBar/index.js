@@ -1,31 +1,17 @@
 import React, {Component} from 'react';
 import Navigation from '../Navigation';
 
-import { Link } from 'react-router-dom';
-
 import styled from 'styled-components'
 import * as styles from '../../constants/styles.js';
 
-import * as ROUTES from '../../constants/routes';
-
 // <UtilityBar> : utility nav for the top of the page
-class UtilityBar extends Component {
-
-	constructor(props) {
-		super(props);
-    this.state = {
-			
-		}
-	}
-
-	render(){
+function UtilityBar(props){
 		return(
 			<Masthead>
-				<Title><Link to={ROUTES.LANDING}>Lifey McLifeface</Link></Title>
-				<Navigation showPref={this.props.showPref} authUser={this.props.authUser} />
+				<Title>Lifey McLifeface</Title>
+				<Navigation showPref={props.showPref} authUser={props.authUser} />
 			</Masthead>
 		)
-	}
 }
 
 // style components

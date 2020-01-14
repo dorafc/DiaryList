@@ -4,7 +4,7 @@ import SignOutButton from '../SignOut';
 import styled from 'styled-components'
 
 const Navigation = ({ authUser, showPref, toggleShowAll }) => (
-  <div>{authUser ? <NavigationAuth showPref={showPref} toggleShowAll={toggleShowAll}/> : <NavigationNonAuth />}</div>
+  <>{authUser ? <NavigationAuth showPref={showPref} toggleShowAll={toggleShowAll}/> : <NavigationNonAuth />}</>
 );
 
 function NavigationAuth(props){
@@ -27,9 +27,6 @@ function NavigationNonAuth(){
 	return(
 		<Nav>
 			<NavList>
-	      {/* <NavListItem>
-	        <Link to={ROUTES.SIGNIN}>Sign In</Link>
-	      </NavListItem> */}
 	    </NavList>
 		</Nav>
 	)
