@@ -1,5 +1,6 @@
 import React from 'react';
 
+// TODO: Rethink default color codes
 const colorCodes = {
 	codes : [
 				{
