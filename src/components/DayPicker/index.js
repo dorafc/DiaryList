@@ -3,26 +3,18 @@ import React, {Component} from 'react';
 import styled from 'styled-components'
 import * as styles from '../../constants/styles.js';
 
+// <DayPicker> : widget to select a date
 class DayPicker extends Component{
   constructor(props) {
 		super(props);
     this.state = {
-      date : new Date(),
-      daysPast : 0
+      date : new Date(),    // date of the entry
+      daysPast : 0          // difference of date from current date
     };
-
-    this.nextDay = this.nextDay.bind(this)
-    this.prevDay = this.prevDay.bind(this)
   }
 
-  componentDidMount(){
-    const today = new Date()
-    this.setState({
-      daysPast : Math.round((today - this.props.date)/1000/60/60/24)
-    })
-  }
-
-  nextDay(event){
+  // **** Update date to the next sequential day
+  nextDay = (event) => {
     event.preventDefault();
 
     let newDate = new Date(this.props.date);
@@ -37,7 +29,8 @@ class DayPicker extends Component{
     this.props.setDate(newDate)
   }
 
-  prevDay(event){
+  // **** Update date to previous sequential day
+  prevDay = (event) => {
     event.preventDefault();
 
     let newDate = new Date(this.props.date);
@@ -51,8 +44,17 @@ class DayPicker extends Component{
     })
     this.props.setDate(newDate)
   }
+
+  componentDidMount(){
+    const today = new Date()
+    this.setState({
+      daysPast : Math.round((today - this.props.date)/1000/60/60/24)
+    })
+  }
   
   render() {
+
+    // set text to display
     let dayText = ""
     if (this.state.daysPast === 0){
       dayText = 'Today'
@@ -62,6 +64,7 @@ class DayPicker extends Component{
       dayText = this.props.date.toDateString() + ", " + this.state.daysPast + " days ago"
     }
 
+    // prevent next day link from jumping to future days
     const nextLink = (this.state.daysPast > 0) ? <Arrow href="#next" onClick={this.nextDay} className="material-icons arrow_forward">arrow_forward</Arrow> : <EmptyArrow></EmptyArrow>
 
     return(
