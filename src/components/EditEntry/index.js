@@ -11,6 +11,7 @@ import { withFirebase } from '../Firebase';
 
 import dropdown from '../../images/dropdown.svg'
 
+// Initial state for adding a new entry
 const initialState = {
 	id : '',
 	shortText : '',
@@ -21,62 +22,32 @@ const initialState = {
 	dateUpdate : false
 }
 
+// <EditEntry> : Entry edit form editing or add new components
 class EditEntry extends Component {
 
 	constructor(props) {
 		super(props);
     this.state = { ...initialState };
-
-    this.onChange = this.onChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-		this.onDelete = this.onDelete.bind(this)
-		this.setDate = this.setDate.bind(this)
 	}
 
-  onChange(event){
+	// *** On changing checkboxes, update the state
+  onChange = (event) => {
   	const value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
   	this.setState({
   		[event.target.name] : value
   	})
 	}
 	
-	setDate(date){
+	// *** update date in state
+	setDate = (date) => {
 		this.setState({
 			date : date,
 			dateUpdate : true
 		})
 	}
 
-  getData(noteRef){
-  	noteRef.get()
-  	.then((entry) => {
-  		this.setState({
-  			shortText : entry.data().shortText,
-  			longText : entry.data().longText,
-				theme : entry.data().theme,
-				isFuture : entry.data().isFuture,
-				date : entry.data().date.toDate()
-  		})
-		})
-		.then(() => {
-			if (this.props.completed) {
-				this.setState({
-					isFuture : false
-				})
-			}
-		})
-  	.catch(function(error) {
-		  console.log("Error getting document:", error);
-		})
-  }
-
-  componentDidMount(){
-  	if (this.props.noteRef){
-  		this.getData(this.props.noteRef)
-		}
-  }
-
-  onSubmit(event){
+	// *** submit updated data to db
+	onSubmit = (event) => {
 		event.preventDefault();
   	const currentDate = this.state.date
 
@@ -116,44 +87,10 @@ class EditEntry extends Component {
 		.catch(function(error) {
 		    console.error("Error writing note document: ", error);
 		});
-  }
-
-  onEditSubmit(event, noteRef){
-		event.preventDefault();
-
-		// date has not changes
-		if (!this.state.dateUpdate){
-			return noteRef.update({
-		    shortText : this.state.shortText,
-		    longText : this.state.longText,
-		    isFuture : this.state.isFuture,
-				theme : this.state.theme,
-			})
-			.then(() => {
-					console.log("Entry successfully updated!");
-					this.setState({ ...initialState })
-			})
-			.then(() => {
-				this.props.close()
-			})
-			.catch(function(error) {
-					// The document probably doesn't exist.
-					console.error("Error updating entry: ", error);
-			});
-		}else {
-			console.log('date changed!')
-			this.onSubmit(event)
-			noteRef.delete()
-			.then(() => {
-				console.log("Note successfully moved");
-			})
-			.catch(function(error) {
-				console.error("Error removing document: ", error);
-			});
-		}
-  } 
-
-  onDelete(event){
+	}
+	
+	// *** Delete event from the db
+	onDelete = (event)=>{
   	event.preventDefault();
   	const docRef = this.props.noteRef
 
@@ -170,60 +107,133 @@ class EditEntry extends Component {
 		});
   }
 
+	// *** update form with data from a previous entry
+	// TODO : Review scope + performance issues
+  getData(noteRef){
+  	noteRef.get()
+  	.then((entry) => {
+  		this.setState({
+  			shortText : entry.data().shortText,
+  			longText : entry.data().longText,
+				theme : entry.data().theme,
+				isFuture : entry.data().isFuture,
+				date : entry.data().date.toDate()
+  		})
+		})
+		.then(() => {
+			if (this.props.completed) {
+				this.setState({
+					isFuture : false
+				})
+			}
+		})
+  	.catch(function(error) {
+		  console.log("Error getting document:", error);
+		})
+	}
+	
+	// *** Submit an edited entry
+	onEditSubmit = (event, noteRef) => {
+		event.preventDefault();
+
+		if (!this.state.dateUpdate){
+			// date has not changed, update current entry
+			return noteRef.update({
+		    shortText : this.state.shortText,
+		    longText : this.state.longText,
+		    isFuture : this.state.isFuture,
+				theme : this.state.theme,
+			})
+			.then(() => {
+					console.log("Entry successfully updated!");
+					this.setState({ ...initialState })
+			})
+			.then(() => {
+				// close form
+				this.props.close()
+			})
+			.catch(function(error) {
+					// The document probably doesn't exist.
+					console.error("Error updating entry: ", error);
+			});
+		}else {
+			// Date has changed, remove old version of the note, create a new entry on the correct day
+			this.onSubmit(event)
+			noteRef.delete()
+			.then(() => {
+				console.log("Note successfully moved");
+			})
+			.catch(function(error) {
+				console.error("Error removing document: ", error);
+			});
+		}
+  }
+
+  componentDidMount(){
+		// if the component has a reference to a note in props, pull data from the note	
+  	if (this.props.noteRef){
+  		this.getData(this.props.noteRef)
+		}
+  }
+
 	render(){
-		// editing or writing
+		// editing or creating a new entry
 		const isEdit = (this.props.noteRef)
+
+		// function to update db on submit, based on editing or creating a new entry
 		const onSub = (!isEdit) ? this.onSubmit : (e) => {this.onEditSubmit(e, this.props.noteRef)}
+
+		// text for the button based on if editing or adding
 		const buttonText = (!isEdit) ? 'Add Note' : 'Save Note'
-		const showDelete = (!isEdit) ? '' : <DeleteBtn href="#delete" onClick={(e) => {this.onDelete(e, this.props.noteRef)}}>Delete</DeleteBtn>
+
+		// text for the top of the form if editing or adding
 		const greeting = (this.props.completed) ? "You did it! Completed!" : "Hello, World!"
 
-		if ((isEdit && this.state.shortText !== '') || (!isEdit)){
-			return (
-				<EditEntryContainer id="editForm">
-					<EditForm onSubmit={onSub}>
-						<Close closeThis={this.props.close} />
-						<FormGreeting>{greeting}</FormGreeting>
-	
-						<DayPicker setDate={this.setDate} date={this.state.date} />
-					
-						<Theme>
-							<p>Pick Theme</p>
-							<Select value={this.state.theme} name="theme" onChange={this.onChange}>
-								<ColorCodesContext.Consumer>
-									{codes => (
-											codes.map((code, i) => 
-												<option value={code.name} key={i}>{code.text}</option>
-											)
+		return (
+			<EditEntryContainer id="editForm">
+				<EditForm onSubmit={onSub}>
+					<Close closeThis={this.props.close} />
+					<FormGreeting>{greeting}</FormGreeting>
+
+					<DayPicker setDate={this.setDate} date={this.state.date} />
+				
+					<Theme>
+						<p>Pick Theme</p>
+						<Select value={this.state.theme} name="theme" onChange={this.onChange}>
+							<ColorCodesContext.Consumer>
+								{codes => (
+										codes.map((code, i) => 
+											<option value={code.name} key={i}>{code.text}</option>
 										)
-									}
-								</ColorCodesContext.Consumer>
-							</Select>
-						</Theme>
-						
-						<Label htmlFor="shortText">Whats up?</Label>
-						<ShortText type="text" name="shortText" value={this.state.shortText} onChange={this.onChange} />
-						
-	
-						<div className="longText">
-							<Label htmlFor="longText">More details?</Label>
-							<LongText name="longText" value={this.state.longText} onChange={this.onChange} />
-						</div>
-						<div className="isFuture">
-							<label> 
-								<input type="checkbox" name="isFuture" checked={this.state.isFuture} onChange={this.onChange} />	
-								For Later?
-							</label>
-						</div>
-						<SubmitBtn type="submit" >{buttonText}</SubmitBtn>
-						{showDelete}
-					</EditForm>
-				</EditEntryContainer>
-			)
-		} else {
-			return ('')
-		}
-		
+									)
+								}
+							</ColorCodesContext.Consumer>
+						</Select>
+					</Theme>
+					
+					<Label htmlFor="shortText">Whats up?</Label>
+					<ShortText type="text" name="shortText" value={this.state.shortText} onChange={this.onChange} />
+					
+
+					<div className="longText">
+						<Label htmlFor="longText">More details?</Label>
+						<LongText name="longText" value={this.state.longText} onChange={this.onChange} />
+					</div>
+					<div className="isFuture">
+						<label> 
+							<input type="checkbox" name="isFuture" checked={this.state.isFuture} onChange={this.onChange} />	
+							For Later?
+						</label>
+					</div>
+					<SubmitBtn type="submit" >{buttonText}</SubmitBtn>
+
+					{/* Show Delete buttons for Editing Entries */}
+					{isEdit &&
+						<DeleteBtn href="#delete" onClick={(e) => {this.onDelete(e, this.props.noteRef)}}>Delete</DeleteBtn>
+					}
+				</EditForm>
+			</EditEntryContainer>
+		)
 	}
 }
 
