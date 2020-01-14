@@ -3,10 +3,13 @@ import React from 'react';
 import SignOutButton from '../SignOut';
 import styled from 'styled-components'
 
-const Navigation = ({ authUser, showPref, toggleShowAll }) => (
-  <>{authUser ? <NavigationAuth showPref={showPref} toggleShowAll={toggleShowAll}/> : <NavigationNonAuth />}</>
+// <Navigation>: navigation bar content for logged in an logged out users
+// note: this is an example of a component created by a funtion expression, not a function declaration
+const Navigation = ({ authUser, showPref }) => (
+  <>{authUser ? <NavigationAuth showPref={showPref}/> : <NavigationNonAuth />}</>
 );
 
+// <NavigationAuth>: Nav bar for authenticated users
 function NavigationAuth(props){
 	return(
 		<Nav>
@@ -22,7 +25,7 @@ function NavigationAuth(props){
 	)
 }
 
-
+// <NavigationNonAuth>: Navigation bar non authenticated users
 function NavigationNonAuth(){
 	return(
 		<Nav>
