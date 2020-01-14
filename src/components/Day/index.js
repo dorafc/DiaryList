@@ -6,6 +6,7 @@ import * as styles from '../../constants/styles.js';
 import Entry from '../Entry'
 import { withFirebase } from '../Firebase';
 
+// <Day> : Displays the entries for each day
 class Day extends Component {
 	constructor(props) {
 		super(props);
@@ -17,8 +18,10 @@ class Day extends Component {
 	}
 
 	componentDidMount(){
-		const userDb = this.props.day.ref.collection("notes").orderBy("date", "asc")
+		// grab data after component mounts
+		const userDb = this.props.day.ref.collection("notes").orderBy("date", "asc") 	//DB of user notes
 
+		// set state if the day has a future note
 		this.props.day.ref.collection("notes").where("isFuture", "==", true)
 		.onSnapshot((query) => {
 			if(query.docs.length > 0){
@@ -28,6 +31,7 @@ class Day extends Component {
 			}
 		})
 
+		// update state to include notes data
 		userDb.onSnapshot((notes) => {
 			this.setState({
 				notes : notes.docs
@@ -36,6 +40,7 @@ class Day extends Component {
 	}
 
 	render(){
+		// create an array of Entry components for each note
 		const entryList = this.state.notes.slice().map((note, i) => {
 			if ((this.props.showAll) || (!this.props.showAll && this.state.hasFuture)) {
 				return(
@@ -54,6 +59,7 @@ class Day extends Component {
 			}
 		})
 
+		// render Day if the app is set to show All or if the day has a future event, otherwise do not render anything
 		if (((this.props.showAll) || (!this.props.showAll && this.state.hasFuture)) && (entryList.length > 0)){
 			return (
 				<DayView day={this.props.label}>
@@ -67,6 +73,7 @@ class Day extends Component {
 	}
 }
 
+// <DateHeader> : display the date at the top of the day, or text showing Today or Yesterday
 function DateHeader(props) {
 	let today = new Date().toDateString()
 	let yesterday = new Date()
@@ -93,9 +100,6 @@ const DayView = styled.div`
 	padding: 0 0 10px 0;
 	border-radius: 4px;
 	box-shadow: 0 3px 3px -4px gray;
-	${props => (props.day ==='Today') && css`
-    ${'' /* border: solid 1px ${styles.lightGreen}; */}
-  `}
 `
 
 const DateTitle = styled.h2`
