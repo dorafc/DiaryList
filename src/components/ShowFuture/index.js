@@ -2,17 +2,17 @@ import React, {Component} from 'react';
 import styled from 'styled-components'
 import * as styles from '../../constants/styles.js';
 
+// <ShowFuture> : Show Future toggle
 class ShowFuture extends Component{
   constructor(props) {
 		super(props);
     this.state = {
       showFuture : false
     }
-
-    this.onChange = this.onChange.bind(this)
   }
 
-  onChange(event){
+  // *** Update state on changing checkbox
+  onChange = (event) =>{
   	const value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
   	this.setState({
   		[event.target.name] : value,

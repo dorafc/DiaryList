@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router } from "react-router-dom";
 
 import styled from 'styled-components'
 
@@ -49,10 +48,9 @@ class App extends Component {
       }
     }
   	return (
-      // TODO: rethink need for React Router
-      <Router>
+      <>
         {content}
-      </Router>
+      </>
   	)
   }
 }
